@@ -123,7 +123,7 @@ export default async function handler(
           sampleFilePath: `uploads/datasets/${fileNameWithoutExtension}/sample-${fileNameWithoutExtension}.json`,
           reportFilePath: `uploads/datasets/${fileNameWithoutExtension}/report-${fileNameWithoutExtension}.txt`,
           statusId: newStatus.id,
-          userId: "cm5h0xmtq0000u8qlkg4yw8fj",
+          userId: userId,
         },
       });
 

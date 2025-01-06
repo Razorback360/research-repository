@@ -100,6 +100,7 @@ model Dataset {
   datasetFilePath String   @db.Text
   mappingFilePath String   @db.Text
   sampleFilePath  String   @db.Text
+  reportFilePath  String   @db.Text
   keywords        String[]
 
   statusId        Int      @unique

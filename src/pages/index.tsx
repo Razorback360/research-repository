@@ -1,5 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
-import { UserGroupIcon, UserIcon } from '@heroicons/react/24/outline';
+import { 
+  HiOutlineUserGroup,
+  HiOutlineUser
+} from "react-icons/hi2";
 import type { FC } from 'react';
 
 const Home: FC = () => {
@@ -14,7 +17,7 @@ const Home: FC = () => {
           />
         </div>
         <div className="flex flex-col space-y-4 text-left">
-          <h4 className="text-sm font-semibold text-blue-700 uppercase">
+          <h4 className="text-sm font-semibold text-primary uppercase">
             Donate Blood
           </h4>
           <h2 className="text-2xl font-bold text-gray-800 leading-tight">
@@ -32,13 +35,13 @@ const Home: FC = () => {
           <div className="flex space-x-4">
             <a
               href="#"
-              className="px-4 py-2 text-[#ffffff] bg-[#0F62FE] hover:bg-blue-700 rounded-md font-medium"
+              className="px-4 py-2 text-white bg-primary hover:bg-primary rounded-md font-medium"
             >
               Donate now
             </a>
             <a
               href="#"
-              className="px-4 py-2 text-blue-600 border border-blue-600 hover:bg-blue-50 rounded-md font-medium"
+              className="px-4 py-2 text-primary border border-primary hover:bg-blue-50 rounded-md font-medium"
             >
               Learn more
             </a>
@@ -47,7 +50,7 @@ const Home: FC = () => {
       </div>
 
       <div className="p-6 lg:p-12 space-y-8">
-        <h4 className="text-center text-sm font-semibold text-blue-700 uppercase">
+        <h4 className="text-center text-sm font-semibold text-primary uppercase">
           Impact in Numbers
         </h4>
         <h2 className="text-center text-3xl font-bold text-gray-800 leading-snug">
@@ -58,7 +61,7 @@ const Home: FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
           <div className="flex flex-col items-center space-y-4">
-            <UserIcon className="w-16 h-16 text-[#c1c7cd] " />
+            <HiOutlineUser className="w-16 h-16 text-[#c1c7cd] " />
             <p className="">
               Over <strong className="text-gray-800">10,000+</strong> people
               have registered to donate blood and save lives.
@@ -104,7 +107,7 @@ const Home: FC = () => {
           </div>
 
           <div className="flex flex-col items-center space-y-4">
-            <UserGroupIcon className="w-16 h-16 text-[#c1c7cd]" />
+            <HiOutlineUserGroup className="w-16 h-16 text-[#c1c7cd]" />
             <p className="">
               More than <strong className="text-gray-800">200+</strong>{' '}
               hospitals are actively receiving blood donations and providing
@@ -116,7 +119,7 @@ const Home: FC = () => {
         <div className="text-center mt-8">
           <a
             href="#"
-            className="px-6 py-3 text-[#ffffff] bg-[#0F62FE] hover:bg-blue-700 rounded-md font-medium"
+            className="px-6 py-3 text-[#ffffff] bg-primary hover:bg-primary rounded-md font-medium"
           >
             Feedback
           </a>

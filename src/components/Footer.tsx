@@ -3,10 +3,10 @@ import Image from "next/image";
 
 const Footer: FC = () => {
   return (
-    <footer className="bg-gray-700 text-gray-300 py-4">
+    <footer className="bg-gray-700 text-gray-300 py-6 flex w-full items-center justify-center">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 px-4 md:px-8">
         <div className="flex items-center space-x-2">
-          <div className="w-32 h-24 relative">
+          <div className="w-32 h-24 relative z-0">
             <Image
               src="/logo.png"
               alt="Picture of the Logo"

@@ -1,8 +1,9 @@
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { 
+  HiOutlineArrowLeft,
+} from "react-icons/hi2";
 
 import Badge from '@app/components/Badge';
 import ProfileSidebar from '@app/components/ProfileSidebar';
-import './donation.css';
 
 export default function Donations() {
   return (
@@ -20,61 +21,51 @@ export default function Donations() {
           </h2>
           <h2 className="text-3xl font-bold md:hidden flex text-center items-center justify-center">
             <a href="/profile/mobile">
-              <ArrowLeftIcon width={24} height={24} className="mr-5" />
+              <HiOutlineArrowLeft className="w-[24px] h-[24px] mr-5" />
             </a>
             Previous Donations
           </h2>
         </header>
         <section className="flex items-center mb-8 overflow-x-auto">
-          <table className="table-auto">
+          <table className="w-full border-collapse">
             <thead>
               <tr>
-                <th>Hospital</th>
-                <th>Donation Location</th>
-                <th>Donation Date</th>
-                <th>Donation Amount</th>
-                <th>Donation ID</th>
-                <th>Severity</th>
+                <th className="p-2 text-left border-b bg-gray-200">Hospital</th>
+                <th className="p-2 text-left border-b bg-gray-200">Donation Location</th>
+                <th className="p-2 text-left border-b bg-gray-200">Donation Date</th>
+                <th className="p-2 text-left border-b bg-gray-200">Donation Amount</th>
+                <th className="p-2 text-left border-b bg-gray-200">Donation ID</th>
+                <th className="p-2 text-left border-b bg-gray-200">Severity</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Jane Doe</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>
-                  <Badge badgeType="high">High</Badge>
-                </td>
-              </tr>
-              <tr>
-                <td>Jane Doe</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>
+                <td className="p-2 border-b">Jane Doe</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">
                   <Badge badgeType="medium">Medium</Badge>
                 </td>
               </tr>
               <tr>
-                <td>Jane Doe</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>
+                <td className="p-2 border-b">Jane Doe</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">
                   <Badge badgeType="low">Low</Badge>
                 </td>
               </tr>
               <tr>
-                <td>Jane Doe</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>Cell Text</td>
-                <td>
+                <td className="p-2 border-b">Jane Doe</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">Cell Text</td>
+                <td className="p-2 border-b">
                   <Badge>Badge</Badge>
                 </td>
               </tr>

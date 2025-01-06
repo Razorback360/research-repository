@@ -54,7 +54,7 @@ const Signup = () => {
           </p>
           <button
             type="submit"
-            className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg mt-4 hover:bg-blue-600"
+            className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg mt-4 hover:bg-primary"
             onClick={async (e) => {
               e.preventDefault();
               const data = new FormData();

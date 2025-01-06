@@ -10,9 +10,11 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
+      <div className="flex flex-col h-screen">
       <Header/>
       <Component {...pageProps} />
       <Footer/>
+      </div>
     </SessionProvider>
   );
 }

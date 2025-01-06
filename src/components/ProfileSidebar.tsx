@@ -1,4 +1,3 @@
-import { useLocation } from 'react-router-dom';
 import { 
   HiOutlineFolderArrowDown,
   HiOutlineHome,
@@ -19,7 +18,7 @@ const ProfileSidebar = () => {
             )}
             href="/profile"
           >
-            <HiOutlineHome width={24} height={24} className="mr-2" /> Profile
+            <HiOutlineHome className="w-[24px] h-[24px] mr-2" className="mr-2" /> Profile
           </a>
         </li>
         <li>
@@ -32,7 +31,7 @@ const ProfileSidebar = () => {
             )}
             href="/profile/donations"
           >
-            <HiOutlineFolderArrowDown width={24} height={24} className="mr-2" />{' '}
+            <HiOutlineFolderArrowDown className="w-[24px] h-[24px] mr-2" />{' '}
             Previous Donations
           </a>
         </li>
@@ -46,7 +45,7 @@ const ProfileSidebar = () => {
             )}
             href="/profile/donations"
           >
-            <HiOutlineInformationCircle width={24} height={24} className="mr-2" />{' '}
+            <HiOutlineInformationCircle className="w-[24px] h-[24px] mr-2" />{' '}
             Old Questionnaires
           </a>
         </li>

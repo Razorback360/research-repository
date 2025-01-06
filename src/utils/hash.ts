@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt"
 
-const saltRounds = parseInt(process.env.SALT_ROUNDS as string)
+const saltRounds = 14 //parseInt(process.env.SALT_ROUNDS as string)
 
 export async function hash(password: string) {
 	const hashedPass = await bcrypt.hash(password, saltRounds)

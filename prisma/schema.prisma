@@ -73,8 +73,9 @@ model Paper {
   abstract      String    @db.Text
   paperFilePath String    @db.Text
   keywords      String[]
-
   doiLink       String?
+  authors       Json[]
+  
   statusId      Int       @unique
   status        Status    @relation(fields: [statusId], references: [id])
   datasets      Dataset[]

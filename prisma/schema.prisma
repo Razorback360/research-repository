@@ -89,14 +89,14 @@ model Dataset {
   id            String   @id @default(cuid())
   title         String   @db.Text
   description   String   @db.Text
-  paperFilePath String   @db.Text
+  datasetFilePath String   @db.Text
   keywords      String[]
 
   variable Variable[]
   statusId Int        @unique
   status   Status     @relation(fields: [statusId], references: [id])
-  paperId  String
-  paper    Paper      @relation(fields: [paperId], references: [id], onDelete: Cascade)
+  paperId  String?
+  paper    Paper?      @relation(fields: [paperId], references: [id], onDelete: Cascade)
   userId   String
   user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 

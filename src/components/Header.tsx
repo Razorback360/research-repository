@@ -32,15 +32,15 @@ const Header = () => {
             SRDRI | KSU 
           </p>
         </div>
-        <nav className="md:flex flex-row space-x-5 justify-center items-center text-md font-medium hidden w-1/2">
+        <div className="lg:flex flex-row space-x-5 items-center text-md font-medium hidden w-full ml-5">
           <Link href="/">Home</Link>
           <Link href="/404">Donate</Link>
           <Link href="/404">About Us</Link>
           <Link href="/404">FAQ</Link>
           <Link href="/404">Contact Us</Link>
           <Link href="/feedback">Feedback</Link>
-        </nav>
-        <div className="md:flex flex-row justify-end items-center w-full space-x-2 hidden">
+        </div>
+        <div className="lg:flex flex-row justify-end items-center w-full space-x-2 hidden">
           <a className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white">
             <BellIcon width={24} height={24} />
           </a>
@@ -58,7 +58,7 @@ const Header = () => {
             )}
           </a>
         </div>
-        <div className="md:hidden flex-row justify-end items-center w-full space-x-2 flex">
+        <div className="lg:hidden flex-row justify-end items-center w-full space-x-2 flex">
           <a
             className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white"
             onClick={() => {

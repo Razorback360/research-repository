@@ -11,7 +11,9 @@ def cpGenerateMapping(name,enableUtf):
     with savHeaderReader("uploads/datasets/"+strippedName+"/"+name, ioUtf8=enableUtf) as header:
         metadata = header.all()
     data = metadata.valueLabels
+    variableLabels = metadata.varLabels
     newdict = {}
+    variableLabelsMap = {}
     with codecs.open("uploads/datasets/"+strippedName+"/mapping-"+strippedName+".json", "w") as f:
         for key in data.keys():
             convertedKey = key.encode("utf-8").replace("\\", "\\\\")
@@ -21,7 +23,12 @@ def cpGenerateMapping(name,enableUtf):
                     newVal = value.encode("utf-8").replace("\\", "\\\\")
                     convertedValue[key] = newVal
             newdict[convertedKey] = convertedValue
-        data = json.dumps(newdict, ensure_ascii=False)
+        for key in variableLabels.keys():
+            convertedKey = key.encode("utf-8").replace("\\", "\\\\")
+            convertedValue = variableLabels[key]
+            variableLabelsMap[convertedKey] = convertedValue.encode("utf-8").replace("\\", "\\\\")
+        final = {"labels": newdict, "variableLabels": variableLabelsMap}
+        data = json.dumps(final, ensure_ascii=False)
         f.write(data)
 
 def generateMapping(name,enableUtf):
@@ -30,8 +37,10 @@ def generateMapping(name,enableUtf):
     with savHeaderReader("uploads/datasets/"+strippedName+"/"+name, ioUtf8=enableUtf) as header:
         metadata = header.all()
     data = metadata.valueLabels
+    variableLabels = metadata.varLabels
     with codecs.open("uploads/datasets/"+strippedName+"/mapping-"+strippedName+".json", "w") as f:
-        data = json.dumps(data, ensure_ascii=False)
+        final = {"labels": data, "variableLabels": variableLabels}
+        data = json.dumps(final, ensure_ascii=False)
         f.write(data)
 
 def generateReport(name,enableUtf):

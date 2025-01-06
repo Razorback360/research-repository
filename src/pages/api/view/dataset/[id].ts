@@ -56,17 +56,17 @@ export default async function handler(
       if (type !== "spss") {
         // Read dataset mapping file (JSON format)
         const mapping = await fsPromise.readFile(
-          path.join(process.cwd(), `/${dataset.mappingFilePath}`, "utf-8")
+          path.join(process.cwd(), `/${dataset.mappingFilePath}`), "utf-8"
         );
 
         // Read dataset report file (TXT format)
         const report = await fsPromise.readFile(
-          path.join(process.cwd(), `/${dataset.reportFilePath}`, "utf-8")
+          path.join(process.cwd(), `/${dataset.reportFilePath}`), "utf-8"
         );
 
         // Read dataset sample file (JSON format)
         const sample = await fsPromise.readFile(
-          path.join(process.cwd(), `/${dataset.sampleFilePath}`, "utf-8")
+          path.join(process.cwd(), `/${dataset.sampleFilePath}`), "utf-8"
         );
 
         // Attach mapping, report and sample data to dataset object

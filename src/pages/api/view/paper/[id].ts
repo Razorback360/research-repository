@@ -53,6 +53,7 @@ export default async function handler(
         endPage: true,
         issue: true,
         paperFilePath: true,
+        doiLink: true
       },
     });
 

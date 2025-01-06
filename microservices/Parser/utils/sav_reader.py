@@ -8,11 +8,11 @@ from savReaderWriter import SavReader as savReader # type: ignore
 def cpGenerateMapping(name,enableUtf):
     # type: (str, bool) -> None
     strippedName = os.path.splitext(name)[0]
-    with savHeaderReader("uploads/"+strippedName+"/"+name, ioUtf8=enableUtf) as header:
+    with savHeaderReader("uploads/datasets/"+strippedName+"/"+name, ioUtf8=enableUtf) as header:
         metadata = header.all()
     data = metadata.valueLabels
     newdict = {}
-    with codecs.open("uploads/"+strippedName+"/mapping-"+strippedName+".json", "w") as f:
+    with codecs.open("uploads/datasets/"+strippedName+"/mapping-"+strippedName+".json", "w") as f:
         for key in data.keys():
             convertedKey = key.encode("utf-8").replace("\\", "\\\\")
             convertedValue = data[key]
@@ -27,10 +27,10 @@ def cpGenerateMapping(name,enableUtf):
 def generateMapping(name,enableUtf):
     # type: (str, bool) -> None
     strippedName = os.path.splitext(name)[0]
-    with savHeaderReader("uploads/"+strippedName+"/"+name, ioUtf8=enableUtf) as header:
+    with savHeaderReader("uploads/datasets/"+strippedName+"/"+name, ioUtf8=enableUtf) as header:
         metadata = header.all()
     data = metadata.valueLabels
-    with codecs.open("uploads/"+strippedName+"/mapping-"+strippedName+".json", "w") as f:
+    with codecs.open("uploads/datasets/"+strippedName+"/mapping-"+strippedName+".json", "w") as f:
         data = json.dumps(data, ensure_ascii=False)
         f.write(data)
 
@@ -40,9 +40,9 @@ def generateReport(name,enableUtf):
     strippedName = os.path.splitext(name)[0]
 
     if enableUtf:
-        spss_file = savReader("uploads/"+strippedName+"/"+name+"", ioUtf8=True, returnHeader=True)
+        spss_file = savReader("uploads/datasets/"+strippedName+"/"+name+"", ioUtf8=True, returnHeader=True)
     else:
-        spss_file = savReader("uploads/"+strippedName+"/"+name+"", returnHeader=True)
+        spss_file = savReader("uploads/datasets/"+strippedName+"/"+name+"", returnHeader=True)
     try:
         report = spss_file.getFileReport()
     except Exception,e: # type: ignore
@@ -61,10 +61,10 @@ def generateReport(name,enableUtf):
         # Check if the line contains the summary of columns and rows
         elif re.match(r'^\*File.*has \d+ columns.*and \d+ rows', line):
             filtered_lines.append(line)
-    with codecs.open("uploads/"+strippedName+"/report-"+strippedName+".txt", "w") as f:
+    with codecs.open("uploads/datasets/"+strippedName+"/report-"+strippedName+".txt", "w") as f:
         f.write('\n'.join(filtered_lines))
     
-    with codecs.open("uploads/"+strippedName+"/sample-"+strippedName+".json", "w") as f:
+    with codecs.open("uploads/datasets/"+strippedName+"/sample-"+strippedName+".json", "w") as f:
         finalSample = [header, sample]
         dumped = json.dumps(finalSample, ensure_ascii=False)
         f.write(dumped)

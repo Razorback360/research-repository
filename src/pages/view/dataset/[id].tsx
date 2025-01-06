@@ -5,17 +5,18 @@ import { IoCaretDownOutline, IoCaretUpOutline } from "react-icons/io5";
 import { cn } from "@app/utils/cn";
 
 type DataType = {
-    title: string;
-    description: string;
-    mapping: {
-      variableLabels: Record<string, string>;
-      labels: Record<string, Record<string, string>>;
-    };
-    report: string;
-    sample: [string[], (string | number)[][]];
-}
+  id: string;
+  title: string;
+  description: string;
+  mapping: {
+    variableLabels: Record<string, string>;
+    labels: Record<string, Record<string, string>>;
+  };
+  report: string;
+  sample: [string[], (string | number)[][]];
+};
 
-const Paper = ({ data }: {data: DataType}) => {
+const Dataset = ({ data }: { data: DataType }) => {
   const [collapsibles, setCollapsibles] = useState({
     variableMapping: true,
     responseOptions: true,
@@ -30,11 +31,12 @@ const Paper = ({ data }: {data: DataType}) => {
     });
   };
 
-const toggleMapping = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleMapping = (event: React.MouseEvent<HTMLButtonElement>) => {
     const content = event.currentTarget.nextElementSibling as HTMLElement;
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
-};
-  
+    content.style.display =
+      content.style.display === "block" ? "none" : "block";
+  };
+
   return (
     <div className="bg-gray-100 text-gray-800 h-full flex flex-col w-full">
       <header className="bg-primary text-white p-5 text-center">
@@ -42,9 +44,14 @@ const toggleMapping = (event: React.MouseEvent<HTMLButtonElement>) => {
         <p className="mt-2">{data.description}</p>
       </header>
       <main className="p-5">
-
+        <a
+          className="bg-primary p-3 text-white rounded-lg float-end hover:cursor-pointer"
+          href={`/api/view/dataset/${data.id}?type=spss`}
+        >
+          Download Dataset
+        </a>
         {/* DATA VARIABLE MAPPING SECTION */}
-        <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow">
+        <section className="mt-16 mb-5 p-4 bg-white border border-gray-300 rounded shadow">
           <div className="flex flex-row">
             <h2 className="text-primary text-xl">Variable Mapping</h2>
             {collapsibles.variableMapping ? (
@@ -91,7 +98,9 @@ const toggleMapping = (event: React.MouseEvent<HTMLButtonElement>) => {
         {/* DATA RESPONSE MAPPING SECTION */}
         <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow">
           <div className="flex flex-row">
-            <h2 className="text-primary text-xl">Response Options by Variable</h2>
+            <h2 className="text-primary text-xl">
+              Response Options by Variable
+            </h2>
             {collapsibles.responseOptions ? (
               <IoCaretDownOutline
                 className="text-primary ml-auto w-6 h-6 hover:cursor-pointer"
@@ -161,7 +170,12 @@ const toggleMapping = (event: React.MouseEvent<HTMLButtonElement>) => {
               />
             )}
           </div>
-          <div className={cn("bg-gray-200 p-2 rounded-lg mt-2", collapsibles.analysis ? "hidden" : "")}>
+          <div
+            className={cn(
+              "bg-gray-200 p-2 rounded-lg mt-2",
+              collapsibles.analysis ? "hidden" : ""
+            )}
+          >
             {data.report.split("\n").map((line, index) => (
               <p key={index}>{line}</p>
             ))}
@@ -184,7 +198,12 @@ const toggleMapping = (event: React.MouseEvent<HTMLButtonElement>) => {
               />
             )}
           </div>
-          <div className={cn("overflow-auto", collapsibles.sampleData ? "hidden" : "")}>
+          <div
+            className={cn(
+              "overflow-auto",
+              collapsibles.sampleData ? "hidden" : ""
+            )}
+          >
             <table className="w-full border-collapse mt-2 overflow-scroll">
               <thead>
                 <tr>
@@ -228,4 +247,4 @@ export const getServerSideProps = async (context: {
   };
 };
 
-export default Paper;
+export default Dataset;

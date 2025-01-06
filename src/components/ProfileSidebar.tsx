@@ -1,10 +1,9 @@
-import {
-  FolderArrowDownIcon,
-  HomeIcon,
-  InformationCircleIcon,
-} from '@heroicons/react/24/outline';
 import { useLocation } from 'react-router-dom';
-
+import { 
+  HiOutlineFolderArrowDown,
+  HiOutlineHome,
+  HiOutlineInformationCircle
+} from "react-icons/hi2";
 import { cn } from '@app/utils/cn';
 
 const ProfileSidebar = () => {
@@ -20,7 +19,7 @@ const ProfileSidebar = () => {
             )}
             href="/profile"
           >
-            <HomeIcon width={24} height={24} className="mr-2" /> Profile
+            <HiOutlineHome width={24} height={24} className="mr-2" /> Profile
           </a>
         </li>
         <li>
@@ -33,7 +32,7 @@ const ProfileSidebar = () => {
             )}
             href="/profile/donations"
           >
-            <FolderArrowDownIcon width={24} height={24} className="mr-2" />{' '}
+            <HiOutlineFolderArrowDown width={24} height={24} className="mr-2" />{' '}
             Previous Donations
           </a>
         </li>
@@ -47,7 +46,7 @@ const ProfileSidebar = () => {
             )}
             href="/profile/donations"
           >
-            <InformationCircleIcon width={24} height={24} className="mr-2" />{' '}
+            <HiOutlineInformationCircle width={24} height={24} className="mr-2" />{' '}
             Old Questionnaires
           </a>
         </li>

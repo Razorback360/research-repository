@@ -1,10 +1,11 @@
-import {
-  Bars3Icon,
-  BellIcon,
-  Cog8ToothIcon,
-  UserIcon,
-  ArrowRightEndOnRectangleIcon
-} from "@heroicons/react/24/outline";
+import { 
+  HiBars3, 
+  HiArrowRightEndOnRectangle,
+  HiOutlineBell,
+  HiOutlineCog8Tooth,
+  HiOutlineUser
+} from "react-icons/hi2";
+
 import { useState } from "react";
 import { cn } from "@app/utils/cn";
 import { useRouter } from "next/router";
@@ -29,7 +30,7 @@ const Header = () => {
             ></Image>
           </div>
           <p className="text-center text-xl pl-4 font-bold  whitespace-nowrap">
-            SRDRI | KSU 
+            SRDRI | KSU
           </p>
         </div>
         <div className="lg:flex flex-row space-x-5 items-center text-md font-medium hidden w-full ml-5">
@@ -42,19 +43,22 @@ const Header = () => {
         </div>
         <div className="lg:flex flex-row justify-end items-center w-full space-x-2 hidden">
           <a className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white">
-            <BellIcon width={24} height={24} />
+            <HiOutlineBell width={24} height={24} />
           </a>
           <a className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white">
-            <Cog8ToothIcon width={24} height={24} />
+            <HiOutlineCog8Tooth width={24} height={24} />
           </a>
           <a
             href={router.pathname.includes("profile") ? "/profile" : "/login"}
-            className={cn("rounded-full flex items-center justify-center p-2 hover:cursor-pointer hover:shadow-md hover:border-gray-200 border border-white", session.status === "authenticated" ? "bg-gray-300" : "")}
+            className={cn(
+              "rounded-full flex items-center justify-center p-2 hover:cursor-pointer hover:shadow-md hover:border-gray-200 border border-white",
+              session.status === "authenticated" ? "bg-gray-300" : ""
+            )}
           >
             {session.status === "authenticated" ? (
-              <UserIcon width={24} height={24} />
+              <HiOutlineUser width={24} height={24} />
             ) : (
-              <ArrowRightEndOnRectangleIcon width={24} height={24} />
+              <HiArrowRightEndOnRectangle width={24} height={24} />
             )}
           </a>
         </div>
@@ -65,7 +69,7 @@ const Header = () => {
               setSidebarState(!sidebarState);
             }}
           >
-            <Bars3Icon width={24} height={24} />
+            <HiBars3 width={24} height={24} />
           </a>
         </div>
       </div>

@@ -1,4 +1,6 @@
-import { RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { 
+  HiOutlineRocketLaunch,
+} from "react-icons/hi2";
 import type { FC } from 'react';
 
 import Button from '@app/components/Button';
@@ -6,7 +8,7 @@ import Button from '@app/components/Button';
 const NotFound: FC = () => {
   return (
     <main className="flex flex-col items-center p-8 min-h-screen justify-center">
-      <RocketLaunchIcon width={96} height={96} className="text-gray-300 mb-4" />
+      <HiOutlineRocketLaunch width={96} height={96} className="text-gray-300 mb-4" />
       <h1 className="text-center text-6xl font-bold">
         404
         <br />

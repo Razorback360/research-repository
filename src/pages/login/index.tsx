@@ -40,8 +40,22 @@ const login = () => {
             Log In
           </button>
           <p className="text-sm text-gray-600 mt-4">
-            No account yet? <a href="/signup" className="text-blue-500 hover:underline">Sign Up</a>
+            No account yet? <a href="/signup" className="text-blue-500 hover:underline">Sign Up!</a>
           </p>
+          <hr className="text-black w-full mt-3"/>
+          <p className="text-sm text-gray-600 mt-2">
+            Or
+          </p>
+          <button
+            type="submit"
+            className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg mt-4 hover:bg-blue-600"
+            onClick={(e) => {
+              e.preventDefault();
+              location.href = "/profile";
+            }}
+          >
+            Log In
+          </button>
         </form>
       </div>
     </div>

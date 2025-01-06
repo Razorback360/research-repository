@@ -1,5 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
-import { UserGroupIcon, UserIcon } from '@heroicons/react/24/outline';
+import { 
+  HiOutlineUserGroup,
+  HiOutlineUser
+} from "react-icons/hi2";
 import type { FC } from 'react';
 
 const Home: FC = () => {
@@ -58,7 +61,7 @@ const Home: FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
           <div className="flex flex-col items-center space-y-4">
-            <UserIcon className="w-16 h-16 text-[#c1c7cd] " />
+            <HiOutlineUser className="w-16 h-16 text-[#c1c7cd] " />
             <p className="">
               Over <strong className="text-gray-800">10,000+</strong> people
               have registered to donate blood and save lives.
@@ -104,7 +107,7 @@ const Home: FC = () => {
           </div>
 
           <div className="flex flex-col items-center space-y-4">
-            <UserGroupIcon className="w-16 h-16 text-[#c1c7cd]" />
+            <HiOutlineUserGroup className="w-16 h-16 text-[#c1c7cd]" />
             <p className="">
               More than <strong className="text-gray-800">200+</strong>{' '}
               hospitals are actively receiving blood donations and providing

@@ -1,8 +1,8 @@
-import {
-  ArrowLeftIcon,
-  EyeSlashIcon,
-  UserIcon,
-} from '@heroicons/react/24/outline';
+import { 
+  HiOutlineArrowLeft,
+  HiOutlineEyeSlash,
+  HiOutlineUser
+} from "react-icons/hi2";
 
 import Button from '@app/components/Button';
 import ProfileSidebar from '@app/components/ProfileSidebar';
@@ -21,7 +21,7 @@ export default function Profile() {
           <h2 className="text-3xl font-bold md:flex hidden">Profile Details</h2>
           <h2 className="text-3xl font-bold md:hidden flex text-center items-center justify-center">
             <a href="/profile/mobile">
-              <ArrowLeftIcon width={24} height={24} className="mr-5" />
+              <HiOutlineArrowLeft width={24} height={24} className="mr-5" />
             </a>
             Profile Details
           </h2>
@@ -29,7 +29,7 @@ export default function Profile() {
         <section className="flex items-center mb-8 ">
           <div className="md:w-32 md:h-32 w-19 h-19 bg-gray-200 rounded-full flex items-center justify-center ">
             <span className="text-gray-400 text-4xl">
-              <UserIcon width={60} height={60} />
+              <HiOutlineUser width={60} height={60} />
             </span>
           </div>
           <div className="ml-6">
@@ -90,7 +90,7 @@ export default function Profile() {
                   title="Password must have at least 1 of each: Uppercase letter, Lowercase letter, Symbol. Password must be at least 8 chars long"
                 />
                 <a className="absolute inset-y-0 right-4 flex items-center cursor-pointer">
-                  <EyeSlashIcon width={24} height={24} />
+                  <HiOutlineEyeSlash width={24} height={24} />
                 </a>
               </div>
             </div>

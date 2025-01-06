@@ -5,13 +5,6 @@ import fs from "fs";
 import { getSession } from "next-auth/react";
 import { checkPermission } from "@app/utils/permissions";
 
-// Disable body parsing by Next.js to handle file uploads
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 // API route handler for viewing paper details & downloading paper file
 export default async function handler(
   req: NextApiRequest,

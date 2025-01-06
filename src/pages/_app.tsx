@@ -1,7 +1,4 @@
 import "@app/styles/globals.css";
-import "@app/styles/login.css";
-import "@app/styles/404.css";
-import "@app/styles/signup.css";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import Header from "@app/components/Header"

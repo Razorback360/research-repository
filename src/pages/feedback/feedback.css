@@ -1,0 +1,99 @@
+.feedback-main {
+  display: flex;
+  flex-direction: row;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.feedback-image {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feed-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.feedback-form {
+  width: 50%;
+  padding: 1rem;
+}
+
+.feedback-form h2 {
+  margin-bottom: 0.5rem;
+}
+
+.feedback-description {
+  margin-top: 0; 
+  margin-bottom: 1.5rem; 
+  color: black;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.name-group {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.name-group .form-group {
+  width: 100%;
+}
+
+.feedback-form label {
+  width: 100%;
+  color: black;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+  display: flex;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #f0f5f8;
+  border: 1px solid #f0f5f8;
+  border-bottom: 1px solid rgb(190, 190, 190);
+  border-radius: 8px;
+  color: #333;
+}
+
+.feedback-form input::placeholder,
+.feedback-form textarea::placeholder {
+  color: #9e9e9e;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .feedback-main {
+    flex-direction: column;
+  }
+  .feedback-image,
+  .feedback-form {
+    width: 100%;
+  }
+}

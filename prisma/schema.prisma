@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  expires_in        Int?
+  ext_expires_in    Int?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model User {
+  id            String      @id @default(cuid())
+  name          String?
+  email         String?     @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  permissions   Permission?
+  papers        Paper[]
+  datasets      Dataset[]
+  bannedAt      DateTime?
+
+  @@map("users")
+}
+
+model Permission {
+  ADMIN_READ        Boolean @default(false)
+  ADMIN_WRITE       Boolean @default(false)
+  ADMIN_BAN         Boolean @default(false)
+  ADMIN_MODERATE    Boolean @default(false)
+  ADMIN_DELETE_USER Boolean @default(false)
+  ADMIN_EDIT_USER   Boolean @default(false)
+  READ              Boolean @default(true)
+  WRITE             Boolean @default(true)
+  EDIT              Boolean @default(true)
+  DOWNLOAD          Boolean @default(false)
+
+  userId String @id
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("permissions")
+}
+
+model Paper {
+  id            String    @id @default(cuid())
+  title         String    @db.Text
+  abstract      String    @db.Text
+  paperFilePath String    @db.Text
+  keywords      String[]
+  doiLink       String?
+  statusId      Int       @unique
+  status        Status    @relation(fields: [statusId], references: [id])
+  datasets      Dataset[]
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("papers")
+}
+
+model Dataset {
+  id            String   @id @default(cuid())
+  title         String   @db.Text
+  description   String   @db.Text
+  paperFilePath String   @db.Text
+  keywords      String[]
+
+  variable Variable[]
+  statusId Int        @unique
+  status   Status     @relation(fields: [statusId], references: [id])
+  paperId  String
+  paper    Paper      @relation(fields: [paperId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("datasets")
+}
+
+model Variable {
+  name      String
+  type      String
+  datasetId String  @id
+  dataset   Dataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+
+  @@map("variables")
+}
+
+model Status {
+  id      Int         @id @default(autoincrement())
+  type    StatusTypes
+  comment String?     @db.Text
+  paper   Paper?
+  dataset Dataset?
+  
+  @@map("statuses")
+}
+
+enum StatusTypes {
+  REQUEST_FOR_EDIT
+  DENIED
+  APPROVED
+}

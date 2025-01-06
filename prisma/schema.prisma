@@ -68,19 +68,27 @@ model Permission {
 }
 
 model Paper {
-  id            String    @id @default(cuid())
-  title         String    @db.Text
-  abstract      String    @db.Text
-  paperFilePath String    @db.Text
-  keywords      String[]
-  doiLink       String?
-  authors       Json[]
-  
-  statusId      Int       @unique
-  status        Status    @relation(fields: [statusId], references: [id])
-  datasets      Dataset[]
-  userId        String
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id              String    @id @default(cuid())
+  title           String    @db.Text
+  abstract        String    @db.Text
+  paperFilePath   String    @db.Text
+  keywords        String[]
+  doiLink         String?
+  authors         Json[]
+  publishDate     DateTime
+  journal         String
+  volume          String?
+  issue           String?
+  startPage       String?
+  endPage         String?
+  apaCitation     String
+  chicagoCitation String
+
+  statusId        Int       @unique
+  status          Status    @relation(fields: [statusId], references: [id])
+  datasets        Dataset[]
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("papers")
 }

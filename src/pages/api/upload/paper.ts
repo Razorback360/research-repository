@@ -5,7 +5,10 @@ import path from "path";
 import { getSession } from "next-auth/react";
 import { checkPermission } from "@app/utils/permissions";
 import { StatusTypes } from "@prisma/client";
-import { generateApa7Citation, generateChicagoCitation } from "@app/utils/citations";
+import {
+  generateApa7Citation,
+  generateChicagoCitation,
+} from "@app/utils/citations";
 
 // Disable body parsing by Next.js to handle file uploads
 export const config = {
@@ -43,14 +46,14 @@ export default async function handler(
 
     // Define upload directory
     const uploadDir = path.join(process.cwd(), "/uploads/papers");
-    const form = new formidable.IncomingForm({
+    const form = formidable({
       uploadDir: uploadDir,
       keepExtensions: true,
       // Use old filename for the file instead of genrating a new one
       // @ts-expect-error - Types provided by package (node-formidable) are incorrect. originalFilename property is never null in this case.
       filename: (_name, _ext, part) => {
         return part.originalFilename;
-      }
+      },
     });
 
     // Parse the incoming form data
@@ -64,7 +67,6 @@ export default async function handler(
       const {
         journal,
         title,
-        authors,
         date,
         issue,
         volume,
@@ -77,7 +79,11 @@ export default async function handler(
       const file = files.file;
 
       // Handle dynamic fields for authors
-      const authorFields: { authorFirst: string; authorMiddle?: string; authorLast: string }[] = [];
+      const authorFields: {
+        authorFirst: string;
+        authorMiddle?: string;
+        authorLast: string;
+      }[] = [];
       const initialAuthor = session.user?.name?.split(" ") || "";
       if (initialAuthor.length > 2) {
         authorFields.push({
@@ -99,7 +105,7 @@ export default async function handler(
           key.includes("author")
         ) {
           // @ts-expect-error - Result is of type string not string[].
-          const splitAuthor = value?.split(" ");
+          const splitAuthor = value[0].split(" ");
           if (splitAuthor.length > 2) {
             authorFields.push({
               authorFirst: splitAuthor[0],
@@ -124,26 +130,26 @@ export default async function handler(
       // Generate citations
       const apaCitation = generateApa7Citation({
         authors: authorFields,
-        title: title as unknown as string,
-        journal: journal as unknown as string,
-        volume: volume as unknown as string,
-        issue: issue as unknown as string,
-        startPage: startPage as unknown as string,
-        endPage: endPage as unknown as string,
-        publishDate: new Date(date as unknown as string),
-        doiLink: doiLink as unknown as string,
+        title: Array.isArray(title) ? title[0] : "",
+        journal: Array.isArray(journal) ? journal[0] : "",
+        volume: Array.isArray(volume) ? volume[0] : volume,
+        issue: Array.isArray(issue) ? issue[0] : issue,
+        startPage: Array.isArray(startPage) ? startPage[0] : startPage,
+        endPage: Array.isArray(endPage) ? endPage[0] : endPage,
+        publishDate: Array.isArray(date) ? new Date(date[0]) : new Date(),
+        doiLink: Array.isArray(doiLink) ? doiLink[0] : doiLink,
       });
 
       const chicagoCitation = generateChicagoCitation({
-        authors: JSON.parse(authors as unknown as string),
-        title: title as unknown as string,
-        journal: journal as unknown as string,
-        volume: volume as unknown as string,
-        issue: issue as unknown as string,
-        startPage: startPage as unknown as string,
-        endPage: endPage as unknown as string,
-        publishDate: new Date(date as unknown as string),
-        doiLink: doiLink as unknown as string,
+        authors: authorFields,
+        title: Array.isArray(title) ? title[0] : "",
+        journal: Array.isArray(journal) ? journal[0] : "",
+        volume: Array.isArray(volume) ? volume[0] : volume,
+        issue: Array.isArray(issue) ? issue[0] : issue,
+        startPage: Array.isArray(startPage) ? startPage[0] : startPage,
+        endPage: Array.isArray(endPage) ? endPage[0] : endPage,
+        publishDate: Array.isArray(date) ? new Date(date[0]) : new Date(),
+        doiLink: Array.isArray(doiLink) ? doiLink[0] : doiLink,
       });
 
       // Save file information and form fields to the database
@@ -152,28 +158,28 @@ export default async function handler(
           type: StatusTypes.PENDING,
         },
       });
-      await prisma.paper.create({
-        data: {
-          userId: userId as unknown as string,
-          journal: journal as unknown as string,
-          title: title as unknown as string,
-          authors: authorFields,
-          publishDate: new Date(date as unknown as string),
-          issue: issue as unknown as string,
-          volume: volume as unknown as string,
-          startPage: startPage as unknown as string,
-          endPage: endPage as unknown as string,
-          doiLink: doiLink as unknown as string,
-          abstract: abstract as unknown as string,
-          // @ts-expect-error - Result is of type string not string[].
-          keywords: (keyWords ? keyWords.split(",") : []),
-          // @ts-expect-error - Types provided by package (node-formidable) are incorrect. Property is available.
-          paperFilePath: file.filepath,
-          apaCitation,
-          chicagoCitation,
-          statusId: newStatus.id
-        },
-      });
+      await prisma.paper
+        .create({
+          data: {
+            userId: session.user.id,
+            journal: Array.isArray(journal) ? journal[0] : "",
+            title: Array.isArray(title) ? title[0] : "",
+            authors: authorFields,
+            publishDate: Array.isArray(date) ? new Date(date[0]) : new Date(),
+            issue: Array.isArray(issue) ? issue[0] : issue,
+            volume: Array.isArray(volume) ? volume[0] : volume,
+            startPage: Array.isArray(startPage) ? startPage[0] : startPage,
+            endPage: Array.isArray(endPage) ? endPage[0] : endPage,
+            doiLink: Array.isArray(doiLink) ? doiLink[0] : doiLink,
+            abstract: Array.isArray(abstract) ? abstract[0] : "",
+            keywords: keyWords ? keyWords[0].split(",") : [],
+            paperFilePath:
+              (`uploads/papers/${file[0].originalFilename}` as string) || "",
+            apaCitation,
+            chicagoCitation,
+            statusId: newStatus.id
+          },
+        });
 
       // Return success response
       res.status(200).json({ message: "File uploaded successfully" });

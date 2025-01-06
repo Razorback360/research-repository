@@ -7,8 +7,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { email, pass, username } = req.body;
-    console.log(email, username, pass)
+    const { email, pass, name } = req.body;
+    console.log(email, name, pass)
     // Check there is not a user with the same email.
     const check = await prisma.user.findFirst({
       where: {
@@ -20,7 +20,7 @@ export default async function handler(
       const hashedPass = await hash(pass)
       const user = await prisma.user.create({
         data: {
-          name: username,
+          name: name,
           email: email,
           passHash: hashedPass
         }
@@ -32,8 +32,8 @@ export default async function handler(
         }
       })
 
-      return res.status(200).json("Sign up sucessful.")
+      return res.status(201).json("Sign up sucessful.")
     } 
-    return res.status(404).json("User with provided email already exists.")
+    return res.status(409).json("User with provided email already exists.")
   }
 }

@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -29,25 +26,25 @@ model Account {
   ext_expires_in    Int?
 
   userId            String
-  user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
 
 model User {
-  id            String      @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?     @unique
+  email         String?   @unique
   passHash      String?
   emailVerified DateTime?
   image         String?
   bannedAt      DateTime?
 
-  accounts      Account[]
-  permissions   Permission?
-  papers        Paper[]
-  datasets      Dataset[]
+  accounts    Account[]
+  permissions Permission?
+  papers      Paper[]
+  datasets    Dataset[]
 
   @@map("users")
 }
@@ -92,26 +89,18 @@ model Dataset {
   title           String   @db.Text
   description     String   @db.Text
   datasetFilePath String   @db.Text
+  mappingFilePath String   @db.Text
+  sampleFilePath  String   @db.Text
   keywords        String[]
 
-  variable        Variable[]
-  statusId        Int        @unique
-  status          Status     @relation(fields: [statusId], references: [id])
+  statusId        Int      @unique
+  status          Status   @relation(fields: [statusId], references: [id])
   paperId         String?
-  paper           Paper?     @relation(fields: [paperId], references: [id], onDelete: Cascade)
+  paper           Paper?   @relation(fields: [paperId], references: [id], onDelete: Cascade)
   userId          String
-  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("datasets")
-}
-
-model Variable {
-  name      String
-  type      String
-  datasetId String  @id
-  dataset   Dataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
-
-  @@map("variables")
 }
 
 model Status {
@@ -128,4 +117,5 @@ enum StatusTypes {
   REQUEST_FOR_EDIT
   DENIED
   APPROVED
+  PENDING
 }

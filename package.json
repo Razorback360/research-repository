@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pyapp": "python microservices/Parser/app.py"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.3",

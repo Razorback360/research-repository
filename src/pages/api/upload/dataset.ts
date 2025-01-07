@@ -43,7 +43,7 @@ export default async function handler(
 
     // Define upload directory
     const uploadDir = path.join(process.cwd(), "/uploads/datasets");
-    const form = new formidable.IncomingForm({
+    const form = formidable({
       uploadDir: uploadDir,
       keepExtensions: true,
       // Instead of generating a new filename for the file, use old one.
@@ -62,7 +62,7 @@ export default async function handler(
       }
 
       const { title, description, keyWords } = fields;
-      const file = files.file;
+      const file = files.file ? files.file[0] : undefined;
 
       // If no file is uploaded, return bad request error
       if (!file) {
@@ -75,14 +75,12 @@ export default async function handler(
       const fileNameWithoutExtension = path.parse(file.originalFilename).name;
       const newDir = path.join(uploadDir, fileNameWithoutExtension);
       // Define new file path
-      // @ts-expect-error - Types provided by package (node-formidable) are incorrect. Property is available.
       const newFilePath = path.join(newDir, file.newFilename);
 
       // Create a new directory for the file
       await fs.mkdir(newDir, { recursive: true });
 
       // Move the file to the new directory
-      // @ts-expect-error - Types provided by package (node-formidable) are incorrect. Property is available.
       await fs.rename(file.filepath, newFilePath);
 
       // Send a request to parse the uploaded file
@@ -92,7 +90,6 @@ export default async function handler(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // @ts-expect-error - Types provided by package (node-formidable) are incorrect. Property is available.
           path: `uploads/datasets/${fileNameWithoutExtension}/${file.newFilename}`,
         }),
       });
@@ -113,11 +110,9 @@ export default async function handler(
       // Create a new dataset entry in the database
       await prisma.dataset.create({
         data: {
-          title: title as unknown as string,
-          description: description as unknown as string,
-          // @ts-expect-error - Result is of type string not string[].
-          keywords: keyWords ? keyWords.split(",") : "",
-          // @ts-expect-error - Types provided by package (node-formidable) are incorrect. Property is available.
+          title: Array.isArray(title) ? title[0] : "",
+          description: Array.isArray(description) ? description[0] : "",
+          keywords: keyWords ? keyWords[0].split(",") : [],
           datasetFilePath: `uploads/datasets/${fileNameWithoutExtension}/${file.newFilename}`,
           mappingFilePath: `uploads/datasets/${fileNameWithoutExtension}/mapping-${fileNameWithoutExtension}.json`,
           sampleFilePath: `uploads/datasets/${fileNameWithoutExtension}/sample-${fileNameWithoutExtension}.json`,

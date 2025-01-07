@@ -2,10 +2,27 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { axiosInstance } from "@app/utils/fetcher";
 
+type Dataset = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+type Paper = {
+  id: string;
+  title: string;
+  abstract: string;
+};
+
+type SearchResults = {
+  datasets: Dataset[];
+  papers: Paper[];
+};
+
 const SearchPage = () => {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("all");
-  const [results, setResults] = useState({ datasets: [], papers: []});
+  const [results, setResults] = useState<SearchResults>({ datasets: [], papers: []});
 
   useEffect(() => {
     const search = async () => {

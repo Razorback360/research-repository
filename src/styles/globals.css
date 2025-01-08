@@ -2,69 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   @font-face {
-  font-family: 'Stag Sans';
-  src: local('Stag Sans'), local('Stag-Sans'), local('stag sans'), local('stag-sans'),
-    url('/fonts/StagSansThin.woff');
-  font-weight: 100;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Stag Sans';
-  src: local('Stag Sans'), local('Stag-Sans'), local('stag sans'), local('stag-sans'),
-    url('/fonts/StagSansLight.woff');
-  font-weight: 300;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Stag Sans';
-  src: local('Stag Sans'), local('Stag-Sans'), local('stag sans'), local('stag-sans'),
-    url('/fonts/StagSansRegular.woff');
-  font-weight: 400;
-  font-display: swap;
-}
+    font-family: "Stag Sans";
+    src: local("Stag Sans"), local("Stag-Sans"), local("stag sans"),
+      local("stag-sans"), url("/fonts/StagSansThin.woff");
+    font-weight: 100;
+    font-display: swap;
+  }
   @font-face {
-  font-family: 'Stag Sans';
-  src: local('Stag Sans'), local('Stag-Sans'), local('stag sans'), local('stag-sans'),
-    url('/fonts/StagSansMedium.woff');
-  font-weight: 500;
-  font-display: swap;
-}
+    font-family: "Stag Sans";
+    src: local("Stag Sans"), local("Stag-Sans"), local("stag sans"),
+      local("stag-sans"), url("/fonts/StagSansLight.woff");
+    font-weight: 300;
+    font-display: swap;
+  }
   @font-face {
-  font-family: 'Stag Sans';
-  src: local('Stag Sans'), local('Stag-Sans'), local('stag sans'), local('stag-sans'),
-    url('/fonts/StagSansSemiBold.woff');
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Stag Sans';
-  src: local('Stag Sans'), local('Stag-Sans'), local('stag sans'), local('stag-sans'),
-    url('/fonts/StagSansBold.woff');
-  font-weight: 700;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Stag Sans';
-  src: local('Stag Sans'), local('Stag-Sans'), local('stag sans'), local('stag-sans'),
-    url('/fonts/StagSansBlack.woff');
-  font-weight: 900;
-  font-display: swap;
-}
+    font-family: "Stag Sans";
+    src: local("Stag Sans"), local("Stag-Sans"), local("stag sans"),
+      local("stag-sans"), url("/fonts/StagSansRegular.woff");
+    font-weight: 400;
+    font-display: swap;
+  }
   @font-face {
-  font-family: 'GE Dinar One';
-  src: local('GE Dinar One'), local('GE-Dinar-One'), local('ge dinar one'), local('ge-dinar-one'),
-    url('/fonts/GE Dinar One Light.woff');
-  font-weight: 300;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'GE Dinar One';
-  src: local('GE Dinar One'), local('GE-Dinar-One'), local('ge dinar one'), local('ge-dinar-one'),
-    url('/fonts/GE Dinar One Medium.woff');
-  font-weight: 400;
-  font-display: swap;
-}
+    font-family: "Stag Sans";
+    src: local("Stag Sans"), local("Stag-Sans"), local("stag sans"),
+      local("stag-sans"), url("/fonts/StagSansMedium.woff");
+    font-weight: 500;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Stag Sans";
+    src: local("Stag Sans"), local("Stag-Sans"), local("stag sans"),
+      local("stag-sans"), url("/fonts/StagSansSemiBold.woff");
+    font-weight: 600;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Stag Sans";
+    src: local("Stag Sans"), local("Stag-Sans"), local("stag sans"),
+      local("stag-sans"), url("/fonts/StagSansBold.woff");
+    font-weight: 700;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Stag Sans";
+    src: local("Stag Sans"), local("Stag-Sans"), local("stag sans"),
+      local("stag-sans"), url("/fonts/StagSansBlack.woff");
+    font-weight: 900;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "GE Dinar One";
+    src: local("GE Dinar One"), local("GE-Dinar-One"), local("ge dinar one"),
+      local("ge-dinar-one"), url("/fonts/GE Dinar One Light.woff");
+    font-weight: 300;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "GE Dinar One";
+    src: local("GE Dinar One"), local("GE-Dinar-One"), local("ge dinar one"),
+      local("ge-dinar-one"), url("/fonts/GE Dinar One Medium.woff");
+    font-weight: 400;
+    font-display: swap;
+  }
 }

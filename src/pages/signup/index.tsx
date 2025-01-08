@@ -1,11 +1,26 @@
 import { useState } from "react";
 import Link from "next/link";
+import { axiosInstance } from "@app/utils/fetcher";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Loader from "@app/components/Loader";
 
 const Signup = () => {
   const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [confirm, setConfirm] = useState("");
+
+  console.log(confirm)
+  const session = useSession();
+  const router = useRouter();
+  if (session.status === "authenticated") {
+    router.push("/");
+  }
+
+  if (session.status === "loading") {
+    return <Loader />;
+  }
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -14,7 +29,7 @@ const Signup = () => {
         <p className="text-gray-600 mb-6">Please sign up to continue</p>
         <form className="flex flex-col items-center w-full max-w-md">
           <label className="w-full text-left font-medium text-gray-700 mt-4">
-            Username
+            Full Name
           </label>
           <input
             type="text"
@@ -58,15 +73,14 @@ const Signup = () => {
             onClick={async (e) => {
               e.preventDefault();
               const data = new FormData();
-              data.append("username", userName);
+              data.append("name", userName);
               data.append("pass", pass);
               data.append("email", email);
-              const req = await fetch("https://localhost:3000/", {
-                body: data,
-                method: "POST",
+              const req = await axiosInstance.post("/api/register", data, {
+                headers: { "Content-Type": "application/json" },
               });
-              if (req.status === 200) {
-                location.href = "/profile";
+              if (req.status === 201) {
+                location.href = "/login";
               }
             }}
           >

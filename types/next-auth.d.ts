@@ -1,5 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import NextAuth from "next-auth";
+import { Permission } from "@prisma/client";
+type PermissionWithoutId = Omit<Permission, "userId">;
 
 declare module "next-auth" {
   /**
@@ -11,6 +13,7 @@ declare module "next-auth" {
       name: string;
       email: string;
       image: string;
+      permissions: PermissionWithoutId;
     };
   }
 }

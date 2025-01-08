@@ -1,15 +1,13 @@
-import { 
-  HiBars3, 
+import {
+  HiBars3,
   HiArrowRightEndOnRectangle,
-  HiOutlineBell,
-  HiOutlineCog8Tooth,
-  HiOutlineUser
+  HiOutlineUser,
+  HiMagnifyingGlass,
 } from "react-icons/hi2";
-
+import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@app/utils/cn";
 import { useRouter } from "next/router";
-import a from "next/a";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
@@ -17,9 +15,10 @@ const Header = () => {
   const [sidebarState, setSidebarState] = useState(false);
   const router = useRouter();
   const session = useSession();
+
   return (
     <>
-      <div className="flex flex-row w-full border-b pl-10 pr-10 ">
+      <div className="flex flex-row w-full border-b pl-10 pr-10">
         <div className="flex flex-row justify-center items-center w-auto">
           <div className="w-32 h-24 relative">
             <Image
@@ -34,21 +33,21 @@ const Header = () => {
           </p>
         </div>
         <div className="lg:flex flex-row space-x-5 items-center text-md font-medium hidden w-full ml-5">
-          <a href="/">Home</a>
-          <a href="/404">Donate</a>
-          <a href="/404">About Us</a>
-          <a href="/404">FAQ</a>
-          <a href="/404">Contact Us</a>
-          <a href="/feedback">Feedback</a>
+          <Link href="/">Home</Link>
+          <Link href="/upload">Submit Data</Link>
+          <Link href="/about">About Us</Link>
+          <Link href="/faq">FAQ</Link>
+          <Link href="/contact">Contact Us</Link>
+          <Link href="/feedback">Feedback</Link>
         </div>
         <div className="lg:flex flex-row justify-end items-center w-full space-x-2 hidden">
-          <a className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white">
-            <HiOutlineBell className="w-[24px] h-[24px]"/>
-          </a>
-          <a className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white">
-            <HiOutlineCog8Tooth className="w-[24px] h-[24px]" />
-          </a>
-          <a
+          <Link
+            className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white"
+            href="/search"
+          >
+            <HiMagnifyingGlass className="w-[24px] h-[24px]" />
+          </Link>
+          <Link
             href={router.pathname.includes("profile") ? "/profile" : "/login"}
             className={cn(
               "rounded-full flex items-center justify-center p-2 hover:cursor-pointer hover:shadow-md hover:border-gray-200 border border-white",
@@ -60,7 +59,7 @@ const Header = () => {
             ) : (
               <HiArrowRightEndOnRectangle className="w-[24px] h-[24px]" />
             )}
-          </a>
+          </Link>
         </div>
         <div className="lg:hidden flex-row justify-end items-center w-full space-x-2 flex">
           <a
@@ -80,32 +79,32 @@ const Header = () => {
         )}
       >
         <nav className="flex flex-col space-y-5 justify-center items-center text-md font-medium mt-5 text-center">
-          <a className="p-2 border-b w-1/2" href="/">
+          <Link className="p-2 border-b w-1/2" href="/">
             Home
-          </a>
-          <a
+          </Link>
+          <Link
             className="p-2 border-b w-1/2"
             href={
-              router.pathname.includes("profile") ? "/profile/mobile" : "/login"
+              session.status === "authenticated" ? "/profile/mobile" : "/login"
             }
           >
-            {router.pathname.includes("profile") ? "Profile" : "Login"}
-          </a>
-          <a className="p-2 border-b w-1/2" href="/404">
-            Donate
-          </a>
-          <a className="p-2 border-b w-1/2" href="/404">
+            {session.status === "authenticated" ? "Profile" : "Login"}
+          </Link>
+          <Link className="p-2 border-b w-1/2" href="/search">
+            Search
+          </Link>
+          <Link className="p-2 border-b w-1/2" href="/upload">
+            Submit Data
+          </Link>
+          <Link className="p-2 border-b w-1/2" href="/about">
             About Us
-          </a>
-          <a className="p-2 border-b w-1/2" href="/404">
-            FAQ
-          </a>
-          <a className="p-2 border-b w-1/2" href="/404">
+          </Link>
+          <Link className="p-2 border-b w-1/2" href="/contact">
             Contact Us
-          </a>
-          <a className="p-2 border-b w-1/2" href="/feedback">
+          </Link>
+          <Link className="p-2 border-b w-1/2" href="/feedback">
             Feedback
-          </a>
+          </Link>
         </nav>
       </div>
     </>

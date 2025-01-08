@@ -3,8 +3,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 import fs from "fs";
 import * as fsPromise from "fs/promises";
-import { getSession } from "next-auth/react";
 import { checkPermission } from "@app/utils/permissions";
+import { authOptions } from "../../auth/[...nextauth]";
+import { getServerSession } from "next-auth";
 
 // API route handler for viewing dataset details & downloading dataset file
 export default async function handler(
@@ -14,7 +15,8 @@ export default async function handler(
   // Handle only GET requests
   if (req.method === "GET") {
     // Get user session
-    const session = await getSession({ req });
+    //@ts-expect-error - Types provided by package (next-auth) are incorrect. getServerSession accepts the arguments.
+    const session = await getServerSession(req, res, authOptions);
 
     // If no session, return unauthorized error
     if (!session) {

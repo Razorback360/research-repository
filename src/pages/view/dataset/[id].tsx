@@ -3,6 +3,9 @@ import { useState } from "react";
 import { axiosInstance } from "@app/utils/fetcher";
 import { IoCaretDownOutline, IoCaretUpOutline } from "react-icons/io5";
 import { cn } from "@app/utils/cn";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Loader from "@app/components/Loader";
 
 type DataType = {
   id: string;
@@ -24,6 +27,19 @@ const Dataset = ({ data }: { data: DataType }) => {
     sampleData: true,
   });
 
+  const session = useSession();
+  const router = useRouter();
+  if (
+    session.status === "unauthenticated" ||
+    !session.data?.user?.permissions.READ
+  ) {
+    router.push("/login");
+  }
+
+  if (session.status === "loading") {
+    return <Loader />;
+  }
+
   const toggleCollapsible = (section: keyof typeof collapsibles) => {
     setCollapsibles({
       ...collapsibles,
@@ -44,12 +60,14 @@ const Dataset = ({ data }: { data: DataType }) => {
         <p className="mt-2">{data.description}</p>
       </header>
       <main className="p-5">
-        <a
-          className="bg-primary p-3 text-white rounded-lg float-end hover:cursor-pointer"
-          href={`/api/view/dataset/${data.id}?type=spss`}
-        >
-          Download Dataset
-        </a>
+        {session.data?.user.permissions.DOWNLOAD && (
+          <a
+            className="bg-primary p-3 text-white rounded-lg float-end hover:cursor-pointer"
+            href={`/api/view/dataset/${data.id}?type=spss`}
+          >
+            Download Dataset
+          </a>
+        )}
         {/* DATA VARIABLE MAPPING SECTION */}
         <section className="mt-16 mb-5 p-4 bg-white border border-gray-300 rounded shadow">
           <div className="flex flex-row">
@@ -238,9 +256,12 @@ const Dataset = ({ data }: { data: DataType }) => {
 
 export const getServerSideProps = async (context: {
   params: { id: string };
+  req: { headers: Record<string, string> };
 }) => {
   console.log(context.params.id);
-  const req = await axiosInstance(`/api/view/dataset/${context.params.id}`);
+  const req = await axiosInstance(`/api/view/dataset/${context.params.id}`, {
+    headers: context.req.headers,
+  });
   const data = req.data;
   return {
     props: { data }, // will be passed to the page component as props

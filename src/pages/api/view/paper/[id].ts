@@ -2,9 +2,9 @@ import { prisma } from "@db/index";
 import type { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 import fs from "fs";
-import { getSession } from "next-auth/react";
 import { checkPermission } from "@app/utils/permissions";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]";
 // API route handler for viewing paper details & downloading paper file
 export default async function handler(
   req: NextApiRequest,
@@ -13,7 +13,8 @@ export default async function handler(
   // Handle only GET requests
   if (req.method === "GET") {
     // Get user session
-    const session = await getSession({ req });
+    //@ts-expect-error - Types provided by package (next-auth) are incorrect. getServerSession accepts the arguments.
+    const session = await getServerSession(req, res, authOptions);
 
     // If no session, return unauthorized error
     if (!session) {

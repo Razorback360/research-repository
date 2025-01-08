@@ -1,7 +1,5 @@
 import { prisma } from "@db/index";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
-import { checkPermission } from "@app/utils/permissions";
 
 // API route handler for searching datasets, papers, and users
 export default async function handler(
@@ -10,26 +8,6 @@ export default async function handler(
 ) {
   // Handle only GET requests
   if (req.method === "GET") {
-    // // Get user session
-    // const session = await getSession({ req });
-
-    // // If no session, return unauthorized error
-    // if (!session) {
-    //   res.status(401).json({ error: "Unauthorized" });
-    //   return;
-    // }
-
-    // const userId = session.user?.id;
-
-    // // Check if user has permission to read
-    // const hasPermission = await checkPermission(userId, "READ");
-
-    // // If no permission, return forbidden error
-    // if (!hasPermission) {
-    //   res.status(403).json({ error: "Forbidden" });
-    //   return;
-    // }
-
     const type = req.query.type as string;
     const query = req.query.query as string;
     const normalizedQuery = query.replace(/[\s\n\t]/g, "_");

@@ -7,11 +7,11 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-		extend: {
-			colors: {
-				"primary": '#008DC3',
-				"primary-light": '#E3E0D2',
-				"secondary": {
+    extend: {
+      colors: {
+        primary: "#008DC3",
+        "primary-light": "#E3E0D2",
+        secondary: {
           900: "#748995",
           800: "#8295a0",
           700: "#90a1aa",
@@ -19,7 +19,7 @@ export default {
           500: "#acb8bf",
           400: "#bac4ca",
           300: "#c7d0d5",
-          200: "#d5dcdf"
+          200: "#d5dcdf",
         },
         "secondary-dark": {
           900: "#000000",
@@ -29,13 +29,17 @@ export default {
           500: "#666666",
           400: "#808080",
           300: "#999999",
-          200: "#b3b3b3"
-        }
-			},
+          200: "#b3b3b3",
+        },
+      },
       fontFamily: {
-        'sans': ['"Stag Sans"', '"GE Dinar One"']
-      }
-		}
-	},
+        sans: ['"Stag Sans"', '"GE Dinar One"'],
+      },
+      animation: {
+        bounce200: "bounce 1s infinite 200ms",
+        bounce400: "bounce 1s infinite 400ms",
+      },
+    },
+  },
   plugins: [],
 } satisfies Config;

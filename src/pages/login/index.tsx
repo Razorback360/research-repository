@@ -2,10 +2,23 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
 import { IoLogoLinkedin, IoLogoMicrosoft, IoLogoGoogle } from "react-icons/io5";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Loader from "@app/components/Loader";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const session = useSession();
+  const router = useRouter();
+  if (session.status === "authenticated") {
+    router.push("/");
+  }
+
+  if (session.status === "loading") {
+    return <Loader />;
+  }
 
   return (
     <div className="flex justify-center items-center h-full bg-gray-100 ">

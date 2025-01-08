@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { axiosInstance } from "@app/utils/fetcher";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Loader from "@app/components/Loader";
 
 const SubmitPaperForm = () => {
   const [authors, setAuthors] = useState([""]);
@@ -29,6 +32,19 @@ const SubmitPaperForm = () => {
     doiLink: "",
     file: null,
   });
+
+  const session = useSession();
+  const router = useRouter();
+  if (
+    session.status === "unauthenticated" ||
+    !session.data?.user?.permissions.WRITE
+  ) {
+    router.push("/login");
+  }
+
+  if (session.status === "loading") {
+    return <Loader />;
+  }
 
   const handleAddAuthor = () => {
     setAuthors([...authors, ""]);

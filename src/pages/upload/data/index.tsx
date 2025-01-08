@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { axiosInstance } from "@app/utils/fetcher";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Loader from "@app/components/Loader";
 
 const SubmitDatasetForm = () => {
   const [formData, setFormData] = useState<{
@@ -14,6 +17,19 @@ const SubmitDatasetForm = () => {
     keyWords: "",
     file: null,
   });
+
+  const session = useSession();
+  const router = useRouter();
+  if (
+    session.status === "unauthenticated" ||
+    !session.data?.user?.permissions.WRITE
+  ) {
+    router.push("/login");
+  }
+
+  if (session.status === "loading") {
+    return <Loader />;
+  }
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

@@ -1,7 +1,20 @@
 import type { FC } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Loader from "@app/components/Loader";
 
 const Upload: FC = () => {
+  const session = useSession();
+  const router = useRouter();
+  if(session.status === "unauthenticated" || !session.data?.user?.permissions.WRITE) {
+    router.push("/login");
+  }
+
+  if(session.status === "loading") {
+    return <Loader/>
+  }
+
   return (
     <main className="flex flex-col items-center p-8 justify-center h-3/4">
       <h1 className="text-center text-4xl font-bold">

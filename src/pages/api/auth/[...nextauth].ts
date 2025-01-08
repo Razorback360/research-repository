@@ -9,7 +9,8 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "@app/utils/hash";
 import { randomUUID } from "crypto";
-import { encode as defaultEncode } from "next-auth/jwt"
+import { encode as defaultEncode } from "next-auth/jwt";
+import { Permission } from "@prisma/client";
 
 // const ORCID_CLIENT_ID = process.env.ORCID_CLIENT_ID
 // const ORCID_CLIENT_SECRET = process.env.ORCID_CLIENT_SECRET
@@ -71,8 +72,8 @@ export const authOptions = {
       if (params.token.credentials) {
         const sessionToken = randomUUID();
         const expires = new Date(Date.now() + 60 * 60 * 24 * 30 * 1000);
-        if(!params.token.sub){
-            throw new Error("No user id found in token");
+        if (!params.token.sub) {
+          throw new Error("No user id found in token");
         }
         const session = await prisma.session.create({
           data: {
@@ -83,9 +84,9 @@ export const authOptions = {
         });
 
         if (!session) {
-            throw new Error("Failed to create session")
-          }
-       return sessionToken; 
+          throw new Error("Failed to create session");
+        }
+        return sessionToken;
       }
       return defaultEncode(params);
     },
@@ -119,11 +120,30 @@ export const authOptions = {
     },
     async session({ session, user }) {
       if (!session.user) return session;
+      const permissions = await prisma.permission.findFirst({
+        where: {
+          userId: user.id,
+        },
+        select: {
+          READ: true,
+          WRITE: true,
+          EDIT: true,
+          ADMIN_BAN: true,
+          ADMIN_DELETE_USER: true,
+          ADMIN_READ: true,
+          ADMIN_WRITE: true,
+          ADMIN_EDIT_USER: true,
+          ADMIN_MODERATE: true,
+          DOWNLOAD: true,
+        },
+      });
+
       const use = {
         id: user.id,
         name: session.user.name,
         email: session.user.email,
-        image: user.image
+        image: user.image,
+        permissions: permissions
       };
       session.user = use;
       return session;

@@ -1,6 +1,9 @@
 // import Link from "next/link";
 import { axiosInstance } from "@app/utils/fetcher";
 import Markdown from "react-markdown";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Loader from "@app/components/Loader";
 
 type Author = {
   authorFirst: string;
@@ -25,6 +28,15 @@ type DataProp = {
 };
 
 const Paper = ({ data }: { data: DataProp }) => {
+  const session = useSession();
+  const router = useRouter();
+  if(session.status === "unauthenticated" || !session.data?.user?.permissions.READ) {
+    router.push("/login");
+  }
+
+  if(session.status === "loading") {
+    return <Loader/>
+  }
   return (
     <div className="bg-gray-100 text-gray-800 flex flex-col w-full items-center">
       <header className="bg-primary text-white p-5 text-center w-full">
@@ -113,9 +125,11 @@ const Paper = ({ data }: { data: DataProp }) => {
 
 export const getServerSideProps = async (context: {
   params: { id: string };
+  req: {headers: Record<string, string>};
 }) => {
-  console.log(context.params.id);
-  const req = await axiosInstance(`/api/view/paper/${context.params.id}`);
+  const req = await axiosInstance(`/api/view/paper/${context.params.id}`, {
+    headers: context.req.headers
+  });
   const data = req.data;
   return {
     props: { data }, // will be passed to the page component as props

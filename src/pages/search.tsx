@@ -80,7 +80,7 @@ const SearchPage = () => {
             <Link
               key={index}
               className="bg-white p-4 border border-gray-300 rounded shadow w-full h-48 hover:shadow-lg overflow-hidden text-ellipsis"
-              href={`/view/dataset/${item.id}`}
+              href={`/view/paper/${item.id}`}
             >
               <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
               <p className="text-sm text-gray-600">{item.abstract}</p>

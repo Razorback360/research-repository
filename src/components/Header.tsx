@@ -3,17 +3,18 @@ import {
   HiArrowRightEndOnRectangle,
   HiOutlineUser,
   HiMagnifyingGlass,
+  HiArrowRightOnRectangle,
 } from "react-icons/hi2";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@app/utils/cn";
-import { useRouter } from "next/router";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
   const [sidebarState, setSidebarState] = useState(false);
-  const router = useRouter();
+  const [dropdownState, setDropdownState] = useState(false);
+
   const session = useSession();
 
   return (
@@ -50,20 +51,50 @@ const Header = () => {
           >
             <HiMagnifyingGlass className="w-[24px] h-[24px]" />
           </Link>
-          <Link
-            href={session.status === "authenticated" ? "/profile" : "/login"}
-            className={cn(
-              "rounded-full flex items-center justify-center p-2 hover:cursor-pointer hover:shadow-md hover:border-gray-200 border border-white",
-              session.status === "authenticated" ? "bg-gray-300" : ""
-            )}
-          >
-            {session.status === "authenticated" ? (
-              <HiOutlineUser className="w-[24px] h-[24px]" />
-            ) : (
+
+          {session.status === "authenticated" ? (
+            <div className="flex flex-col">
+              <a
+                onClick={() => {
+                  setDropdownState(!dropdownState);
+                }}
+                className="rounded-full flex items-center justify-center p-2 hover:cursor-pointer hover:shadow-md hover:border-gray-200 border border-white bg-gray-200"
+              >
+                <HiOutlineUser className="w-[24px] h-[24px]" />
+              </a>
+              <div
+                className={cn(
+                  "absolute right-16 mt-10 bg-white shadow-md rounded-md p-2 space-y-2 w-32",
+                  dropdownState ? "" : "hidden"
+                )}
+              >
+                <Link href={"/profile"} className="flex flex-row w-full p-3 hover:bg-gray-200 hover:cursor-pointer rounded-lg">
+                  <HiOutlineUser className="w-[24px] h-[24px] mr-1" />
+                  Profile
+                </Link>
+                <a
+                  className="flex flex-row w-full p-3 hover:bg-gray-200 hover:cursor-pointer rounded-lg"
+                  onClick={() => {
+                    signOut();
+                  }}
+                >
+                  <HiArrowRightOnRectangle className="w-[24px] h-[24px] mr-1" />{" "}
+                  Logout
+                </a>
+              </div>
+            </div>
+          ) : (
+            <Link
+              href={"/login"}
+              className={cn(
+                "rounded-full flex items-center justify-center p-2 hover:cursor-pointer hover:shadow-md hover:border-gray-200 border border-white"
+              )}
+            >
               <HiArrowRightEndOnRectangle className="w-[24px] h-[24px]" />
-            )}
-          </Link>
+            </Link>
+          )}
         </div>
+
         <div className="lg:hidden flex-row justify-end items-center w-full space-x-2 flex">
           <a
             className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white"
@@ -112,6 +143,16 @@ const Header = () => {
             <Link className="p-2 border-b w-1/2" href="/dashboard/admin">
               Dashboard
             </Link>
+          )}
+          {session.status === "authenticated" && (
+            <a
+              className="p-2 border-b w-1/2"
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Logout
+            </a>
           )}
         </nav>
       </div>

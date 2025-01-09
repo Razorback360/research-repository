@@ -39,6 +39,9 @@ const Header = () => {
           <Link href="/faq">FAQ</Link>
           <Link href="/contact">Contact Us</Link>
           <Link href="/feedback">Feedback</Link>
+          {session.data?.user.permissions.ADMIN_READ && (
+            <Link href="/dashboard/admin">Dashboard</Link>
+          )}
         </div>
         <div className="lg:flex flex-row justify-end items-center w-full space-x-2 hidden">
           <Link
@@ -48,7 +51,7 @@ const Header = () => {
             <HiMagnifyingGlass className="w-[24px] h-[24px]" />
           </Link>
           <Link
-            href={router.pathname.includes("profile") ? "/profile" : "/login"}
+            href={session.status === "authenticated" ? "/profile" : "/login"}
             className={cn(
               "rounded-full flex items-center justify-center p-2 hover:cursor-pointer hover:shadow-md hover:border-gray-200 border border-white",
               session.status === "authenticated" ? "bg-gray-300" : ""
@@ -105,6 +108,11 @@ const Header = () => {
           <Link className="p-2 border-b w-1/2" href="/feedback">
             Feedback
           </Link>
+          {session.data?.user.permissions.ADMIN_READ && (
+            <Link className="p-2 border-b w-1/2" href="/dashboard/admin">
+              Dashboard
+            </Link>
+          )}
         </nav>
       </div>
     </>

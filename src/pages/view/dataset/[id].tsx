@@ -29,6 +29,9 @@ const Dataset = ({ data }: { data: DataType }) => {
 
   const session = useSession();
   const router = useRouter();
+  if (session.status === "loading") {
+    return <Loader />;
+  }
   if (
     session.status === "unauthenticated" ||
     !session.data?.user?.permissions.READ
@@ -36,9 +39,6 @@ const Dataset = ({ data }: { data: DataType }) => {
     router.push("/login");
   }
 
-  if (session.status === "loading") {
-    return <Loader />;
-  }
 
   const toggleCollapsible = (section: keyof typeof collapsibles) => {
     setCollapsibles({

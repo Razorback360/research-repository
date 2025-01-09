@@ -20,6 +20,9 @@ const SubmitDatasetForm = () => {
 
   const session = useSession();
   const router = useRouter();
+  if (session.status === "loading") {
+    return <Loader />;
+  }
   if (
     session.status === "unauthenticated" ||
     !session.data?.user?.permissions.WRITE
@@ -27,9 +30,6 @@ const SubmitDatasetForm = () => {
     router.push("/login");
   }
 
-  if (session.status === "loading") {
-    return <Loader />;
-  }
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

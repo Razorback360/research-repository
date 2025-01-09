@@ -30,13 +30,13 @@ type DataProp = {
 const Paper = ({ data }: { data: DataProp }) => {
   const session = useSession();
   const router = useRouter();
+  if(session.status === "loading") {
+    return <Loader/>
+  }
   if(session.status === "unauthenticated" || !session.data?.user?.permissions.READ) {
     router.push("/login");
   }
 
-  if(session.status === "loading") {
-    return <Loader/>
-  }
   return (
     <div className="bg-gray-100 text-gray-800 flex flex-col w-full items-center">
       <header className="bg-primary text-white p-5 text-center w-full">

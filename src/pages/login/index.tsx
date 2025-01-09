@@ -12,13 +12,13 @@ const Login = () => {
 
   const session = useSession();
   const router = useRouter();
+  if (session.status === "loading") {
+    return <Loader />;
+  }
   if (session.status === "authenticated") {
     router.push("/");
   }
 
-  if (session.status === "loading") {
-    return <Loader />;
-  }
 
   return (
     <div className="flex justify-center items-center h-full bg-gray-100 ">

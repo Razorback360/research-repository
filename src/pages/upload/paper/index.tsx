@@ -35,15 +35,14 @@ const SubmitPaperForm = () => {
 
   const session = useSession();
   const router = useRouter();
+  if (session.status === "loading") {
+    return <Loader />;
+  }
   if (
     session.status === "unauthenticated" ||
     !session.data?.user?.permissions.WRITE
   ) {
     router.push("/login");
-  }
-
-  if (session.status === "loading") {
-    return <Loader />;
   }
 
   const handleAddAuthor = () => {

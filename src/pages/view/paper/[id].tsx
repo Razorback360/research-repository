@@ -35,6 +35,7 @@ const Paper = ({ data }: { data: DataProp }) => {
   }
   if(session.status === "unauthenticated" || !session.data?.user?.permissions.READ) {
     router.push("/login");
+    return <Loader/>
   }
 
   return (

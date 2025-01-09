@@ -28,6 +28,7 @@ const SubmitDatasetForm = () => {
     !session.data?.user?.permissions.WRITE
   ) {
     router.push("/login");
+    return <Loader/>
   }
 
 

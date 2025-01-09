@@ -43,6 +43,7 @@ const SubmitPaperForm = () => {
     !session.data?.user?.permissions.WRITE
   ) {
     router.push("/login");
+    return <Loader/>
   }
 
   const handleAddAuthor = () => {

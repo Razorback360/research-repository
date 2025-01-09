@@ -37,6 +37,7 @@ const Dataset = ({ data }: { data: DataType }) => {
     !session.data?.user?.permissions.READ
   ) {
     router.push("/login");
+    return <Loader/>
   }
 
 

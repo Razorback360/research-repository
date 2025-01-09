@@ -17,6 +17,7 @@ const Login = () => {
   }
   if (session.status === "authenticated") {
     router.push("/");
+    return <Loader />;
   }
 
 

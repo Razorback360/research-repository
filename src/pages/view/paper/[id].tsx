@@ -4,6 +4,7 @@ import Markdown from "react-markdown";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loader from "@app/components/Loader";
+import axios from "axios";
 
 type Author = {
   authorFirst: string;
@@ -128,13 +129,27 @@ export const getServerSideProps = async (context: {
   params: { id: string };
   req: {headers: Record<string, string>};
 }) => {
-  const req = await axiosInstance(`/api/view/paper/${context.params.id}`, {
-    headers: context.req.headers
-  });
-  const data = req.data;
-  return {
-    props: { data }, // will be passed to the page component as props
-  };
+  try {
+    const req = await axiosInstance(`/api/view/paper/${context.params?.id}`, {
+      headers: context.req.headers,
+    });
+    const data = req.data;
+    return {
+      props: { data }, // will be passed to the page component as props
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
+    }
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default Paper;

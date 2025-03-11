@@ -39,6 +39,14 @@ export default async function handler(
               },
             },
             id: true,
+            description: true,
+            user: {
+              select: {
+                email: true,
+                name: true
+              }
+            },
+            type: true
           },
         });
         res.status(200).json(datasets);

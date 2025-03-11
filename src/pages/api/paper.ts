@@ -38,6 +38,14 @@ export default async function handler(
               },
             },
             id: true,
+            abstract: true,
+            user: {
+              select: {
+                email: true,
+                name: true
+              }
+            },
+            type: true
           },
         });
         res.status(200).json(papers);

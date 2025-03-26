@@ -43,10 +43,16 @@ export default async function handler(
             id: true,
             title: true,
             description: true,
+            user: {
+              select: {
+                name: true,
+              },
+            },
             keywords: true,
+            type: true
           },
         });
-        res.status(200).json({ datasets: datasets, papers: [] });
+        res.status(200).json([...datasets]);
         break;
       case "paper":
         // Search for papers with relevance to the query
@@ -82,31 +88,17 @@ export default async function handler(
             publishDate: true,
             keywords: true,
             abstract: true,
+            user: {
+              select:{
+                name:true
+              }
+            },
+            type: true
           },
         });
-        res.status(200).json({ papers: papers, datasets: [] });
+        res.status(200).json([...papers]);
         break;
 
-      case "user":
-        // Search for users with relevance to the query
-        const users = await prisma.user.findMany({
-          where: {
-            bannedAt: null,
-          },
-          orderBy: {
-            _relevance: {
-              fields: ["name", "email"],
-              search: query,
-              sort: "asc",
-            },
-          },
-          select: {
-            id: true,
-            name: true,
-          },
-        });
-        res.status(200).json({ results: users });
-        break;
       default:
         // Default case: search for both papers and datasets
         const papersDefault = await prisma.paper.findMany({
@@ -140,6 +132,12 @@ export default async function handler(
             publishDate: true,
             abstract: true,
             keywords: true,
+            user: {
+              select:{
+                name:true
+              }
+            },
+            type: true
           },
         });
         const datasetsDefault = await prisma.dataset.findMany({
@@ -172,12 +170,15 @@ export default async function handler(
             title: true,
             description: true,
             keywords: true,
+            user: {
+              select:{
+                name:true
+              }
+            },
+            type: true
           },
         });
-        res.status(200).json({
-          papers: papersDefault,
-          datasets: datasetsDefault,
-        });
+        res.status(200).json([...papersDefault, ...datasetsDefault]);
     }
   } else {
     // Handle non-GET requests

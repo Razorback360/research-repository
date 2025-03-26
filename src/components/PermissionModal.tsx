@@ -1,60 +1,74 @@
-import React, { useState } from 'react';
-import { HiXMark } from 'react-icons/hi2';
-
-interface Permission {
-  id: string;
-  name: string;
-  description: string;
-}
-
-const availablePermissions: Permission[] = [
-  {
-    id: 'submit',
-    name: 'Submit Content',
-    description: 'Can submit papers and datasets'
-  },
-  {
-    id: 'comment',
-    name: 'Comment',
-    description: 'Can comment on submissions'
-  },
-  {
-    id: 'review',
-    name: 'Review',
-    description: 'Can review submissions'
-  },
-  {
-    id: 'moderate',
-    name: 'Moderate',
-    description: 'Can moderate comments and discussions'
-  }
-];
+import React, { useEffect, useState } from "react";
+import { HiXMark } from "react-icons/hi2";
+import { permissionMapping } from "@app/utils/mappings";
+import { User } from "@interfaces/index";
+import { axiosInstance } from "@app/utils/fetcher";
 
 interface PermissionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user: any;
+  user: User | null;
+  update: () => void;
 }
 
-function PermissionModal({ isOpen, onClose, user }: PermissionModalProps) {
+function PermissionModal({
+  isOpen,
+  onClose,
+  user,
+  update,
+}: PermissionModalProps) {
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>(
-    user?.permissions || []
+    user && Object.entries(user.permissions)
+    .map((permission) => {
+      if (permission[1]) return permission[0];
+      return "";
+    })
+    .filter((permission) => permission !== "")
+      || []
   );
+
+  useEffect(() => {
+    setSelectedPermissions(
+      user && Object.entries(user.permissions)
+        .map((permission) => {
+          if (permission[1]) return permission[0];
+          return "";
+        })
+        .filter((permission) => permission !== "") || []
+    ); 
+  }, [user]);
 
   if (!isOpen || !user) return null;
 
   const handlePermissionChange = (permissionId: string) => {
-    setSelectedPermissions(prev =>
+    setSelectedPermissions((prev) =>
       prev.includes(permissionId)
-        ? prev.filter(id => id !== permissionId)
+        ? prev.filter((id) => id !== permissionId)
         : [...prev, permissionId]
     );
+    console.log(user.id)
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle permission update here
-    console.log('Updated permissions:', selectedPermissions);
+    Object.entries(user.permissions).forEach(async (permission) => {
+      if (permission[1] && !selectedPermissions.includes(permission[0])) {
+        await axiosInstance.put(`/api/user/permissions?id=${user.id}`, {
+          action: "remove",
+          permission,
+        });
+      } else if (
+        !permission[1] &&
+        selectedPermissions.includes(permission[0])
+      ) {
+        await axiosInstance.put(`/api/user/permissions?id=${user.id}`, {
+          action: "add",
+          permission,
+        });
+      }
+    });
+    update();
     onClose();
   };
 
@@ -74,19 +88,22 @@ function PermissionModal({ isOpen, onClose, user }: PermissionModalProps) {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
-            {availablePermissions.map((permission) => (
-              <div key={permission.id} className="flex items-start">
+            {Object.values(permissionMapping).map((permission) => (
+              <div key={permission.name} className="flex items-start">
                 <div className="flex items-center h-5">
                   <input
                     id={permission.id}
                     type="checkbox"
                     checked={selectedPermissions.includes(permission.id)}
                     onChange={() => handlePermissionChange(permission.id)}
-                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
+                    className="focus:ring-blue-500 h-4 w-4 text-primary border-gray-300 rounded"
                   />
                 </div>
                 <div className="ml-3 text-sm">
-                  <label htmlFor={permission.id} className="font-medium text-gray-700">
+                  <label
+                    htmlFor={permission.id}
+                    className="font-medium text-gray-700"
+                  >
                     {permission.name}
                   </label>
                   <p className="text-gray-500">{permission.description}</p>
@@ -104,7 +121,7 @@ function PermissionModal({ isOpen, onClose, user }: PermissionModalProps) {
             </button>
             <button
               type="submit"
-              className="bg-blue- 600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="bg-blue- 600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Save Changes
             </button>

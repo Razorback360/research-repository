@@ -3,22 +3,8 @@ import { HiMagnifyingGlass, HiCheck, HiXMark, HiPencilSquare, HiArrowTopRightOnS
 import ActionModal from './ActionModal';
 import { StatusTypes } from '@prisma/client';
 import { axiosInstance } from '@app/utils/fetcher';
+import { Submission } from '@interfaces/index';
 
-export interface Submission {
-  id: string;
-  title: string;
-  description: string | null;
-  abstract: string | null;
-  type: 'dataset' | 'paper';
-  status: {
-    id: string;
-    type: StatusTypes;
-  };
-  user: {
-    name: string;
-    email: string;
-  };
-}
 
 function SubmissionManagement() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -60,9 +46,9 @@ function SubmissionManagement() {
   );
 
   return (
-    <div>
+    <div className='flex items-center flex-col '>
       {/* Search Bar */}
-      <div className="relative">
+      <div className="relative  mt-2 w-3/4">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <HiMagnifyingGlass className="h-5 w-5 text-gray-400" />
         </div>
@@ -76,7 +62,7 @@ function SubmissionManagement() {
       </div>
 
       {/* Submissions List */}
-      <div className="mt-6">
+      <div className="mt-6 w-3/4">
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
             {filteredSubmissions.map((submission) => (
@@ -84,7 +70,7 @@ function SubmissionManagement() {
                 <div className="flex items-center justify-between">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-blue-600 truncate">
+                      <p className="text-sm font-medium text-primary truncate">
                         {submission.title}
                       </p>
                       <div className="ml-2 flex-shrink-0">
@@ -94,7 +80,7 @@ function SubmissionManagement() {
                           submission.status.type === StatusTypes.REQUEST_FOR_EDIT ? 'bg-yellow-100 text-yellow-800' :
                           'bg-gray-100 text-gray-800'
                         }`}>
-                          {submission.status.type.toLowerCase().replace('_', ' ')}
+                          {submission.status.type.toLowerCase().replaceAll("_", ' ')}
                         </span>
                       </div>
                     </div>
@@ -151,7 +137,7 @@ function SubmissionManagement() {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         type={modalType}
-        submission={selectedSubmission!}
+        submission={selectedSubmission}
         updateSubmissions={update}
       />
     </div>

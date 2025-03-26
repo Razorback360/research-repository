@@ -33,7 +33,7 @@ const Login = () => {
           <input
             type="email"
             placeholder="Placeholder"
-            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={(e) => setEmail(e.target.value)}
           />
           <label className="w-full text-left font-medium text-gray-700 mt-4">
@@ -42,7 +42,7 @@ const Login = () => {
           <input
             type="password"
             placeholder="Placeholder"
-            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={(e) => setPassword(e.target.value)}
           />
           <p className="text-sm text-gray-500 text-left w-full mt-2">

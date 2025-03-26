@@ -22,7 +22,7 @@ const Feedback = () => {
                 id="first-name"
                 placeholder="Placeholder"
                 required
-                className="w-full p-3 bg-gray-100 border border-gray-200 rounded"
+                className="w-full p-3 bg-gray-100 border border-gray-200 rounded-sm"
               />
             </div>
             <div className="flex flex-col w-full">
@@ -32,7 +32,7 @@ const Feedback = () => {
                 id="last-name"
                 placeholder="Placeholder"
                 required
-                className="w-full p-3 bg-gray-100 border border-gray-200 rounded"
+                className="w-full p-3 bg-gray-100 border border-gray-200 rounded-sm"
               />
             </div>
           </div>
@@ -43,7 +43,7 @@ const Feedback = () => {
               id="email"
               placeholder="Placeholder"
               required
-              className="w-full p-3 bg-gray-100 border border-gray-200 rounded"
+              className="w-full p-3 bg-gray-100 border border-gray-200 rounded-sm"
             />
           </div>
           <div className="flex flex-col w-full mb-4">
@@ -53,10 +53,10 @@ const Feedback = () => {
               placeholder="Placeholder"
               rows={4}
               required
-              className="w-full p-3 bg-gray-100 border border-gray-200 rounded"
+              className="w-full p-3 bg-gray-100 border border-gray-200 rounded-sm"
             />
           </div>
-          <Button type="submit" className="bg-primary font-semibold text-white p-3 rounded mt-6">
+          <Button type="submit" className="bg-primary font-semibold text-white p-3 rounded-sm mt-6">
             Submit
           </Button>
         </form>

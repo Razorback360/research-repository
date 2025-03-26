@@ -114,7 +114,7 @@ const SubmitPaperForm = () => {
             name="title"
             value={formData.title}
             onChange={handleFormChange}
-            className="w-full p-2 border border-gray-400 rounded"
+            className="w-full p-2 border border-gray-400 rounded-sm"
             required
           />
         </div>
@@ -133,7 +133,7 @@ const SubmitPaperForm = () => {
             value={formData.abstract}
             onChange={handleFormChange}
             rows={5}
-            className="w-full p-2 border border-gray-400 rounded"
+            className="w-full p-2 border border-gray-400 rounded-sm"
             required
           ></textarea>
         </div>
@@ -153,7 +153,7 @@ const SubmitPaperForm = () => {
               name="volume"
               value={formData.volume}
               onChange={handleFormChange}
-              className="w-full p-2 border border-gray-400 rounded"
+              className="w-full p-2 border border-gray-400 rounded-sm"
             />
           </div>
           <div>
@@ -169,7 +169,7 @@ const SubmitPaperForm = () => {
               name="issue"
               value={formData.issue}
               onChange={handleFormChange}
-              className="w-full p-2 border border-gray-400 rounded"
+              className="w-full p-2 border border-gray-400 rounded-sm"
             />
           </div>
           <div>
@@ -185,7 +185,7 @@ const SubmitPaperForm = () => {
               name="journal"
               value={formData.journal}
               onChange={handleFormChange}
-              className="w-full p-2 border border-gray-400 rounded"
+              className="w-full p-2 border border-gray-400 rounded-sm"
               required
             />
           </div>
@@ -202,7 +202,7 @@ const SubmitPaperForm = () => {
               name="startPage"
               value={formData.startPage}
               onChange={handleFormChange}
-              className="w-full p-2 border border-gray-400 rounded"
+              className="w-full p-2 border border-gray-400 rounded-sm"
             />
           </div>
           <div>
@@ -218,7 +218,7 @@ const SubmitPaperForm = () => {
               name="endPage"
               value={formData.endPage}
               onChange={handleFormChange}
-              className="w-full p-2 border border-gray-400 rounded"
+              className="w-full p-2 border border-gray-400 rounded-sm"
             />
           </div>
           <div>
@@ -234,7 +234,7 @@ const SubmitPaperForm = () => {
               name="publishDate"
               value={formData.publishDate}
               onChange={handleFormChange}
-              className="w-full p-2 border border-gray-400 rounded"
+              className="w-full p-2 border border-gray-400 rounded-sm"
               required
             />
           </div>
@@ -251,7 +251,7 @@ const SubmitPaperForm = () => {
               name="doiLink"
               value={formData.doiLink}
               onChange={handleFormChange}
-              className="w-full p-2 border border-gray-400 rounded"
+              className="w-full p-2 border border-gray-400 rounded-sm"
             />
           </div>
         </div>
@@ -270,7 +270,7 @@ const SubmitPaperForm = () => {
             name="keyWords"
             value={formData.keyWords}
             onChange={handleFormChange}
-            className="w-full p-2 border border-gray-400 rounded"
+            className="w-full p-2 border border-gray-400 rounded-sm"
           />
         </div>
 
@@ -286,12 +286,12 @@ const SubmitPaperForm = () => {
                 value={author}
                 onChange={(e) => handleAuthorChange(index, e.target.value)}
                 placeholder={`Author ${index + 1}`}
-                className="w-full p-2 border border-gray-400 rounded"
+                className="w-full p-2 border border-gray-400 rounded-sm"
               />
               <button
                 type="button"
                 onClick={() => handleRemoveAuthor(index)}
-                className="p-2 bg-red-500 text-white rounded hover:bg-red-700"
+                className="p-2 bg-red-500 text-white rounded-sm hover:bg-red-700"
               >
                 Remove
               </button>
@@ -300,7 +300,7 @@ const SubmitPaperForm = () => {
           <button
             type="button"
             onClick={handleAddAuthor}
-            className="mt-2 p-2 bg-primary text-white rounded hover:bg-blue-950"
+            className="mt-2 p-2 bg-primary text-white rounded-sm hover:bg-blue-950"
           >
             Add More Authors
           </button>
@@ -320,7 +320,7 @@ const SubmitPaperForm = () => {
             name="file"
             accept=".pdf"
             onChange={handleFormChange}
-            className="w-full p-2 border border-gray-400 rounded"
+            className="w-full p-2 border border-gray-400 rounded-sm"
             required
           />
         </div>
@@ -328,7 +328,7 @@ const SubmitPaperForm = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full p-2 bg-primary text-white rounded hover:bg-blue-950"
+          className="w-full p-2 bg-primary text-white rounded-sm hover:bg-blue-950"
         >
           Submit Paper
         </button>

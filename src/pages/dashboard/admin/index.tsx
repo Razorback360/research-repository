@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 w-full flex flex-col items-center">
       {/* Header */}
-      <header className="bg-white shadow w-full flex flex-row items-center">
+      <header className="bg-white shadow-sm w-full flex flex-row items-center">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
             <nav className="flex space-x-8">

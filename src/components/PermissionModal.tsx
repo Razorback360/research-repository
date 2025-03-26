@@ -96,7 +96,7 @@ function PermissionModal({
                     type="checkbox"
                     checked={selectedPermissions.includes(permission.id)}
                     onChange={() => handlePermissionChange(permission.id)}
-                    className="focus:ring-blue-500 h-4 w-4 text-primary border-gray-300 rounded"
+                    className="focus:ring-blue-500 h-4 w-4 text-primary border-gray-300 rounded-sm"
                   />
                 </div>
                 <div className="ml-3 text-sm">
@@ -115,13 +115,13 @@ function PermissionModal({
             <button
               type="button"
               onClick={onClose}
-              className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-xs text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-blue- 600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="bg-blue- 600 py-2 px-4 border border-transparent rounded-md shadow-xs text-sm font-medium text-white bg-primary focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Save Changes
             </button>

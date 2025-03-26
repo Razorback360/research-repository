@@ -71,7 +71,7 @@ const Dataset = ({ data }: { data: DataType }) => {
           </a>
         )}
         {/* DATA VARIABLE MAPPING SECTION */}
-        <section className="mt-16 mb-5 p-4 bg-white border border-gray-300 rounded shadow">
+        <section className="mt-16 mb-5 p-4 bg-white border border-gray-300 rounded-sm shadow-sm">
           <div className="flex flex-row">
             <h2 className="text-primary text-xl">Variable Mapping</h2>
             {collapsibles.variableMapping ? (
@@ -116,7 +116,7 @@ const Dataset = ({ data }: { data: DataType }) => {
         </section>
 
         {/* DATA RESPONSE MAPPING SECTION */}
-        <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow">
+        <section className="mb-5 p-4 bg-white border border-gray-300 rounded-sm shadow-sm">
           <div className="flex flex-row">
             <h2 className="text-primary text-xl">
               Response Options by Variable
@@ -175,7 +175,7 @@ const Dataset = ({ data }: { data: DataType }) => {
         </section>
 
         {/* DATA ANALYSIS SECTION */}
-        <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow">
+        <section className="mb-5 p-4 bg-white border border-gray-300 rounded-sm shadow-sm">
           <div className="flex flex-row">
             <h2 className="text-primary text-xl">Dataset Analysis</h2>
             {collapsibles.analysis ? (
@@ -203,7 +203,7 @@ const Dataset = ({ data }: { data: DataType }) => {
         </section>
 
         {/* SAMPLE DATA SECTION */}
-        <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow overflow-hidden">
+        <section className="mb-5 p-4 bg-white border border-gray-300 rounded-sm shadow-sm overflow-hidden">
           <div className="flex flex-row">
             <h2 className="text-primary text-xl">Sample Data</h2>
             {collapsibles.sampleData ? (

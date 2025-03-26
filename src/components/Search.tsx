@@ -48,7 +48,7 @@ function Search() {
   return (
     <div className="min-h-screen bg-gray-50 w-full">
       {/* Hero Search Section */}
-      <div className="bg-white shadow-sm">
+      <div className="bg-white shadow-xs">
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-3xl font-bold text-gray-900 text-center mb-8">
@@ -60,7 +60,7 @@ function Search() {
               </div>
               <input
                 type="text"
-                className="block w-full pl-10 pr-3 py-4 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 text-lg"
+                className="block w-full pl-10 pr-3 py-4 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 text-lg"
                 placeholder="Search papers, datasets, authors..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -76,7 +76,7 @@ function Search() {
         <div className="flex items-center space-x-4 mb-4 md:mb-0">
           <HiFunnel className="h-5 w-5 text-gray-400" />
           <select
-            className="block w-full pl-3 shadow-md pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+            className="block w-full pl-3 shadow-md pr-10 py-2 text-base border-gray-300 focus:outline-hidden focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value as 'all' | 'paper' | 'dataset')}
           >
@@ -88,7 +88,7 @@ function Search() {
         <div className="flex items-center space-x-1">
           <span className="text-sm text-gray-500 w-1/2">Sort by:</span>
           <select
-            className="block w-full pl-3 pr-2 shadow-md py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+            className="block w-full pl-3 pr-2 shadow-md py-2 text-base border-gray-300 focus:outline-hidden focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as 'relevance' | 'date')}
           >
@@ -101,7 +101,7 @@ function Search() {
       {/* Results */}
       <div className="space-y-6">
         {results.map((result) => (
-          <div key={result.id} className="bg-white shadow rounded-lg p-6">
+          <div key={result.id} className="bg-white shadow-sm rounded-lg p-6">
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center space-x-2">

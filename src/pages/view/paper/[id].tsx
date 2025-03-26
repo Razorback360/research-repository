@@ -51,11 +51,11 @@ const Paper = ({ data }: { data: DataProp }) => {
         </p>
       </header>
       <main className="p-5 flex flex-col w-3/4">
-        <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow">
+        <section className="mb-5 p-4 bg-white border border-gray-300 rounded-sm shadow-sm">
           <h2 className="text-primary text-2xl">Abstract</h2>
           <p>{data.abstract}</p>
         </section>
-        <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow">
+        <section className="mb-5 p-4 bg-white border border-gray-300 rounded-sm shadow-sm">
           <h2 className="text-primary text-2xl">Authors</h2>
           <div className="authors">
             {data.authors.map((author, index) => (
@@ -65,15 +65,15 @@ const Paper = ({ data }: { data: DataProp }) => {
             ))}
           </div>
         </section>
-        <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow h-[1200px]">
+        <section className="mb-5 p-4 bg-white border border-gray-300 rounded-sm shadow-sm h-[1200px]">
           <h2 className="text-primary text-2xl mb-2">PDF Preview</h2>
           <iframe
             src={`/api/view/paper/${data.id}?type=pdf`}
-            className="w-full h-[1125px] border border-gray-300 rounded"
+            className="w-full h-[1125px] border border-gray-300 rounded-sm"
             title="PDF Preview"
           ></iframe>
         </section>
-        <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow">
+        <section className="mb-5 p-4 bg-white border border-gray-300 rounded-sm shadow-sm">
           <h2 className="text-primary text-2xl">Publication Information</h2>
           <div className="journal-info">
             <p>
@@ -98,24 +98,24 @@ const Paper = ({ data }: { data: DataProp }) => {
             {data.doiLink && (
               <a
                 href={data.doiLink}
-                className="hover:cursor-pointer inline-block mt-5 px-4 py-2 bg-primary text-white rounded hover:bg-blue-700"
+                className="hover:cursor-pointer inline-block mt-5 px-4 py-2 bg-primary text-white rounded-sm hover:bg-blue-700"
               >
                 View DOI Link
               </a>
             )}
           </div>
         </section>
-        <section className="mb-5 p-4 bg-white border border-gray-300 rounded shadow">
+        <section className="mb-5 p-4 bg-white border border-gray-300 rounded-sm shadow-sm">
           <h2 className="text-primary text-2xl">Citations</h2>
           <div className="citation mb-5">
             <h3 className="text-xl">APA Style</h3>
-            <pre className="bg-gray-100 p-4 border border-gray-300 rounded overflow-x-auto">
+            <pre className="bg-gray-100 p-4 border border-gray-300 rounded-sm overflow-x-auto">
               <Markdown>{data.apaCitation}</Markdown>
             </pre>
           </div>
           <div className="citation">
             <h3 className="text-xl">Chicago Style</h3>
-            <pre className="bg-gray-100 p-4 border border-gray-300 rounded overflow-x-auto">
+            <pre className="bg-gray-100 p-4 border border-gray-300 rounded-sm overflow-x-auto">
               <Markdown>{data.chicagoCitation}</Markdown>
             </pre>
           </div>

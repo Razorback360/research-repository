@@ -6,6 +6,7 @@ import {
 
 import Button from '@app/components/Button';
 import ProfileSidebar from '@app/components/ProfileSidebar';
+import Link from "next/link";
 
 export default function Profile() {
   return (
@@ -20,9 +21,9 @@ export default function Profile() {
         <header className="flex justify-between items-center border-b pb-4 mb-8">
           <h2 className="text-3xl font-bold md:flex hidden">Profile Details</h2>
           <h2 className="text-3xl font-bold md:hidden flex text-center items-center justify-center">
-            <a href="/profile/mobile">
+            <Link href="/profile/mobile">
               <HiOutlineArrowLeft className="w-[24px] h-[24px] mr-5" />
-            </a>
+            </Link>
             Profile Details
           </h2>
         </header>
@@ -55,7 +56,7 @@ export default function Profile() {
               <input
                 type="text"
                 placeholder="AslanHolder"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:border-blue-500"
                 pattern="^[A-Za-z]+$"
                 title="First name must be alphabetic letters only."
               />
@@ -65,7 +66,7 @@ export default function Profile() {
               <input
                 type="text"
                 placeholder="AslanHolder"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:border-blue-500"
                 pattern="^[A-Za-z]+$"
                 title="Last name must be alphabetic letters only."
               />
@@ -75,7 +76,7 @@ export default function Profile() {
               <input
                 type="email"
                 placeholder="AslanHolder"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:border-blue-500"
                 title="Email must be in the following example format: janedoe12@outlook.com"
               />
             </div>
@@ -85,7 +86,7 @@ export default function Profile() {
                 <input
                   type="password"
                   placeholder="************"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:border-blue-500"
                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
                   title="Password must have at least 1 of each: Uppercase letter, Lowercase letter, Symbol. Password must be at least 8 chars long"
                 />
@@ -96,7 +97,7 @@ export default function Profile() {
             </div>
             <div className="col-span-2">
               <label className="text-gray-600">Blood Typee</label>
-              <select className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+              <select className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:border-blue-500">
                 <option>A+</option>
                 <option>A-</option>
                 <option>B+</option>

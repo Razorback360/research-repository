@@ -81,7 +81,7 @@ const Signup = () => {
             type="text"
             name="firstName"
             placeholder="First Name"
-            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
           />
@@ -92,7 +92,7 @@ const Signup = () => {
             type="text"
             name="middleName"
             placeholder="Middle Name"
-            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
           />
           <label className="w-full text-left font-medium text-gray-700 mt-4">
@@ -102,7 +102,7 @@ const Signup = () => {
             type="text"
             name="lastName"
             placeholder="Last Name"
-            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
           />
@@ -113,7 +113,7 @@ const Signup = () => {
             type="email"
             name="email"
             placeholder="Email Address"
-            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
           />
@@ -124,7 +124,7 @@ const Signup = () => {
             type="password"
             name="pass"
             placeholder="Password"
-            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
           />
@@ -135,7 +135,7 @@ const Signup = () => {
             type="password"
             name="confirm"
             placeholder="Confirm Password"
-            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
           />

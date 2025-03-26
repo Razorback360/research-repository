@@ -77,7 +77,7 @@ const SubmitDatasetForm = () => {
             name="title"
             value={formData.title}
             onChange={handleFormChange}
-            className="w-full p-2 border border-gray-400 rounded"
+            className="w-full p-2 border border-gray-400 rounded-sm"
             required
           />
         </div>
@@ -96,7 +96,7 @@ const SubmitDatasetForm = () => {
             value={formData.description}
             onChange={handleFormChange}
             rows={5}
-            className="w-full p-2 border border-gray-400 rounded"
+            className="w-full p-2 border border-gray-400 rounded-sm"
             required
           ></textarea>
         </div>
@@ -115,7 +115,7 @@ const SubmitDatasetForm = () => {
             name="keyWords"
             value={formData.keyWords}
             onChange={handleFormChange}
-            className="w-full p-2 border border-gray-400 rounded"
+            className="w-full p-2 border border-gray-400 rounded-sm"
           />
         </div>
 
@@ -134,7 +134,7 @@ const SubmitDatasetForm = () => {
             name="file"
             accept=".sav"
             onChange={handleFormChange}
-            className="w-full p-2 border border-gray-400 rounded"
+            className="w-full p-2 border border-gray-400 rounded-sm"
             required
           />
         </div>
@@ -142,7 +142,7 @@ const SubmitDatasetForm = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full p-2 bg-primary text-white rounded hover:bg-blue-950"
+          className="w-full p-2 bg-primary text-white rounded-sm hover:bg-blue-950"
         >
           Submit Dataset
         </button>

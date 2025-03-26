@@ -1,9 +1,9 @@
 import { 
   HiOutlineArrowLeft,
 } from "react-icons/hi2";
-
 import Badge from '@app/components/Badge';
 import ProfileSidebar from '@app/components/ProfileSidebar';
+import Link from "next/link";
 
 export default function Donations() {
   return (
@@ -20,9 +20,9 @@ export default function Donations() {
             Previous Donations
           </h2>
           <h2 className="text-3xl font-bold md:hidden flex text-center items-center justify-center">
-            <a href="/profile/mobile">
+            <Link href="/profile/mobile">
               <HiOutlineArrowLeft className="w-[24px] h-[24px] mr-5" />
-            </a>
+            </Link>
             Previous Donations
           </h2>
         </header>

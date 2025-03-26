@@ -1,7 +1,7 @@
 export const permissionMapping = {
     "ADMIN_READ":{
         id: "ADMIN_READ",
-        name: "Adminstrator Reading",
+        name: "Administrator Reading",
         description: "Read any and all submissions regardless of status and ownership."
     },
     "ADMIN_WRITE": {

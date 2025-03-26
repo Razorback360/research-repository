@@ -1,54 +1,56 @@
-import React, { useState } from 'react';
-import { HiMagnifyingGlass, HiNoSymbol, HiCog6Tooth } from 'react-icons/hi2';
+import React, { useEffect, useState } from 'react';
+import { HiMagnifyingGlass, HiNoSymbol, HiCog6Tooth, HiOutlineCheckCircle  } from 'react-icons/hi2';
 import PermissionModal from './PermissionModal';
+import { User } from '@interfaces/index';
+import { axiosInstance } from '@app/utils/fetcher';
+import { permissionMapping } from '@app/utils/mappings';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  status: 'active' | 'banned';
-  banDate?: string;
-  permissions: string[];
-}
-
-const mockUsers: User[] = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'john.doe@research.edu',
-    status: 'active',
-    permissions: ['submit', 'comment']
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    email: 'jane.smith@research.edu',
-    status: 'banned',
-    banDate: '2024/02/15',
-    permissions: ['submit']
-  },
-  // Add more mock users as needed
-];
 
 function UserManagement() {
   const [searchTerm, setSearchTerm] = useState('');
   const [permissionModalOpen, setPermissionModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
+  const [users, setUsers] = useState<User[]>([]);
+  const [trigger, setTrigger] = useState(false);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const req = await axiosInstance.get("/api/user");
+        setUsers(req.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getUsers();
+  }, [trigger]);
+
   const handlePermissions = (user: User) => {
     setSelectedUser(user);
     setPermissionModalOpen(true);
   };
 
-  const filteredUsers = mockUsers.filter(user =>
+  const handleBan = async (user: User) => {
+    // Ban or unban the user
+    console.log(`Banning user: ${user.name}`);
+    await axiosInstance.put(`/api/user/ban?id=${user.id}`, {
+      action: user.bannedAt ? "unban" : "ban",
+    });
+    setTrigger(!trigger);
+  }
+
+  const update = () => setTrigger(!trigger);
+
+  const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div>
+    <div className='flex items-center flex-col'>
       {/* Search Bar */}
-      <div className="relative">
+      <div className="relative w-full mt-2">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <HiMagnifyingGlass className="h-5 w-5 text-gray-400" />
         </div>
@@ -75,34 +77,38 @@ function UserManagement() {
                       </p>
                       <div className="ml-2 flex-shrink-0">
                         <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                          user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                          user.bannedAt ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
                         }`}>
-                          {user.status === 'active' ? 'Active' : `Banned since ${user.banDate}`}
+                          {user.bannedAt ? `Banned since ${user.bannedAt}` : 'Active'}
                         </span>
                       </div>
                     </div>
                     <p className="mt-1 text-sm text-gray-500">{user.email}</p>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Permissions: {user.permissions.join(', ')}
+                        Permissions: {Object.entries(user.permissions).map(([key, value]) => {
+                          if(key !== 'id' && key !== 'userId')
+                          return value ? `${permissionMapping[key as keyof typeof permissionMapping].name}` : '';
+                        }).filter((permission) => permission !== '').join(", ")}
                       </p>
                     </div>
                   </div>
                   <div className="ml-6 flex items-center space-x-3">
                     <button
                       onClick={() => handlePermissions(user)}
-                      className="text-blue-600 hover:text-blue-900"
+                      className="text-primary hover:text-blue-900"
                       title="Manage Permissions"
                     >
                       <HiCog6Tooth className="h-5 w-5" />
                     </button>
                     <button
                       className={`${
-                        user.status === 'active' ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'
+                        user.bannedAt ? 'text-green-600 hover:text-green-900' : 'text-red-600 hover:text-red-900'
                       }`}
-                      title={user.status === 'active' ? 'Ban User' : 'Unban User'}
+                      title={user.bannedAt ? 'Unban User' : 'Ban User'}
+                      onClick={() => handleBan(user)}
                     >
-                      <HiNoSymbol className="h-5 w-5" />
+                      {user.bannedAt ? <HiOutlineCheckCircle className="h-5 w-5" /> : <HiNoSymbol className="h-5 w-5" />}
                     </button>
                   </div>
                 </div>
@@ -117,6 +123,7 @@ function UserManagement() {
         isOpen={permissionModalOpen}
         onClose={() => setPermissionModalOpen(false)}
         user={selectedUser}
+        update={() => update()}
       />
     </div>
   );

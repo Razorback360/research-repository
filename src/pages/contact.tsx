@@ -146,9 +146,8 @@ const ContactUs = () => {
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Find Us Here
             </h2>
-            {/* Placeholder for Map */}
-            <div className="w-full h-64 bg-gray-200 rounded-sm flex items-center justify-center">
-              <p className="text-gray-500">Map Placeholder</p>
+            <div className="w-full h-94 bg-gray-200 rounded-sm flex items-center justify-center">
+              <iframe className="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d34391.0156500862!2d46.603916765262795!3d24.724110174969397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f1d87a42c25d9%3A0xb7bc9ced1525d129!2sKing%20Saud%20University%2C%20Riyadh!5e1!3m2!1sen!2ssa!4v1749733049560!5m2!1sen!2ssa" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
         </div>

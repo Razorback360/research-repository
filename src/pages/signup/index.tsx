@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
-import { axiosInstance } from "@app/utils/fetcher";
+import { appFetcher } from "@app/utils/fetcher";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loader from "@app/components/Loader";
@@ -53,7 +53,7 @@ const Signup = () => {
     };
 
     try {
-      const req = await axiosInstance.post("/api/register", data, {
+      const req = await appFetcher.post("/api/register", data, {
         headers: { "Content-Type": "application/json" },
       });
       if (req.status === 201) {

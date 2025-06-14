@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import Link from "next/link";
-import { axiosInstance } from "@app/utils/fetcher";
+import { appFetcher } from "@app/utils/fetcher";
 import { IoCaretDownOutline, IoCaretUpOutline } from "react-icons/io5";
 import { cn } from "@app/utils/cn";
 import { useSession } from "next-auth/react";
@@ -261,7 +261,7 @@ export const getServerSideProps = async (context: {
   req: { headers: Record<string, string> };
 }) => {
   try {
-    const req = await axiosInstance(`/api/view/dataset/${context.params?.id}`, {
+    const req = await appFetcher(`/api/view/dataset/${context.params?.id}`, {
       headers: context.req.headers,
     });
     const data = req.data;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { HiXMark } from "react-icons/hi2";
 import { permissionMapping } from "@app/utils/mappings";
 import { User } from "@interfaces/index";
-import { axiosInstance } from "@app/utils/fetcher";
+import { appFetcher } from "@app/utils/fetcher";
 
 interface PermissionModalProps {
   isOpen: boolean;
@@ -54,7 +54,7 @@ function PermissionModal({
     // Handle permission update here
     Object.entries(user.permissions).forEach(async (permission) => {
       if (permission[1] && !selectedPermissions.includes(permission[0])) {
-        await axiosInstance.put(`/api/user/permissions?id=${user.id}`, {
+        await appFetcher.put(`/api/user/permissions?id=${user.id}`, {
           action: "remove",
           permission,
         });
@@ -62,7 +62,7 @@ function PermissionModal({
         !permission[1] &&
         selectedPermissions.includes(permission[0])
       ) {
-        await axiosInstance.put(`/api/user/permissions?id=${user.id}`, {
+        await appFetcher.put(`/api/user/permissions?id=${user.id}`, {
           action: "add",
           permission,
         });

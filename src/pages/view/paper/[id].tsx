@@ -1,5 +1,5 @@
 // import Link from "next/link";
-import { axiosInstance } from "@app/utils/fetcher";
+import { appFetcher } from "@app/utils/fetcher";
 import Markdown from "react-markdown";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -130,7 +130,7 @@ export const getServerSideProps = async (context: {
   req: {headers: Record<string, string>};
 }) => {
   try {
-    const req = await axiosInstance(`/api/view/paper/${context.params?.id}`, {
+    const req = await appFetcher(`/api/view/paper/${context.params?.id}`, {
       headers: context.req.headers,
     });
     const data = req.data;

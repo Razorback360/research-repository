@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { HiMagnifyingGlass, HiNoSymbol, HiCog6Tooth, HiOutlineCheckCircle  } from 'react-icons/hi2';
 import PermissionModal from './PermissionModal';
 import { User } from '@interfaces/index';
-import { axiosInstance } from '@app/utils/fetcher';
+import { appFetcher } from '@app/utils/fetcher';
 import { permissionMapping } from '@app/utils/mappings';
 
 
@@ -17,7 +17,7 @@ function UserManagement() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const req = await axiosInstance.get("/api/user");
+        const req = await appFetcher.get("/api/user");
         setUsers(req.data);
       } catch (err) {
         console.error(err);
@@ -34,7 +34,7 @@ function UserManagement() {
   const handleBan = async (user: User) => {
     // Ban or unban the user
     console.log(`Banning user: ${user.name}`);
-    await axiosInstance.put(`/api/user/ban?id=${user.id}`, {
+    await appFetcher.put(`/api/user/ban?id=${user.id}`, {
       action: user.bannedAt ? "unban" : "ban",
     });
     setTrigger(!trigger);

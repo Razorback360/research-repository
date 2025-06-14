@@ -1,4 +1,4 @@
-import { axiosInstance } from "@app/utils/fetcher";
+import { appFetcher } from "@app/utils/fetcher";
 import React, { useState } from "react";
 import { HiXMark } from "react-icons/hi2";
 import { Submission } from "@interfaces/index";
@@ -23,14 +23,14 @@ function ActionModal({ isOpen, onClose, type, submission, updateSubmissions}: Ac
     switch (type) {
       case "deny":
         // Deny the submission
-        await axiosInstance.put(`/api/status?id=${submission.status.id}`, {
+        await appFetcher.put(`/api/status?id=${submission.status.id}`, {
           action: "deny",
           reason,
         });
         break;
       case "edit":
         // Request edit for the submission
-        await axiosInstance.put(`/api/status?id=${submission.status.id}`, {
+        await appFetcher.put(`/api/status?id=${submission.status.id}`, {
           action: "edit",
           reason,
         });

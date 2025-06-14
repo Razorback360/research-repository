@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosInstance } from "@app/utils/fetcher";
+import { appFetcher } from "@app/utils/fetcher";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loader from "@app/components/Loader";
@@ -45,7 +45,7 @@ const SubmitDatasetForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Submit the form data to the API
-    const req = await axiosInstance
+    const req = await appFetcher
       .post("/api/upload/dataset", formData, {
         headers: {
           "Content-Type": "multipart/form-data",

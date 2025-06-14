@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { HiMagnifyingGlass, HiCheck, HiXMark, HiPencilSquare, HiArrowTopRightOnSquare } from 'react-icons/hi2';
 import ActionModal from './ActionModal';
 import { StatusTypes } from '@prisma/client';
-import { axiosInstance } from '@app/utils/fetcher';
+import { appFetcher } from '@app/utils/fetcher';
 import { Submission } from '@interfaces/index';
 
 
@@ -17,8 +17,8 @@ function SubmissionManagement() {
   useEffect(() => {
     const getSubmissions = async () => {
       try {
-        const reqDataset = await axiosInstance.get("/api/dataset");
-        const reqPaper = await axiosInstance.get("/api/paper");
+        const reqDataset = await appFetcher.get("/api/dataset");
+        const reqPaper = await appFetcher.get("/api/paper");
         setSubmissions([...reqDataset.data, ...reqPaper.data]);
       } catch (err) {
         console.error(err);
@@ -29,7 +29,7 @@ function SubmissionManagement() {
 
   const handleAction = async (submission: Submission, action: 'deny' | 'edit' | 'approve') => {
     if(action === "approve") {
-      await axiosInstance.put(`/api/status?id=${submission.status.id}`, { action: "approve" });
+      await appFetcher.put(`/api/status?id=${submission.status.id}`, { action: "approve" });
     }
     else {
       setSelectedSubmission(submission);

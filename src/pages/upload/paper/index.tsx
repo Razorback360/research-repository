@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosInstance } from "@app/utils/fetcher";
+import { appFetcher } from "@app/utils/fetcher";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loader from "@app/components/Loader";
@@ -82,7 +82,7 @@ const SubmitPaperForm = () => {
     });
 
     // console.log("Copied Array:", copiedArray);
-    const req = await axiosInstance
+    const req = await appFetcher
       .post("/api/upload/paper", copiedArray, {
         headers: {
           "Content-Type": "multipart/form-data",

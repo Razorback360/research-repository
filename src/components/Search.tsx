@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HiMagnifyingGlass, HiFunnel } from 'react-icons/hi2';
 import { HiBookOpen, HiDatabase, HiExternalLink } from 'react-icons/hi';
-import { axiosInstance } from '@app/utils/fetcher';
+import { appFetcher } from '@app/utils/fetcher';
 
 interface SearchResult {
   id: string;
@@ -25,7 +25,7 @@ function Search() {
 
   useEffect(() => {
       const search = async () => {
-        const req = await axiosInstance
+        const req = await appFetcher
           .get(`/api/search?type=${selectedType}&query=${searchTerm}`)
           .catch((err) => {
             console.error(err);

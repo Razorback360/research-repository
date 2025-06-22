@@ -86,7 +86,7 @@ const BlogPost = () => {
                                 p: ({ node, ...props }) => <p className="text-gray-700 mb-4 leading-relaxed" {...props} />,
                                 ul: ({ node, ...props }) => <ul className="list-disc list-inside text-gray-700 mb-4 space-y-2" {...props} />,
                                 ol: ({ node, ...props }) => <ol className="list-decimal list-inside text-gray-600 mb-4 space-y-2" {...props} />,
-                                blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-primary pl-4 italic text-gray-700 my-6" {...props} />,
+                                blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-primary ps-4 italic text-gray-700 my-6" {...props} />,
                             }}
                         >
                         </Markdown>

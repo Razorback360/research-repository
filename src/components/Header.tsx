@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="flex flex-row w-full border-b pl-10 pr-10">
+      <div className="flex flex-row w-full border-b ps-10 pe-10">
         <div className="flex flex-row justify-center items-center w-auto">
           <div className="w-32 h-24 relative">
             <Image
@@ -29,11 +29,11 @@ const Header = () => {
               objectFit="contain"
             ></Image>
           </div>
-          <p className="text-center text-xl pl-4 font-bold  whitespace-nowrap">
+          <p className="text-center text-xl ps-4 font-bold  whitespace-nowrap">
             SRDRI | KSU
           </p>
         </div>
-        <div className="lg:flex flex-row space-x-5 items-center text-md font-medium hidden w-full ml-5">
+        <div className="lg:flex flex-row space-x-5 items-center text-md font-medium hidden w-full ms-5">
           <Link href="/">Home</Link>
           <Link href="/upload">Submit Data</Link>
           <Link href="/about">About Us</Link>
@@ -69,7 +69,7 @@ const Header = () => {
                 )}
               >
                 <Link href={"/profile"} className="flex flex-row w-full p-3 hover:bg-gray-200 hover:cursor-pointer rounded-lg">
-                  <HiOutlineUser className="w-[24px] h-[24px] mr-1" />
+                  <HiOutlineUser className="w-[24px] h-[24px] me-1" />
                   Profile
                 </Link>
                 <a
@@ -78,7 +78,7 @@ const Header = () => {
                     signOut();
                   }}
                 >
-                  <HiArrowRightOnRectangle className="w-[24px] h-[24px] mr-1" />{" "}
+                  <HiArrowRightOnRectangle className="w-[24px] h-[24px] me-1" />{" "}
                   Logout
                 </a>
               </div>

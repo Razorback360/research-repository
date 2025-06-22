@@ -1,0 +1,40 @@
+{
+  "header": {
+    "logo": {
+      "alt": "Picture of the Logo"
+    },
+    "title": "SRDRI | KSU",
+    "navigation": {
+      "home": "Home",
+      "submitData": "Submit Data",
+      "aboutUs": "About Us",
+      "faq": "FAQ",
+      "contactUs": "Contact Us",
+      "feedback": "Feedback",
+      "dashboard": "Dashboard",
+      "search": "Search"
+    },
+    "userMenu": {
+      "profile": "Profile",
+      "logout": "Logout",
+      "login": "Login"
+    }
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Page Not Found",
+    "message": "We are disappointed to inform you that the page you are trying to access does not actually exist! Head back to home down below!",
+    "homePage": "Home Page"
+  },
+  "home": {
+    "errorTitle": "Error Loading Content",
+    "errorMessage": "Failed to load content from CMS. Showing limited content.",
+    "heroImage": {
+      "alt": "Hero image"
+    },
+    "submitDataHeader": "Submit Data",
+    "submitNow": "Submit now",
+    "learnMore": "Learn more",
+    "joinUs": "Join Us"
+  }
+}

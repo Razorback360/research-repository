@@ -4,18 +4,28 @@ import {
   HiOutlineUser,
   HiMagnifyingGlass,
   HiArrowRightOnRectangle,
+  HiLanguage
 } from "react-icons/hi2";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@app/utils/cn";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const [sidebarState, setSidebarState] = useState(false);
   const [dropdownState, setDropdownState] = useState(false);
+  const { t, i18n } = useTranslation();
 
   const session = useSession();
+
+  //switch lang
+  const switchLanguage = () => {
+    const newLang = i18n.language === "en" ? "ar" : "en";
+    i18n.changeLanguage(newLang);
+    localStorage.setItem("language", newLang);
+  };
 
   return (
     <>
@@ -24,24 +34,26 @@ const Header = () => {
           <div className="w-32 h-24 relative">
             <Image
               src="/logo.png"
-              alt="Picture of the Logo"
+              alt={t("header.logo.alt")}
               layout="fill"
               objectFit="contain"
             ></Image>
           </div>
           <p className="text-center text-xl ps-4 font-bold  whitespace-nowrap">
-            SRDRI | KSU
+            {t("header.title")}
           </p>
         </div>
         <div className="lg:flex flex-row space-x-5 items-center text-md font-medium hidden w-full ms-5">
-          <Link href="/">Home</Link>
-          <Link href="/upload">Submit Data</Link>
-          <Link href="/about">About Us</Link>
-          <Link href="/faq">FAQ</Link>
-          <Link href="/contact">Contact Us</Link>
-          <Link href="/feedback">Feedback</Link>
+          <Link href="/">{t("header.navigation.home")}</Link>
+          <Link href="/upload">{t("header.navigation.submitData")}</Link>
+          <Link href="/about">{t("header.navigation.aboutUs")}</Link>
+          <Link href="/faq">{t("header.navigation.faq")}</Link>
+          <Link href="/contact">{t("header.navigation.contactUs")}</Link>
+          <Link href="/feedback">{t("header.navigation.feedback")}</Link>
           {session.data?.user.permissions.ADMIN_READ && (
-            <Link href="/dashboard/admin">Dashboard</Link>
+            <Link href="/dashboard/admin">
+              {t("header.navigation.dashboard")}
+            </Link>
           )}
         </div>
         <div className="lg:flex flex-row justify-end items-center w-full space-x-2 hidden">
@@ -51,6 +63,12 @@ const Header = () => {
           >
             <HiMagnifyingGlass className="w-[24px] h-[24px]" />
           </Link>
+          <a
+            className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white"
+            onClick={switchLanguage}
+          >
+            <HiLanguage className="w-[24px] h-[24px]" />
+          </a>
 
           {session.status === "authenticated" ? (
             <div className="flex flex-col">
@@ -68,9 +86,12 @@ const Header = () => {
                   dropdownState ? "" : "hidden"
                 )}
               >
-                <Link href={"/profile"} className="flex flex-row w-full p-3 hover:bg-gray-200 hover:cursor-pointer rounded-lg">
+                <Link
+                  href={"/profile"}
+                  className="flex flex-row w-full p-3 hover:bg-gray-200 hover:cursor-pointer rounded-lg"
+                >
                   <HiOutlineUser className="w-[24px] h-[24px] me-1" />
-                  Profile
+                  {t("header.userMenu.profile")}
                 </Link>
                 <a
                   className="flex flex-row w-full p-3 hover:bg-gray-200 hover:cursor-pointer rounded-lg"
@@ -78,8 +99,8 @@ const Header = () => {
                     signOut();
                   }}
                 >
-                  <HiArrowRightOnRectangle className="w-[24px] h-[24px] me-1" />{" "}
-                  Logout
+                  <HiArrowRightOnRectangle className="w-[24px] h-[24px] me-1" />
+                  {t("header.userMenu.logout")}
                 </a>
               </div>
             </div>
@@ -94,7 +115,6 @@ const Header = () => {
             </Link>
           )}
         </div>
-
         <div className="lg:hidden flex-row justify-end items-center w-full space-x-2 flex">
           <a
             className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white"
@@ -106,6 +126,7 @@ const Header = () => {
           </a>
         </div>
       </div>
+      {/* Mobile */}
       <div
         className={cn(
           sidebarState ? "flex fixed z-50" : "hidden",
@@ -114,7 +135,7 @@ const Header = () => {
       >
         <nav className="flex flex-col space-y-5 justify-center items-center text-md font-medium mt-5 text-center">
           <Link className="p-2 border-b w-1/2" href="/">
-            Home
+            {t("header.navigation.home")}
           </Link>
           <Link
             className="p-2 border-b w-1/2"
@@ -122,26 +143,28 @@ const Header = () => {
               session.status === "authenticated" ? "/profile/mobile" : "/login"
             }
           >
-            {session.status === "authenticated" ? "Profile" : "Login"}
+            {session.status === "authenticated"
+              ? t("header.userMenu.profile")
+              : t("header.userMenu.login")}
           </Link>
           <Link className="p-2 border-b w-1/2" href="/search">
-            Search
+            {t("header.navigation.search")}
           </Link>
           <Link className="p-2 border-b w-1/2" href="/upload">
-            Submit Data
+            {t("header.navigation.submitData")}
           </Link>
           <Link className="p-2 border-b w-1/2" href="/about">
-            About Us
+            {t("header.navigation.aboutUs")}
           </Link>
           <Link className="p-2 border-b w-1/2" href="/contact">
-            Contact Us
+            {t("header.navigation.contactUs")}
           </Link>
           <Link className="p-2 border-b w-1/2" href="/feedback">
-            Feedback
+            {t("header.navigation.feedback")}
           </Link>
           {session.data?.user.permissions.ADMIN_READ && (
             <Link className="p-2 border-b w-1/2" href="/dashboard/admin">
-              Dashboard
+              {t("header.navigation.dashboard")}
             </Link>
           )}
           {session.status === "authenticated" && (
@@ -151,7 +174,7 @@ const Header = () => {
                 signOut();
               }}
             >
-              Logout
+              {t("header.userMenu.logout")}
             </a>
           )}
         </nav>

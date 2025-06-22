@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { GetServerSideProps } from "next";
+import { cmsFetcher } from "../utils/fetcher";
+import { ContactProps } from "../../interfaces";
 
-const ContactUs = () => {
+const ContactUs = ({ contactData, error }: ContactProps) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,6 +32,11 @@ const ContactUs = () => {
       <h1 className="text-3xl font-semibold text-center mb-8 text-gray-800">
         Contact Us
       </h1>
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <p>{error}</p>
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Contact Form */}
         <div className="bg-gray-50 p-6 rounded-lg shadow-md">
@@ -129,17 +137,16 @@ const ContactUs = () => {
               Contact Information
             </h2>
             <p className="text-gray-700 mb-2">
-              <strong>Address:</strong> King Saud University, Riyadh, Saudi
-              Arabia
+              <strong>Address:</strong> {contactData.address}
             </p>
             <p className="text-gray-700 mb-2">
               <strong>Email:</strong>{" "}
-              <a href="mailto:info@srdr.sa" className="text-blue-500">
-                info@srdr.sa
+              <a href={`mailto:${contactData.email}`} className="text-blue-500">
+                {contactData.email}
               </a>
             </p>
             <p className="text-gray-700 mb-2">
-              <strong>Phone:</strong> +966-1-234-5678
+              <strong>Phone:</strong> {contactData.phone}
             </p>
           </div>
           <div>
@@ -154,6 +161,39 @@ const ContactUs = () => {
       </div>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  // Set cache control headers
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=3600, stale-while-revalidate=86400'
+  );
+
+  try {
+    const response = await cmsFetcher.get('/api/contact?populate=*');
+    
+    return {
+      props: {
+        contactData: response.data.data,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching contact information:", error);
+    
+    // Fallback to static data if CMS fetch fails
+    return {
+      props: {
+        contactData: {
+          id: 0,
+          address: "King Saud University, Riyadh, Saudi Arabia",
+          email: "info@srdr.sa",
+          phone: "+966-1-234-5678",
+        },
+        error: "Failed to load contact information from CMS. Showing default contact details.",
+      },
+    };
+  }
 };
 
 export default ContactUs;

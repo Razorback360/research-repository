@@ -1,17 +1,44 @@
-import { HiOutlineUserGroup, HiOutlineNewspaper } from "react-icons/hi2";
-import { HiOutlineDatabase, HiOutlineOfficeBuilding } from "react-icons/hi";
-import type { FC } from "react";
+import { FC } from "react";
 import Link from "next/link";
+import { GetServerSideProps } from "next";
+import { cmsFetcher } from "../utils/fetcher";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { HomeProps } from "../../interfaces";
 
-const Home: FC = () => {
+// Render SVG icon from CMS data
+const IconComponent: FC<{ iconData: string }> = ({ iconData }) => {
+  return (
+    <svg
+      width="64"
+      height="64"
+      viewBox="0 0 24 24"
+      className="text-[#c1c7cd]"
+      dangerouslySetInnerHTML={{ __html: iconData }}
+    />
+  );
+};
+
+const Home: FC<HomeProps> = ({ data, error }) => {
+  if (error) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center p-12">
+        <h1 className="text-2xl text-red-600 mb-4">Error Loading Content</h1>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  const cmsUrl = process.env.NEXT_PUBLIC_CMS_API_URL || "http://127.0.0.1:1337";
+
   return (
     <div className="w-full flex flex-col">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-6 lg:p-12 h-full">
         <div className="flex items-center justify-center">
           <img
             className="w-96 rounded-lg"
-            src="/landing-catch.png"
-            alt="Donation image"
+            src={`${cmsUrl}${data.heroImg.url}` || "/landing-catch.png"}
+            alt={data.heroImg.alternativeText || "Hero image"}
           />
         </div>
         <div className="flex flex-col space-y-4 text-left">
@@ -19,17 +46,9 @@ const Home: FC = () => {
             Submit Data
           </h4>
           <h2 className="text-2xl font-bold text-gray-800 leading-tight">
-            Unlock the Power of Knowledge
+            {data.heroTitle}
           </h2>
-          <p className="text-[#000000]">
-            Every dataset stored, every paper shared, and every discovery made
-            through SRDRI is a step toward building a brighter, more informed
-            future. By joining our initiative, you’re contributing to the
-            advancement of knowledge that benefits not only our community but
-            also the world at large. Dive into our repository today. Whether
-            you’re here to explore new ideas, contribute your work, or connect
-            with peers, SRDRI is your gateway to a thriving research community.
-          </p>
+          <p className="text-[#000000]">{data.heroDesc}</p>
           <div className="flex space-x-4">
             <Link
               href="/upload"
@@ -49,77 +68,36 @@ const Home: FC = () => {
 
       <div className="p-6 lg:p-12 space-y-8">
         <h4 className="text-center text-sm font-semibold text-primary uppercase">
-          Impact in Numbers
+          {data.impTitle}
         </h4>
         <h2 className="text-center text-3xl font-bold text-gray-800 leading-snug">
-          At SRDRI, our commitment to advancing research
-          <br />
-          and knowledge is making a real difference.
+          {data.impDesc.split("\n").map((line, i) => (
+            <span key={i}>
+              {line}
+              {i < data.impDesc.split("\n").length - 1 && <br />}
+            </span>
+          ))}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
-          <div className="flex flex-col items-center space-y-4">
-            <HiOutlineNewspaper className="w-16 h-16 text-[#c1c7cd] " />
-            <p>
-              <strong className="text-gray-800">50,000+ Shared Papers</strong>
-            </p>
-            <p className="w-3/4">
-              Over <strong className="text-gray-800">50,000+</strong> research
-              papers have been shared on our platform. Empowering researchers
-              across disciplines by providing them with essential resources to
-              fuel their discoveries.
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center space-y-4">
-            <HiOutlineDatabase className="w-16 h-16 text-[#c1c7cd] " />
-            <p>
-              <strong className="text-gray-800">
-                20,000+ Submitted Datasets
-              </strong>
-            </p>
-            <p className="w-3/4">
-              Enabling data-driven innovation through openly available,
-              high-quality datasets.
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center space-y-4">
-            <HiOutlineOfficeBuilding className="w-16 h-16 text-[#c1c7cd]" />
-            <p>
-              <strong className="text-gray-800">
-                150+ Partnered Institutions
-              </strong>
-            </p>
-            <p className="">
-              Collaborating with prestigious universities and research centers
-              worldwide.
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center space-y-4">
-            <HiOutlineUserGroup className="w-16 h-16 text-[#c1c7cd]" />
-            <p>
-              <strong className="text-gray-800">
-                10,000+ Registered Contributers
-              </strong>
-            </p>
-            <p className="">
-              A growing community of researchers, authors, and academics sharing
-              their work and expertise.
-            </p>
-          </div>
+          {data.impacts.map((impact) => (
+            <div key={impact.id} className="flex flex-col items-center space-y-4">
+              <IconComponent iconData={impact.impactIcon.iconData} />
+              <p>
+                <strong className="text-gray-800">{impact.impactStat}</strong>
+              </p>
+              <div className="w-3/4">
+                <Markdown remarkPlugins={[remarkGfm]}>{impact.impactDesc}</Markdown>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <div className="text-center md:text-left mt-8 w-full flex flex-col items-center px-2">
         <h2 className="text-2xl font-bold text-gray-800 leading-tight md:w-1/2 w-full">
-          Together, We&apos;re Making a Difference
+          {data.ctaTitle}
         </h2>
-        <p className="text-[#000000] md:w-1/2 w-full">
-          Every statistic represents lives touched, ideas shared, and a brighter
-          future being built. Join the movement and be a part of a growing
-          initiative that champions research, knowledge, and collaboration.
-        </p>
+        <p className="text-[#000000] md:w-1/2 w-full">{data.ctaDesc}</p>
       </div>
       <div className="text-center mt-8 mb-10">
         <Link
@@ -131,6 +109,48 @@ const Home: FC = () => {
       </div>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  // Set cache control headers
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=600, stale-while-revalidate=86400"
+  );
+
+  try {
+    const response = await cmsFetcher.get("/api/home?populate=*");
+    return {
+      props: {
+        data: response.data.data,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching home content:", error);
+
+    return {
+      props: {
+        data: {
+          id: 0,
+          heroTitle: "Unlock the Power of Knowledge",
+          heroDesc:
+            "Every dataset stored, every paper shared, and every discovery made through SRDRI is a step toward building a brighter, more informed future.",
+          impTitle: "Impact in Numbers",
+          impDesc:
+            "At SRDRI, our commitment to advancing research\nand knowledge is making a real difference.",
+          ctaTitle: "Together, We're Making a Difference",
+          ctaDesc:
+            "Every statistic represents lives touched, ideas shared, and a brighter future being built.",
+          heroImg: {
+            url: "/landing-catch.png",
+            alternativeText: null,
+          },
+          impacts: [],
+        },
+        error: "Failed to load content from CMS. Showing limited content.",
+      },
+    };
+  }
 };
 
 export default Home;

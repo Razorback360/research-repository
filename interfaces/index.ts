@@ -1,5 +1,9 @@
 import { StatusTypes, Permission } from "@prisma/client";
 
+// Export all interfaces from the interfaces folder
+export * from './blocks';
+export * from './pages';
+
 export interface Submission {
   id: string;
   title: string;

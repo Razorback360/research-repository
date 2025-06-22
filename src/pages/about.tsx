@@ -1,85 +1,119 @@
 import React from "react";
+import { GetServerSideProps } from "next";
+import Markdown from "react-markdown";
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
+import { cmsFetcher } from "../utils/fetcher";
+import { AboutProps, RichTextBlock, MediaBlock } from "../../interfaces";
 
-const AboutUs = () => {
+const AboutUs = ({ aboutData, error }: AboutProps) => {  // Function to render blocks based on their type
+  const renderBlock = (block: RichTextBlock | MediaBlock) => {
+    const cmsUrl = process.env.NEXT_PUBLIC_CMS_API_URL || 'http://127.0.0.1:1337';
+    
+    if (block.__component === "shared.rich-text") {
+      return (
+        <div key={block.id} className="my-6">
+          <Markdown 
+            rehypePlugins={[rehypeRaw]} 
+            remarkPlugins={[remarkGfm]}
+            components={{
+              h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mb-3" {...props} />,
+              h2: ({ node, ...props }) => <h2 className="text-xl font-semibold mb-3" {...props} />,
+              ul: ({ node, ...props }) => <ul className="list-disc list-inside space-y-1" {...props} />,
+            }}
+          >
+            {(block as RichTextBlock).body}
+          </Markdown>
+        </div>
+      );
+    } else if (block.__component === "shared.media") {      const mediaBlock = block as MediaBlock;
+      if (!mediaBlock.file) return null;
+      
+      const imageUrl = `${cmsUrl}${mediaBlock.file.url}`;
+      const altText = mediaBlock.file.alternativeText || mediaBlock.file.name || 'Image';
+      const caption = mediaBlock.file.caption;
+      
+      return (
+        <figure key={block.id} className="my-8 flex flex-col items-center">
+          <img 
+            src={imageUrl} 
+            alt={altText} 
+            className="max-w-full rounded-lg shadow-md" 
+            style={{ maxHeight: '600px' }}
+          />
+          {caption && (
+            <figcaption className="text-sm text-gray-600 text-center mt-2">
+              {caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="container mx-auto p-4 h-full">
       <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">
         About Us
       </h1>
+      
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <p>{error}</p>
+        </div>
+      )}
+      
       <div className="space-y-6 text-gray-700 text-lg">
-        <section>
-          <p className="">
-            At the <strong>Saudi Research Data Repository Initiative (SRDRI)</strong>, we believe in the transformative power of research and data. Our mission is to provide an open, accessible, and reliable platform where researchers, academics, and enthusiasts can collaborate, share, and access valuable datasets and research papers.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-gray-800 mb-3">Who We Are</h2>
-          <p>
-            We are a team of dedicated professionals, researchers, and innovators working together to foster a culture of data sharing and collaboration. SRDRI is proudly backed by <strong>King Saud University</strong>, a leading academic institution committed to advancing knowledge and making a positive impact on society.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-gray-800 mb-3">What We Do</h2>
-          <ul className="list-disc list-inside">
-            <li>
-              <strong>Discover:</strong> Datasets and research papers relevant to their fields of study.
-            </li>
-            <li>
-              <strong>Share:</strong> Their work with a global audience, ensuring visibility and impact.
-            </li>
-            <li>
-              <strong>Collaborate:</strong> With peers and institutions to advance research and innovation.
-            </li>
-          </ul>
-          <p>
-            By providing seamless access to curated data and research, SRDRI empowers individuals and organizations to make informed decisions, drive scientific progress, and tackle real-world challenges.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-gray-800 mb-3">Why Choose SRDRI?</h2>
-          <ul className="list-disc list-inside space-y-2">
-            <li>
-              <strong>Comprehensive Repository:</strong> From cutting-edge datasets to peer-reviewed papers, our platform houses a diverse collection of resources.
-            </li>
-            <li>
-              <strong>User-Friendly Interface:</strong> Easily search, browse, and access information tailored to your needs.
-            </li>
-            <li>
-              <strong>Collaboration-Friendly:</strong> Our tools make it easy to connect with other researchers, fostering partnerships and idea exchange.
-            </li>
-            <li>
-              <strong>Commitment to Excellence:</strong> Every dataset and paper is carefully curated to maintain the highest standards of quality and relevance.
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-gray-800 mb-3">Our Vision</h2>
-          <p>
-            We envision a future where data and research are universally accessible, empowering a global community of problem solvers and innovators. By breaking down barriers to knowledge sharing, we aim to play a pivotal role in advancing education, science, and societal progress.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-gray-800 mb-3">Get Involved</h2>
-          <p>
-            Join us in our mission to shape the future of research and data accessibility. Whether you’re a researcher, a data enthusiast, or an institution, SRDRI invites you to:
-          </p>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Contribute your datasets and research papers.</li>
-            <li>Explore and utilize our repository to fuel your work.</li>
-            <li>Be part of a growing community committed to knowledge-sharing and innovation.</li>
-          </ul>
-          <p>
-            Together, we can create a world where knowledge flows freely, fueling discoveries and making a difference in the lives of people everywhere.
-          </p>
-        </section>
+        <Markdown 
+          rehypePlugins={[rehypeRaw]} 
+          remarkPlugins={[remarkGfm]} 
+          components={{
+            h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mb-3" {...props} />,
+            h2: ({ node, ...props }) => <h2 className="text-xl font-semibold mb-3" {...props} />,
+            ul: ({ node, ...props }) => <ul className="list-disc list-inside space-y-1" {...props} />,
+          }}
+        >
+          {aboutData.aboutUs}
+        </Markdown>
+        
+        {aboutData.blocks && aboutData.blocks.map((block: RichTextBlock | MediaBlock) => renderBlock(block))}
       </div>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  // Set cache control headers
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=3600, stale-while-revalidate=86400'
+  );
+
+  try {
+    const response = await cmsFetcher.get('/api/about?populate[blocks][populate]=*');
+    
+    return {
+      props: {
+        aboutData: response.data.data,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching about content:", error);
+    
+    // Fallback to static data if CMS fetch fails
+    return {
+      props: {
+        aboutData: {
+          id: 0,
+          documentId: "",
+          aboutUs: "# About Us\n\nInformation about SRDRI is currently unavailable. Please check back later.",
+          blocks: []
+        },
+        error: "Failed to load about content from CMS. Showing limited content.",
+      },
+    };
+  }
 };
 
 export default AboutUs;

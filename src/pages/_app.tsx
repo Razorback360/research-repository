@@ -10,9 +10,11 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-screen relative min-h-screen">
       <Header/>
-      <Component {...pageProps} />
+      <div className="flex-grow">
+      <Component {...pageProps}/>
+      </div>
       <Footer/>
       </div>
     </SessionProvider>

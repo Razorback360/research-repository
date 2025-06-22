@@ -904,7 +904,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.13, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.12.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.13, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.27.1, @babel/runtime@npm:^7.27.6, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.27.6
   resolution: "@babel/runtime@npm:7.27.6"
   checksum: 10c0/89726be83f356f511dcdb74d3ea4d873a5f0cf0017d4530cb53aa27380c01ca102d573eff8b8b77815e624b1f8c24e7f0311834ad4fb632c90a770fda00bd4c8
@@ -3940,6 +3940,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/i18next@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "@types/i18next@npm:13.0.0"
+  dependencies:
+    i18next: "npm:*"
+  checksum: 10c0/e089bf1f725d8ee7a1d38f80c8ef6a8907de33e1289a03ec9bd42fd5fbfa3202a1166ec941ed92101ecf592d9355502b6009961aaf1fa2e6341b567882e2595f
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.15":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -4019,6 +4028,15 @@ __metadata:
   peerDependencies:
     "@types/react": ^19.0.0
   checksum: 10c0/7ba74eee2919e3f225e898b65fdaa16e54952aaf9e3472a080ddc82ca54585e46e60b3c52018d21d4b7053f09d27b8293e9f468b85f9932ff452cd290cc131e8
+  languageName: node
+  linkType: hard
+
+"@types/react-i18next@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@types/react-i18next@npm:8.1.0"
+  dependencies:
+    react-i18next: "npm:*"
+  checksum: 10c0/0c62831244a2fb3a71880586dabfbbf4ab91a0ddd494b36e371b1443f9b884ebeb0019bee17636140ee2f8e0b20a47d200971b34ecab933b357fc7e4d81241ca
   languageName: node
   linkType: hard
 
@@ -5139,6 +5157,15 @@ __metadata:
   version: 9.0.0
   resolution: "croner@npm:9.0.0"
   checksum: 10c0/c530c80f580d4d8638ac114c97467806d7e016d9ff28033bbf29f21fad160467cbeeff7247f4a2cc68b4e5be2350f28cf3f5329a9a6a901acb0de4dd0caeef08
+  languageName: node
+  linkType: hard
+
+"cross-fetch@npm:4.0.0":
+  version: 4.0.0
+  resolution: "cross-fetch@npm:4.0.0"
+  dependencies:
+    node-fetch: "npm:^2.6.12"
+  checksum: 10c0/386727dc4c6b044746086aced959ff21101abb85c43df5e1d151547ccb6f338f86dec3f28b9dbddfa8ff5b9ec8662ed2263ad4607a93b2dc354fb7fe3bbb898a
   languageName: node
   linkType: hard
 
@@ -7096,6 +7123,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"html-parse-stringify@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "html-parse-stringify@npm:3.0.1"
+  dependencies:
+    void-elements: "npm:3.1.0"
+  checksum: 10c0/159292753d48b84d216d61121054ae5a33466b3db5b446e2ffc093ac077a411a99ce6cbe0d18e55b87cf25fa3c5a86c4d8b130b9719ec9b66623259000c72c15
+  languageName: node
+  linkType: hard
+
 "html-url-attributes@npm:^3.0.0":
   version: 3.0.1
   resolution: "html-url-attributes@npm:3.0.1"
@@ -7151,6 +7187,38 @@ __metadata:
     agent-base: "npm:^7.1.2"
     debug: "npm:4"
   checksum: 10c0/f729219bc735edb621fa30e6e84e60ee5d00802b8247aac0d7b79b0bd6d4b3294737a337b93b86a0bd9e68099d031858a39260c976dc14cdbba238ba1f8779ac
+  languageName: node
+  linkType: hard
+
+"i18next-browser-languagedetector@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "i18next-browser-languagedetector@npm:8.2.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.23.2"
+  checksum: 10c0/4fcb6ec316e0fd4a10eee67a8d1e3d7e1407f14d5bed98978c50ed6f1853f5d559dc18ea7fd4b2de445ac0a4ed44df5b38f0b31b89b9ac883f99050d59ffec82
+  languageName: node
+  linkType: hard
+
+"i18next-http-backend@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "i18next-http-backend@npm:3.0.2"
+  dependencies:
+    cross-fetch: "npm:4.0.0"
+  checksum: 10c0/2a08b018e4924fefae6ba4c09dfd1ca3aa892f2442779d77d2db52b086af7afe7fbb6f178743d7e02014ea12a711ad20fc03fb55c01bd80f1bc97ba2b3c6bc29
+  languageName: node
+  linkType: hard
+
+"i18next@npm:*":
+  version: 25.2.1
+  resolution: "i18next@npm:25.2.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.27.1"
+  peerDependencies:
+    typescript: ^5
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/9e8817bdb930c15467ba31edfd834dcfc0a8979bb04f089b8249547a5c50ded820c1cce224563fc1dfe0a6f51e67e0e2d5231fb80a50fd7bd95320f120dfd0ae
   languageName: node
   linkType: hard
 
@@ -9042,7 +9110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
+"node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.12, node-fetch@npm:^2.6.7":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
   dependencies:
@@ -10022,6 +10090,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-i18next@npm:*":
+  version: 15.5.3
+  resolution: "react-i18next@npm:15.5.3"
+  dependencies:
+    "@babel/runtime": "npm:^7.27.6"
+    html-parse-stringify: "npm:^3.0.1"
+  peerDependencies:
+    i18next: ">= 23.2.3"
+    react: ">= 16.8.0"
+    typescript: ^5
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+    typescript:
+      optional: true
+  checksum: 10c0/495d98a738e966cd655a378d953e45cfd1a810ccfaf4894a63c37b7a9043e69b55c5e14044d54290c91512e7fa37835c7e4637bfb8d68b6fc88bc493a5ffd9ee
+  languageName: node
+  linkType: hard
+
 "react-icons@npm:^5.3.0":
   version: 5.5.0
   resolution: "react-icons@npm:5.5.0"
@@ -10251,9 +10340,11 @@ __metadata:
     "@tailwindcss/postcss": "npm:^4.0.17"
     "@types/bcrypt": "npm:^5.0.2"
     "@types/formidable": "npm:^3.4.5"
+    "@types/i18next": "npm:^13.0.0"
     "@types/node": "npm:^22.13.13"
     "@types/react": "npm:^19.0.12"
     "@types/react-dom": "npm:^19.0.4"
+    "@types/react-i18next": "npm:^8.1.0"
     "@types/tailwindcss": "npm:^3.1.0"
     axios: "npm:^1.7.9"
     bcrypt: "npm:^5.1.1"
@@ -10262,6 +10353,8 @@ __metadata:
     eslint-config-next: "npm:15.2.4"
     formidable: "npm:^3.5.2"
     graphql: "npm:^16.8.1"
+    i18next-browser-languagedetector: "npm:^8.2.0"
+    i18next-http-backend: "npm:^3.0.2"
     monaco-editor: "npm:0.52.2"
     next: "npm:^15.2.4"
     next-auth: "npm:^4.24.10"
@@ -10276,6 +10369,7 @@ __metadata:
     remark-gfm: "npm:^4.0.1"
     tailwind-merge: "npm:^3.0.2"
     tailwindcss: "npm:^4.0.17"
+    tailwindcss-rtl: "npm:^0.9.0"
     tsx: "npm:^4.19.2"
     typescript: "npm:^5.6.3"
     yjs: "npm:14.0.0-1"
@@ -11115,6 +11209,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tailwindcss-rtl@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "tailwindcss-rtl@npm:0.9.0"
+  checksum: 10c0/793950ce6525c1ba1334b1cc152732eb82a563610cd622cf793034836a5a6f78e5c553e318c7782b1b38ced3b491b8cbe17540cdb9b5b2c63764da810bfa7ff2
+  languageName: node
+  linkType: hard
+
 "tailwindcss@npm:*, tailwindcss@npm:4.1.10, tailwindcss@npm:^4.0.17":
   version: 4.1.10
   resolution: "tailwindcss@npm:4.1.10"
@@ -11716,6 +11817,13 @@ __metadata:
     "@types/unist": "npm:^3.0.0"
     vfile-message: "npm:^4.0.0"
   checksum: 10c0/e5d9eb4810623f23758cfc2205323e33552fb5972e5c2e6587babe08fe4d24859866277404fb9e2a20afb71013860d96ec806cb257536ae463c87d70022ab9ef
+  languageName: node
+  linkType: hard
+
+"void-elements@npm:3.1.0":
+  version: 3.1.0
+  resolution: "void-elements@npm:3.1.0"
+  checksum: 10c0/0b8686f9f9aa44012e9bd5eabf287ae0cde409b9a2854c5a2335cb83920c957668ac5876e3f0d158dd424744ac411a7270e64128556b451ed3bec875ef18534d
   languageName: node
   linkType: hard
 

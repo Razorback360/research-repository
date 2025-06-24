@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import { cmsFetcher } from "../utils/fetcher";
 import { ContactProps } from "../../interfaces";
+import { useTranslations } from "next-intl";
 
 const ContactUs = ({ contactData, error }: ContactProps) => {
+  const t = useTranslations();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,7 +33,7 @@ const ContactUs = ({ contactData, error }: ContactProps) => {
   return (
     <div className="container mx-auto p-6 h-full">
       <h1 className="text-3xl font-semibold text-center mb-8 text-gray-800">
-        Contact Us
+        {t("contact.header")}
       </h1>
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -41,7 +44,7 @@ const ContactUs = ({ contactData, error }: ContactProps) => {
         {/* Contact Form */}
         <div className="bg-gray-50 p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            Get in Touch
+            {t("contact.getInTouch")}
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name Field */}
@@ -50,7 +53,7 @@ const ContactUs = ({ contactData, error }: ContactProps) => {
                 className="block text-sm font-medium text-gray-700 mb-2"
                 htmlFor="name"
               >
-                Your Name
+                {t("contact.form.name")}
               </label>
               <input
                 type="text"
@@ -69,7 +72,7 @@ const ContactUs = ({ contactData, error }: ContactProps) => {
                 className="block text-sm font-medium text-gray-700 mb-2"
                 htmlFor="email"
               >
-                Your Email
+                {t("contact.form.email")}
               </label>
               <input
                 type="email"
@@ -88,7 +91,7 @@ const ContactUs = ({ contactData, error }: ContactProps) => {
                 className="block text-sm font-medium text-gray-700 mb-2"
                 htmlFor="subject"
               >
-                Subject
+                {t("contact.form.subject")}
               </label>
               <input
                 type="text"
@@ -107,7 +110,7 @@ const ContactUs = ({ contactData, error }: ContactProps) => {
                 className="block text-sm font-medium text-gray-700 mb-2"
                 htmlFor="message"
               >
-                Message
+                {t("contact.form.message")}
               </label>
               <textarea
                 id="message"
@@ -125,7 +128,7 @@ const ContactUs = ({ contactData, error }: ContactProps) => {
               type="submit"
               className="w-full p-2 bg-primary text-white rounded-sm hover:bg-blue-950"
             >
-              Send Message
+              {t("contact.form.submit")}
             </button>
           </form>
         </div>
@@ -134,24 +137,24 @@ const ContactUs = ({ contactData, error }: ContactProps) => {
         <div>
           <div className="mb-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Contact Information
+              {t("contact.contactInfo.title")}
             </h2>
             <p className="text-gray-700 mb-2">
-              <strong>Address:</strong> {contactData.address}
+              <strong>{t("contact.contactInfo.address")}</strong> {contactData.address}
             </p>
             <p className="text-gray-700 mb-2">
-              <strong>Email:</strong>{" "}
+              <strong>{t("contact.contactInfo.email")} </strong>
               <a href={`mailto:${contactData.email}`} className="text-blue-500">
                 {contactData.email}
               </a>
             </p>
             <p className="text-gray-700 mb-2">
-              <strong>Phone:</strong> {contactData.phone}
+              <strong>{t("contact.contactInfo.phone")}</strong> {contactData.phone}
             </p>
           </div>
           <div>
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Find Us Here
+              {t("contact.findUs")}
             </h2>
             <div className="w-full h-94 bg-gray-200 rounded-sm flex items-center justify-center">
               <iframe className="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d34391.0156500862!2d46.603916765262795!3d24.724110174969397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f1d87a42c25d9%3A0xb7bc9ced1525d129!2sKing%20Saud%20University%2C%20Riyadh!5e1!3m2!1sen!2ssa!4v1749733049560!5m2!1sen!2ssa" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>

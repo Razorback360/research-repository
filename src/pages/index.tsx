@@ -5,8 +5,8 @@ import { cmsFetcher } from "../utils/fetcher";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { HomeProps } from "../../interfaces";
-import { useTranslation } from "react-i18next";
-
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
 // Render SVG icon from CMS data
 const IconComponent: FC<{ iconData: string }> = ({ iconData }) => {
   return (
@@ -21,11 +21,13 @@ const IconComponent: FC<{ iconData: string }> = ({ iconData }) => {
 };
 
 const Home: FC<HomeProps> = ({ data, error }) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
+  const router = useRouter()
+  console.log(router.locale)
   if (error) {
     return (
       <div className="w-full flex flex-col items-center justify-center p-12">
-        <h1 className="text-2xl text-red-600 mb-4">{t('home.errorTitle')}</h1>
+        <h1 className="text-2xl text-red-600 mb-4">{t("home.errorTitle")}</h1>
         <p>{error}</p>
       </div>
     );
@@ -36,14 +38,18 @@ const Home: FC<HomeProps> = ({ data, error }) => {
   return (
     <div className="w-full flex flex-col">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-6 lg:p-12 h-full">
-        <div className="flex items-center justify-center">          <img
+        <div className="flex items-center justify-center">
+          
+          <img
             className="w-96 rounded-lg"
             src={`${cmsUrl}${data.heroImg.url}` || "/landing-catch.png"}
-            alt={data.heroImg.alternativeText || t('home.heroImage.alt')}
+            alt={data.heroImg.alternativeText || t("home.heroImage.alt")}
           />
         </div>
-        <div className="flex flex-col space-y-4 text-left">          <h4 className="text-sm font-semibold text-primary uppercase">
-            {t('home.submitDataHeader')}
+        <div className="flex flex-col space-y-4 text-left">
+          
+          <h4 className="text-sm font-semibold text-primary uppercase">
+            {t("home.submitDataHeader")}
           </h4>
           <h2 className="text-2xl font-bold text-gray-800 leading-tight">
             {data.heroTitle}
@@ -54,13 +60,13 @@ const Home: FC<HomeProps> = ({ data, error }) => {
               href="/upload"
               className="px-4 py-2 text-white bg-primary hover:bg-primary rounded-md font-medium"
             >
-              {t('home.submitNow')}
+              {t("home.submitNow")}
             </Link>
             <Link
               href="/about"
               className="px-4 py-2 text-primary border border-primary hover:bg-blue-50 rounded-md font-medium"
             >
-              {t('home.learnMore')}
+              {t("home.learnMore")}
             </Link>
           </div>
         </div>
@@ -81,13 +87,18 @@ const Home: FC<HomeProps> = ({ data, error }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
           {data.impacts.map((impact) => (
-            <div key={impact.id} className="flex flex-col items-center space-y-4">
+            <div
+              key={impact.id}
+              className="flex flex-col items-center space-y-4"
+            >
               <IconComponent iconData={impact.impactIcon.iconData} />
               <p>
                 <strong className="text-gray-800">{impact.impactStat}</strong>
               </p>
               <div className="w-3/4">
-                <Markdown remarkPlugins={[remarkGfm]}>{impact.impactDesc}</Markdown>
+                <Markdown remarkPlugins={[remarkGfm]}>
+                  {impact.impactDesc}
+                </Markdown>
               </div>
             </div>
           ))}
@@ -104,14 +115,14 @@ const Home: FC<HomeProps> = ({ data, error }) => {
           href="/signup"
           className="px-6 py-3 text-[#ffffff] bg-primary hover:bg-primary rounded-md font-medium"
         >
-          {t('home.joinUs')}
+          {t("home.joinUs")}
         </Link>
       </div>
     </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ res, req, locale }) => {
   // Set cache control headers
   res.setHeader(
     "Cache-Control",
@@ -119,7 +130,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   );
 
   try {
-    const response = await cmsFetcher.get("/api/home?populate=*");
+    const response = await cmsFetcher.get("/api/home?populate=*&locale=" + locale);
     return {
       props: {
         data: response.data.data,
@@ -148,6 +159,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
           impacts: [],
         },
         error: "Failed to load content from CMS. Showing limited content.",
+        
       },
     };
   }

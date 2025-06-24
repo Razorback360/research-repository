@@ -11,20 +11,21 @@ import { useState } from "react";
 import { cn } from "@app/utils/cn";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
 
 const Header = () => {
   const [sidebarState, setSidebarState] = useState(false);
   const [dropdownState, setDropdownState] = useState(false);
-  const { t, i18n } = useTranslation();
+  const router = useRouter();
+  const t = useTranslations();
 
   const session = useSession();
 
   //switch lang
   const switchLanguage = () => {
-    const newLang = i18n.language === "en" ? "ar" : "en";
-    i18n.changeLanguage(newLang);
-    localStorage.setItem("language", newLang);
+    const newLang = router.locale === "en" ? "ar" : "en";
+    router.push(router.asPath, undefined, { locale: newLang})
   };
 
   return (

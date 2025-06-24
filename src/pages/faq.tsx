@@ -36,7 +36,7 @@ const FAQ = ({ faqs, error }: FAQProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ res, locale }) => {
   // Set cache control headers
   res.setHeader(
     'Cache-Control',
@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   );
 
   try {
-    const response = await cmsFetcher.get('/api/faq?populate=*');
+    const response = await cmsFetcher.get('/api/faq?populate=*&locale=' + locale);
 
     return {
       props: {

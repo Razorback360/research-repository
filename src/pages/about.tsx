@@ -83,7 +83,7 @@ const AboutUs = ({ aboutData, error }: AboutProps) => {  // Function to render b
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ res, locale }) => {
   // Set cache control headers
   res.setHeader(
     'Cache-Control',
@@ -91,7 +91,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   );
 
   try {
-    const response = await cmsFetcher.get('/api/about?populate[blocks][populate]=*');
+    const response = await cmsFetcher.get('/api/about?populate[blocks][populate]=*&locale=' + locale);
     
     return {
       props: {

@@ -46,7 +46,7 @@ const Home: FC<HomeProps> = ({ data, error }) => {
             alt={data.heroImg.alternativeText || t("home.heroImage.alt")}
           />
         </div>
-        <div className="flex flex-col space-y-4 text-left">
+        <div className="flex flex-col space-y-4 text-start">
           
           <h4 className="text-sm font-semibold text-primary uppercase">
             {t("home.submitDataHeader")}
@@ -104,7 +104,7 @@ const Home: FC<HomeProps> = ({ data, error }) => {
           ))}
         </div>
       </div>
-      <div className="text-center md:text-left mt-8 w-full flex flex-col items-center px-2">
+      <div className="text-center md:text-start mt-8 w-full flex flex-col items-center px-2">
         <h2 className="text-2xl font-bold text-gray-800 leading-tight md:w-1/2 w-full">
           {data.ctaTitle}
         </h2>

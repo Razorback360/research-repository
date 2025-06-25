@@ -73,7 +73,7 @@ function SubmissionManagement() {
                       <p className="text-sm font-medium text-primary truncate">
                         {submission.title}
                       </p>
-                      <div className="ml-2 shrink-0">
+                      <div className="ms-2 shrink-0">
                         <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${
                           submission.status.type === StatusTypes.APPROVED ? 'bg-green-100 text-green-800' :
                           submission.status.type === StatusTypes.DENIED ? 'bg-red-100 text-red-800' :
@@ -95,7 +95,7 @@ function SubmissionManagement() {
                       <p className='capitalize'>{submission.type}</p>
                     </div>
                   </div>
-                  <div className="ml-6 flex items-center space-x-3">
+                  <div className="ms-6 flex items-center space-x-3">
                     <button
                       className="text-green-600 hover:text-green-900"
                       title="Approve"

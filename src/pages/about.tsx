@@ -5,8 +5,12 @@ import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import { cmsFetcher } from "../utils/fetcher";
 import { AboutProps, RichTextBlock, MediaBlock } from "../../interfaces";
+import { useTranslations } from "next-intl";
+
 
 const AboutUs = ({ aboutData, error }: AboutProps) => {  // Function to render blocks based on their type
+  const t = useTranslations();
+
   const renderBlock = (block: RichTextBlock | MediaBlock) => {
     const cmsUrl = process.env.NEXT_PUBLIC_CMS_API_URL || 'http://127.0.0.1:1337';
     
@@ -55,7 +59,7 @@ const AboutUs = ({ aboutData, error }: AboutProps) => {  // Function to render b
   return (
     <div className="container mx-auto p-4 h-full">
       <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">
-        About Us
+        {t("about")}
       </h1>
       
       {error && (

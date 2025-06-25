@@ -3,6 +3,8 @@ import { HiXMark } from "react-icons/hi2";
 import { permissionMapping } from "@app/utils/mappings";
 import { User } from "@interfaces/index";
 import { appFetcher } from "@app/utils/fetcher";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
 
 interface PermissionModalProps {
   isOpen: boolean;
@@ -17,25 +19,30 @@ function PermissionModal({
   user,
   update,
 }: PermissionModalProps) {
+  const t = useTranslations("permissionModal");
+  const { locale } = useRouter();
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>(
-    user && Object.entries(user.permissions)
-    .map((permission) => {
-      if (permission[1]) return permission[0];
-      return "";
-    })
-    .filter((permission) => permission !== "")
-      || []
-  );
-
-  useEffect(() => {
-    setSelectedPermissions(
-      user && Object.entries(user.permissions)
+    (user &&
+      Object.entries(user.permissions)
         .map((permission) => {
           if (permission[1]) return permission[0];
           return "";
         })
-        .filter((permission) => permission !== "") || []
-    ); 
+        .filter((permission) => permission !== "")) ||
+      []
+  );
+
+  useEffect(() => {
+    setSelectedPermissions(
+      (user &&
+        Object.entries(user.permissions)
+          .map((permission) => {
+            if (permission[1]) return permission[0];
+            return "";
+          })
+          .filter((permission) => permission !== "")) ||
+        []
+    );
   }, [user]);
 
   if (!isOpen || !user) return null;
@@ -46,7 +53,7 @@ function PermissionModal({
         ? prev.filter((id) => id !== permissionId)
         : [...prev, permissionId]
     );
-    console.log(user.id)
+    console.log(user.id);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -74,10 +81,11 @@ function PermissionModal({
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+      {" "}
       <div className="bg-white rounded-lg p-6 max-w-md w-full">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-medium text-gray-900">
-            Manage Permissions for {user.name}
+            {t("title", { name: user.name })}
           </h3>
           <button
             onClick={onClose}
@@ -99,14 +107,19 @@ function PermissionModal({
                     className="focus:ring-blue-500 h-4 w-4 text-primary border-gray-300 rounded-sm"
                   />
                 </div>
-                <div className="ml-3 text-sm">
+                <div className="ms-3 text-sm">
+                  {" "}
                   <label
                     htmlFor={permission.id}
                     className="font-medium text-gray-700"
                   >
-                    {permission.name}
+                    {locale === "ar" ? permission.nameAr : permission.name}
                   </label>
-                  <p className="text-gray-500">{permission.description}</p>
+                  <p className="text-gray-500">
+                    {locale === "ar"
+                      ? permission.descriptionAr
+                      : permission.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -117,13 +130,13 @@ function PermissionModal({
               onClick={onClose}
               className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-xs text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              Cancel
-            </button>
+              {t("cancel")}
+            </button>{" "}
             <button
               type="submit"
-              className="bg-blue-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              Save Changes
+              {t("saveChanges")}
             </button>
           </div>
         </form>

@@ -5,8 +5,10 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loader from "@app/components/Loader";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 
 const Signup = () => {
+  const t = useTranslations('signup');
   const [formData, setFormData] = useState({
     firstName: "",
     middleName: "",
@@ -50,9 +52,7 @@ const Signup = () => {
       name: fullName,
       pass: formData.pass,
       email: formData.email,
-    };
-
-    try {
+    };    try {
       const req = await appFetcher.post("/api/register", data, {
         headers: { "Content-Type": "application/json" },
       });
@@ -61,103 +61,101 @@ const Signup = () => {
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response && error.response.status === 409) {
-        setErrorMessage("User with provided email already exists.");
+        setErrorMessage(t('errors.emailExists'));
       } else {
-        setErrorMessage("An error occurred during registration. Please try again.");
+        setErrorMessage(t('errors.generic'));
       }
     }
   };
-
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-md text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome!</h1>
-        <p className="text-gray-600 mb-6">Please sign up to continue</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('title')}</h1>
+        <p className="text-gray-600 mb-6">{t('subtitle')}</p>
         <form className="flex flex-col items-center w-full max-w-md" onSubmit={handleSubmit}>
-          <label className="w-full text-left font-medium text-gray-700 mt-4">
-            First Name
+          <label className="w-full text-start font-medium text-gray-700 mt-4">
+            {t('firstName')}
           </label>
           <input
             type="text"
             name="firstName"
-            placeholder="First Name"
+            placeholder={t('firstName')}
             className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
           />
-          <label className="w-full text-left font-medium text-gray-700 mt-4">
-            Middle Name
+          <label className="w-full text-start font-medium text-gray-700 mt-4">
+            {t('middleName')}
           </label>
           <input
             type="text"
             name="middleName"
-            placeholder="Middle Name"
+            placeholder={t('middleName')}
             className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
           />
-          <label className="w-full text-left font-medium text-gray-700 mt-4">
-            Last Name
+          <label className="w-full text-start font-medium text-gray-700 mt-4">
+            {t('lastName')}
           </label>
           <input
             type="text"
             name="lastName"
-            placeholder="Last Name"
+            placeholder={t('lastName')}
             className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
-          />
-          <label className="w-full text-left font-medium text-gray-700 mt-4">
-            Email Address
+          />          <label className="w-full text-start font-medium text-gray-700 mt-4">
+            {t('emailAddress')}
           </label>
           <input
             type="email"
             name="email"
-            placeholder="Email Address"
+            placeholder={t('emailAddress')}
             className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
           />
-          <label className="w-full text-left font-medium text-gray-700 mt-4">
-            Password
+          <label className="w-full text-start font-medium text-gray-700 mt-4">
+            {t('password')}
           </label>
           <input
             type="password"
             name="pass"
-            placeholder="Password"
+            placeholder={t('password')}
             className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
           />
-          <label className="w-full text-left font-medium text-gray-700 mt-4">
-            Confirm Password
+          <label className="w-full text-start font-medium text-gray-700 mt-4">
+            {t('confirmPassword')}
           </label>
           <input
             type="password"
             name="confirm"
-            placeholder="Confirm Password"
+            placeholder={t('confirmPassword')}
             className="w-full p-3 bg-gray-200 rounded-lg mt-1 focus:outline-hidden focus:ring-2 focus:ring-gray-400"
             onChange={handleChange}
             required
           />
           {!passwordMatch && (
-            <p className="text-red-500 text-sm mt-2">Passwords do not match</p>
+            <p className="text-red-500 text-sm mt-2">{t('errors.passwordMismatch')}</p>
           )}
           {errorMessage && (
             <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
           )}
-          <p className="text-sm text-gray-500 text-left w-full mt-2 mb-4">
-            It must be a combination of minimum 8 letters, numbers, and symbols.
+          <p className="text-sm text-gray-500 text-start w-full mt-2 mb-4">
+            {t('passwordRequirements')}
           </p>
           <button
             type="submit"
             className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg mt-4 hover:bg-primary"
           >
-            Sign Up
+            {t('signupButton')}
           </button>
           <p className="text-gray-600 mt-4">
-            Have an account?{" "}
+            {t('haveAccount')}{' '}
             <Link href="/login" className="text-blue-500 hover:underline">
-              Sign in
+              {t('signIn')}
             </Link>
           </p>
         </form>

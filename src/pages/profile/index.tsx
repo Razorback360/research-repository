@@ -33,13 +33,13 @@ export default function Profile() {
               <HiOutlineUser className="w-[60px] h-[60px]" />
             </span>
           </div>
-          <div className="ml-6">
+          <div className="ms-6">
             <Button className="block mb-2 text-primary border border-primary px-4 py-2 rounded-lg bg-white hover:bg-primary hover:text-white">
               Upload Photo
             </Button>
             <button className="block text-red-500">Remove</button>
           </div>
-          <div className="ml-10 text-gray-500">
+          <div className="ms-10 text-gray-500">
             <p>Image requirements:</p>
             <ul className="list-disc ms-5 space-y-1">
               <li>Min. 400 x 400px</li>

@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { HiMagnifyingGlass, HiNoSymbol, HiCog6Tooth, HiOutlineCheckCircle  } from 'react-icons/hi2';
-import PermissionModal from './PermissionModal';
-import { User } from '@interfaces/index';
-import { appFetcher } from '@app/utils/fetcher';
-import { permissionMapping } from '@app/utils/mappings';
-
+import React, { useEffect, useState } from "react";
+import {
+  HiMagnifyingGlass,
+  HiNoSymbol,
+  HiCog6Tooth,
+  HiOutlineCheckCircle,
+} from "react-icons/hi2";
+import PermissionModal from "./PermissionModal";
+import { User } from "@interfaces/index";
+import { appFetcher } from "@app/utils/fetcher";
+import { permissionMapping } from "@app/utils/mappings";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
 
 function UserManagement() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [permissionModalOpen, setPermissionModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   const [users, setUsers] = useState<User[]>([]);
   const [trigger, setTrigger] = useState(false);
+  const router = useRouter();
+  const t = useTranslations();
 
   useEffect(() => {
     const getUsers = async () => {
@@ -38,17 +46,18 @@ function UserManagement() {
       action: user.bannedAt ? "unban" : "ban",
     });
     setTrigger(!trigger);
-  }
+  };
 
   const update = () => setTrigger(!trigger);
 
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className='flex items-center flex-col'>
+    <div className="flex items-center flex-col">
       {/* Search Bar */}
       <div className="relative w-full mt-2">
         <div className="absolute inset-y-0 left-0 ps-3 flex items-center pointer-events-none">
@@ -75,25 +84,39 @@ function UserManagement() {
                       <p className="text-sm font-medium text-gray-900">
                         {user.name}
                       </p>
-                      <div className="ml-2 shrink-0">
-                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                          user.bannedAt ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
-                        }`}>
-                          {user.bannedAt ? `Banned since ${user.bannedAt}` : 'Active'}
+                      <div className="ms-2 shrink-0">
+                        <span
+                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            user.bannedAt
+                              ? "bg-red-100 text-red-800"
+                              : "bg-green-100 text-green-800"
+                          }`}
+                        >
+                          {user.bannedAt
+                            ? `Banned since ${user.bannedAt}`
+                            : "Active"}
                         </span>
                       </div>
                     </div>
                     <p className="mt-1 text-sm text-gray-500">{user.email}</p>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Permissions: {Object.entries(user.permissions).map(([key, value]) => {
-                          if(key !== 'id' && key !== 'userId')
-                          return value ? `${permissionMapping[key as keyof typeof permissionMapping].name}` : '';
-                        }).filter((permission) => permission !== '').join(", ")}
+                        {t("permissions")}
+                        {Object.entries(user.permissions)
+                          .map(([key, value]) => {
+                            if (key !== "id" && key !== "userId")
+                              return value
+                                ? `${router.locale == "en" 
+                                  ? permissionMapping[key as keyof typeof permissionMapping].name 
+                                  : permissionMapping[key as keyof typeof permissionMapping].nameAr}`
+                                : "";
+                          })
+                          .filter((permission) => permission !== "")
+                          .join(", ")}
                       </p>
                     </div>
                   </div>
-                  <div className="ml-6 flex items-center space-x-3">
+                  <div className="ms-6 flex items-center space-x-3">
                     <button
                       onClick={() => handlePermissions(user)}
                       className="text-primary hover:text-blue-900"
@@ -103,12 +126,18 @@ function UserManagement() {
                     </button>
                     <button
                       className={`${
-                        user.bannedAt ? 'text-green-600 hover:text-green-900' : 'text-red-600 hover:text-red-900'
+                        user.bannedAt
+                          ? "text-green-600 hover:text-green-900"
+                          : "text-red-600 hover:text-red-900"
                       }`}
-                      title={user.bannedAt ? 'Unban User' : 'Ban User'}
+                      title={user.bannedAt ? "Unban User" : "Ban User"}
                       onClick={() => handleBan(user)}
                     >
-                      {user.bannedAt ? <HiOutlineCheckCircle className="h-5 w-5" /> : <HiNoSymbol className="h-5 w-5" />}
+                      {user.bannedAt ? (
+                        <HiOutlineCheckCircle className="h-5 w-5" />
+                      ) : (
+                        <HiNoSymbol className="h-5 w-5" />
+                      )}
                     </button>
                   </div>
                 </div>

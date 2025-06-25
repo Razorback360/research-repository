@@ -2,6 +2,7 @@ import { appFetcher } from "@app/utils/fetcher";
 import React, { useState } from "react";
 import { HiXMark } from "react-icons/hi2";
 import { Submission } from "@interfaces/index";
+import { useTranslations } from "next-intl";
 
 interface ActionModalProps {
   isOpen: boolean;
@@ -11,7 +12,14 @@ interface ActionModalProps {
   updateSubmissions: () => void;
 }
 
-function ActionModal({ isOpen, onClose, type, submission, updateSubmissions}: ActionModalProps) {
+function ActionModal({
+  isOpen,
+  onClose,
+  type,
+  submission,
+  updateSubmissions,
+}: ActionModalProps) {
+  const t = useTranslations("actionModal");
   const [reason, setReason] = useState("");
 
   if (!isOpen || !submission) return null;
@@ -43,10 +51,11 @@ function ActionModal({ isOpen, onClose, type, submission, updateSubmissions}: Ac
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+      {" "}
       <div className="bg-white rounded-lg p-6 max-w-md w-full">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-medium text-gray-900">
-            {type === "deny" ? "Deny Submission" : "Request Edit"}
+            {type === "deny" ? t("denySubmission") : t("requestEdit")}
           </h3>
           <button
             onClick={onClose}
@@ -56,12 +65,13 @@ function ActionModal({ isOpen, onClose, type, submission, updateSubmissions}: Ac
           </button>
         </div>
         <form onSubmit={handleSubmit}>
+          {" "}
           <div className="mb-4">
             <label
               htmlFor="reason"
               className="block text-sm font-medium text-gray-700"
             >
-              Reason
+              {t("reason")}
             </label>
             <textarea
               id="reason"
@@ -71,20 +81,20 @@ function ActionModal({ isOpen, onClose, type, submission, updateSubmissions}: Ac
               onChange={(e) => setReason(e.target.value)}
               required
             />
-          </div>
+          </div>{" "}
           <div className="flex justify-end space-x-3">
             <button
               type="button"
               onClick={onClose}
               className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-xs text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              Cancel
+              {t("cancel")}
             </button>
             <button
               type="submit"
               className="bg-primary py-2 px-4 border border-transparent rounded-md shadow-xs text-sm font-medium text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              Confirm
+              {t("confirm")}
             </button>
           </div>
         </form>

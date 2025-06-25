@@ -25,7 +25,8 @@ const Header = () => {
   //switch lang
   const switchLanguage = () => {
     const newLang = router.locale === "en" ? "ar" : "en";
-    router.push(router.asPath, undefined, { locale: newLang})
+      router.push(router.asPath, undefined, { locale: newLang})
+      router.reload();
   };
 
   return (

@@ -135,6 +135,31 @@ const Header = () => {
           "flex-col h-full w-full bg-white"
         )}
       >
+        <div className="flex flex-row justify-between items-center w-full border-b px-10">
+          <div className="flex flex-row justify-center items-center w-auto">
+          <div className="w-32 h-24 relative">
+            <Image
+              src="/logo.png"
+              alt={t("header.logo.alt")}
+              layout="fill"
+              objectFit="contain"
+            ></Image>
+          </div>
+          <p className="text-center text-xl ps-4 font-bold  whitespace-nowrap">
+            {t("header.title")}
+          </p>
+        </div>
+        <div className="lg:hidden flex-row justify-end items-center w-full space-x-2 flex">
+          <a
+            className="rounded-full flex items-center justify-center hover:cursor-pointer hover:shadow-md hover:border-gray-200 p-2 border border-white"
+            onClick={() => {
+              setSidebarState(!sidebarState);
+            }}
+          >
+            <HiBars3 className="w-[24px] h-[24px]" />
+          </a>
+        </div>
+        </div>
         <nav className="flex flex-col space-y-5 justify-center items-center text-md font-medium mt-5 text-center">
           <Link className="p-2 border-b w-1/2" href="/">
             {t("header.navigation.home")}

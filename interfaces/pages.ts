@@ -1,4 +1,4 @@
-import { BlockComponent, RichTextBlock, MediaBlock } from './blocks';
+import { BlockComponent, RichTextBlock, MediaBlock, QuoteBlock, MediaFile } from './blocks';
 
 // About page data interface
 export interface AboutData {
@@ -11,6 +11,32 @@ export interface AboutData {
 // About page props interface
 export interface AboutProps {
   aboutData: AboutData;
+  error?: string;
+}
+
+export interface ArticleData {
+  id: number;
+  documentId: string;
+  title: string;
+  description: string,
+  slug: string,
+  publishedAt: string,
+  blocks: Array<RichTextBlock | MediaBlock | QuoteBlock>;
+  author: {
+    name: string;
+    email: string;
+    profTitle: string;
+    biography: string;
+    avatar: MediaFile;
+  };
+  cover: MediaFile;
+  category: {
+    name: string;
+  }
+}
+
+export interface ArticleProps {
+  articleData: ArticleData;
   error?: string;
 }
 

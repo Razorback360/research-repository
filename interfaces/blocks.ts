@@ -9,6 +9,11 @@ export interface RichTextBlock extends BlockComponent {
   body: string;
 }
 
+export interface QuoteBlock extends BlockComponent {
+  title: string;
+  body: string;
+}
+
 // Media file interface
 export interface MediaFile {
   id: number;

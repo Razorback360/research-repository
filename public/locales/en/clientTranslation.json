@@ -3,7 +3,7 @@
     "logo": {
       "alt": "Picture of the Logo"
     },
-    "title": "SRDRI | KSU",
+    "title": "SRDRI",
     "navigation": {
       "home": "Home",
       "submitData": "Submit Data",
@@ -169,6 +169,17 @@
       "passwordMismatch": "Passwords do not match",
       "emailExists": "User with provided email already exists.",
       "generic": "An error occurred during registration. Please try again."
+    }
+  },
+  "blog": {
+    "notFound": "Article not found",
+    "readingTime": "{minutes} min read",
+    "author": {
+      "defaultTitle": "Content Creator",
+      "defaultBio": "{name} is a content creator for the King Saud University Research Repository. Specializing in {category} topics, they regularly contribute to the repository's knowledge base and research articles."
+    },
+    "metadata": {
+      "published": "Published on"
     }
   }
 }

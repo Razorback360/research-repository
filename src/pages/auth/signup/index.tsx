@@ -53,7 +53,7 @@ const Signup = () => {
     };
 
     try {
-      const req = await appFetcher.post("/api/register", data, {
+      const req = await appFetcher.post("/api/auth/register", data, {
         headers: { "Content-Type": "application/json" },
       });
       if (req.status === 201) {

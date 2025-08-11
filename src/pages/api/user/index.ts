@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@db/index"; // Adjust the import according to your project structure
-import { authOptions } from "../auth/[...nextauth]";
+import { authOptions } from "@app/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { checkPermission } from "@app/utils/permissions";
 

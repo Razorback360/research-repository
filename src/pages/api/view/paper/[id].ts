@@ -4,7 +4,7 @@ import path from "path";
 import fs from "fs";
 import { checkPermission } from "@app/utils/permissions";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]";
+import { authOptions } from "@app/pages/api/auth/[...nextauth]";
 // API route handler for viewing paper details & downloading paper file
 export default async function handler(
   req: NextApiRequest,

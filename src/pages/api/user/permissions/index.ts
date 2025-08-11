@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { authOptions } from "../../auth/[...nextauth]";
+import { authOptions } from "@app/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { addPermission, checkPermission, removePermission } from "@app/utils/permissions";
 

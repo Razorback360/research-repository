@@ -3,6 +3,8 @@ import 'dotenv/config'
 const unvalidatedEnv = {
     // Database (Not used, for validation purposes.)
     DATABASE_URL: process.env.DATABASE_URL,
+    // Redis Connection String
+    REDIS_URL: process.env.REDIS_URL,
     // ORCID OAuth
     ORCID_CLIENT_ID: process.env.ORCID_CLIENT_ID,
     ORCID_CLIENT_SECRET: process.env.ORCID_CLIENT_SECRET,

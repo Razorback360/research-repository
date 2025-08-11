@@ -19,8 +19,8 @@ export const sendOtpEmail = async (email: string, otp: string, username?: string
             address: env.EMAIL_USER
         },
         to: email,
-        subject: 'Your OTP Code',
-        text: `Your OTP code is ${otp}`,
+        subject: 'Your Email Verification Link',
+        text: `Your email verification link`,
         html: `
         <!DOCTYPE html>
         <html>
@@ -30,14 +30,23 @@ export const sendOtpEmail = async (email: string, otp: string, username?: string
           </head>
           <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background-color: #f8f9fa; padding: 30px; border-radius: 10px;">
-              <h2 style="color: #333; text-align: center;">Verification Code</h2>
+              <h2 style="color: #333; text-align: center;">Email Verification</h2>
               ${username ? `<p>Hello ${username},</p>` : '<p>Hello,</p>'}
-              <p>Your verification code for the Saudi Research Data Repository Initiative is:</p>
-              <div style="background-color: #007bff; color: white; font-size: 24px; font-weight: bold; text-align: center; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                ${otp}
+              <p>Your verification link to activate your account for the Saudi Research Data Repository Initiative application is:</p>
+              <div style="text-align: center;">
+                <a href="${otp}" style="display: inline-block; background-color: #007bff; color: white; font-size: 24px; font-weight: bold; text-align: center; padding: 15px; border-radius: 5px; margin: 20px 0; text-decoration: none;">
+                  Verify Now
+                </a>
               </div>
               <p style="color: #666; font-size: 14px;">
-                This code will expire in 10 minutes. If you didn't request this code, please ignore this email.
+                This link will expire in 60 minutes. If you didn't request this link, please ignore this email.
+              </p>
+              // Add a if you ar not able to click the button, copy and paste the link below
+              <p style="color: #666; font-size: 14px;">
+                If you are not able to click the button, copy and paste the link below in your browser:
+              </p>
+              <p style="color: #007bff; font-size: 14px; text-align: center;">
+                ${otp}
               </p>
               <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
               <p style="color: #999; font-size: 12px; text-align: center;">

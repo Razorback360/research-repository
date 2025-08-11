@@ -14,3 +14,7 @@ export const retrieve = async (key: string) => {
     const value = await redisClient.get(key);
     return value;
 }
+
+export const invalidate = async (key: string) => {
+    await redisClient.del(key);
+}

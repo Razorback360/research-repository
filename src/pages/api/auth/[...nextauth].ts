@@ -97,7 +97,7 @@ export const authOptions = {
     strategy: "database",
   },
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account }) {
       const perms = await prisma.permission.findFirst({
         where: {
           userId: user.id,
@@ -111,6 +111,21 @@ export const authOptions = {
             userId: user.id,
           },
         });
+      }
+
+      if(account?.provider !== "credentials") {
+        // Check if emailVerified is already set
+        const existingUser = await prisma.user.findUnique({
+          where: { id: user.id },
+          select: { emailVerified: true }
+        });
+        // Only update if not already verified
+        if (!existingUser?.emailVerified) {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { emailVerified: new Date() }
+          });
+        }
       }
       return true;
     },
@@ -139,12 +154,21 @@ export const authOptions = {
           DOWNLOAD: true,
         },
       });
+      const verified = await prisma.user.findUnique({
+        where: {
+          id: user.id,
+        },
+        select: {
+          emailVerified: true,
+        },
+      });
 
       const use = {
         id: user.id,
         name: session.user.name,
         email: session.user.email,
         image: user.image,
+        emailVerified: verified?.emailVerified,
         permissions: permissions
       };
       session.user = use;

@@ -35,7 +35,7 @@ const Paper = ({ data }: { data: DataProp }) => {
     return <Loader/>
   }
   if(session.status === "unauthenticated" || !session.data?.user?.permissions.READ) {
-    router.push("/login");
+    router.push("/auth/login");
     return <Loader/>
   }
 
@@ -141,7 +141,7 @@ export const getServerSideProps = async (context: {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       return {
         redirect: {
-          destination: "/login",
+          destination: "/auth/login",
           permanent: false,
         },
       };

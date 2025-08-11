@@ -11,7 +11,7 @@ const Upload: FC = () => {
     return <Loader/>
   }
   if(session.status === "unauthenticated" || !session.data?.user?.permissions.WRITE) {
-    router.push("/login");
+    router.push("/auth/login");
     return <Loader/>
   }
 

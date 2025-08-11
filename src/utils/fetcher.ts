@@ -1,17 +1,18 @@
 import axios from 'axios';
+import { env } from "@app/utils/env"
 
 export const appFetcher = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_APP_URL || 'http://127.0.0.1:3000',
+  baseURL: env.NEXT_PUBLIC_APP_URL,
   headers: {
     'Accept': 'application/json',
   },
 });
 
 export const cmsFetcher = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_CMS_API_URL || 'http://127.0.0.1:1337',
+  baseURL: env.NEXT_PUBLIC_CMS_API_URL,
   headers: {
     'Accept': 'application/json',
-    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CMS_READ_ONLY_API_KEY}`,
+    'Authorization': `Bearer ${env.NEXT_PUBLIC_CMS_READ_ONLY_API_KEY}`,
   },
 });
 

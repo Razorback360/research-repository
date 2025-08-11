@@ -3,12 +3,13 @@ import { GetServerSideProps } from "next";
 import Markdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
-import { cmsFetcher } from "../utils/fetcher";
+import { cmsFetcher } from "@app/utils/fetcher";
 import { AboutProps, RichTextBlock, MediaBlock } from "../../interfaces";
+import { env } from "@app/utils/env"
 
 const AboutUs = ({ aboutData, error }: AboutProps) => {  // Function to render blocks based on their type
   const renderBlock = (block: RichTextBlock | MediaBlock) => {
-    const cmsUrl = process.env.NEXT_PUBLIC_CMS_API_URL || 'http://127.0.0.1:1337';
+    const cmsUrl = env.NEXT_PUBLIC_CMS_API_URL || 'http://127.0.0.1:1337';
     
     if (block.__component === "shared.rich-text") {
       return (

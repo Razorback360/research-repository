@@ -8,19 +8,21 @@ import AzureAdProvider from "next-auth/providers/azure-ad";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "@app/utils/hash";
-import { randomUUID } from "crypto";
+import { randomUUID, verify } from "crypto";
 import { encode as defaultEncode } from "next-auth/jwt";
 import { Permission } from "@prisma/client";
+import { env } from "@app/utils/env"
+import { signIn } from "next-auth/react";
 
-// const ORCID_CLIENT_ID = process.env.ORCID_CLIENT_ID
-// const ORCID_CLIENT_SECRET = process.env.ORCID_CLIENT_SECRET
-const LINKEDIN_CLIENT_ID = process.env.LINKEDIN_CLIENT_ID as string;
-const LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET as string;
-const AZURE_AD_CLIENT_ID = process.env.AZURE_AD_CLIENT_ID as string;
-const AZURE_AD_CLIENT_SECRET = process.env.AZURE_AD_CLIENT_SECRET as string;
-const AZURE_AD_TENANT_ID = process.env.AZURE_AD_TENANT_ID as string;
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string;
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string;
+// const ORCID_CLIENT_ID = env.ORCID_CLIENT_ID;
+// const ORCID_CLIENT_SECRET = env.ORCID_CLIENT_SECRET;
+const LINKEDIN_CLIENT_ID = env.LINKEDIN_CLIENT_ID;
+const LINKEDIN_CLIENT_SECRET = env.LINKEDIN_CLIENT_SECRET;
+const AZURE_AD_CLIENT_ID = env.AZURE_AD_CLIENT_ID;
+const AZURE_AD_CLIENT_SECRET = env.AZURE_AD_CLIENT_SECRET;
+const AZURE_AD_TENANT_ID = env.AZURE_AD_TENANT_ID;
+const GOOGLE_CLIENT_ID = env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = env.GOOGLE_CLIENT_SECRET;
 
 export const authOptions = {
   providers: [
@@ -149,6 +151,12 @@ export const authOptions = {
       return session;
     },
   },
+  pages: {
+    signIn: "/auth/auth/login",
+    error: "/404",
+    newUser: "/auth/onboarding",
+    verifyRequest: "/auth/verify",
+  }
 };
 
 export default NextAuth(authOptions);

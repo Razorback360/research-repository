@@ -13,6 +13,7 @@ import { encode as defaultEncode } from "next-auth/jwt";
 import { Permission } from "@prisma/client";
 import { env } from "@app/utils/env"
 import { signIn } from "next-auth/react";
+import { appFetcher } from "@app/utils/fetcher";
 
 // const ORCID_CLIENT_ID = env.ORCID_CLIENT_ID;
 // const ORCID_CLIENT_SECRET = env.ORCID_CLIENT_SECRET;
@@ -113,19 +114,22 @@ export const authOptions = {
         });
       }
 
-      if(account?.provider !== "credentials") {
-        // Check if emailVerified is already set
-        const existingUser = await prisma.user.findUnique({
+      // Check if emailVerified is already set
+      const existingUser = await prisma.user.findUnique({
+        where: { id: user.id },
+        select: { emailVerified: true }
+      });
+      // Only update if not already verified and provider is not credentials
+      if (account?.provider !== "credentials" && !existingUser?.emailVerified) {
+        await prisma.user.update({
           where: { id: user.id },
-          select: { emailVerified: true }
+          data: { emailVerified: new Date() }
         });
-        // Only update if not already verified
-        if (!existingUser?.emailVerified) {
-          await prisma.user.update({
-            where: { id: user.id },
-            data: { emailVerified: new Date() }
-          });
-        }
+      } else if (!existingUser?.emailVerified) {
+        // Send to api route to send email verification
+        await appFetcher.post("/api/auth/verify", {
+          userId: user.id
+        });
       }
       return true;
     },

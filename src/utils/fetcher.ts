@@ -20,7 +20,7 @@ export const cmsFetcher = axios.create({
 appFetcher.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('API request error:', error);
+    console.log('API request error:', error);
     return Promise.reject(error);
   }
 );
@@ -28,7 +28,7 @@ appFetcher.interceptors.response.use(
 cmsFetcher.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('CMS request error:', error);
+    console.log('CMS request error:', error);
     return Promise.reject(error);
   }
 );

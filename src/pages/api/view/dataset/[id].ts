@@ -4,7 +4,7 @@ import path from "path";
 import fs from "fs";
 import * as fsPromise from "fs/promises";
 import { checkPermission } from "@app/utils/permissions";
-import { authOptions } from "../../auth/[...nextauth]";
+import { authOptions } from "@app/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 
 // API route handler for viewing dataset details & downloading dataset file

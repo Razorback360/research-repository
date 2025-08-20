@@ -52,12 +52,14 @@ const Signup = () => {
       name: fullName,
       pass: formData.pass,
       email: formData.email,
-    };    try {
-      const req = await appFetcher.post("/api/register", data, {
+    };
+
+    try {
+      const req = await appFetcher.post("/api/auth/register", data, {
         headers: { "Content-Type": "application/json" },
       });
       if (req.status === 201) {
-        location.href = "/login";
+        location.href = "/auth/login";
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response && error.response.status === 409) {
@@ -154,7 +156,7 @@ const Signup = () => {
           </button>
           <p className="text-gray-600 mt-4">
             {t('haveAccount')}{' '}
-            <Link href="/login" className="text-blue-500 hover:underline">
+            <Link href="/auth/login" className="text-blue-500 hover:underline">
               {t('signIn')}
             </Link>
           </p>

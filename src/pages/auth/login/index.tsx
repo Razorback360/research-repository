@@ -87,7 +87,7 @@ const Login = () => {
           </button>
           <p className="text-sm text-gray-600 mt-4">
             {t("noAccount")}{" "}
-            <Link href="/signup" className="text-blue-500 hover:underline">
+            <Link href="/auth/signup" className="text-blue-500 hover:underline">
               {t("signUp")}
             </Link>
           </p>

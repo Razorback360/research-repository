@@ -5,6 +5,7 @@ import { cmsFetcher } from "../utils/fetcher";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { HomeProps } from "../../interfaces";
+import { env } from "@app/utils/env"
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 // Render SVG icon from CMS data
@@ -33,7 +34,7 @@ const Home: FC<HomeProps> = ({ data, error }) => {
     );
   }
 
-  const cmsUrl = process.env.NEXT_PUBLIC_CMS_API_URL || "http://127.0.0.1:1337";
+  const cmsUrl = env.NEXT_PUBLIC_CMS_API_URL || "http://127.0.0.1:1337";
 
   return (
     <div className="w-full flex flex-col">
@@ -112,7 +113,7 @@ const Home: FC<HomeProps> = ({ data, error }) => {
       </div>
       <div className="text-center mt-8 mb-10">
         <Link
-          href="/signup"
+          href="/auth/signup"
           className="px-6 py-3 text-[#ffffff] bg-primary hover:bg-primary rounded-md font-medium"
         >
           {t("home.joinUs")}

@@ -44,7 +44,7 @@ const SubmitPaperForm = () => {
     session.status === "unauthenticated" ||
     !session.data?.user?.permissions.WRITE
   ) {
-    router.push("/login");
+    router.push("/auth/login");
     return <Loader/>
   }
 

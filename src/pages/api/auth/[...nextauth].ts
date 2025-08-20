@@ -8,19 +8,22 @@ import AzureAdProvider from "next-auth/providers/azure-ad";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "@app/utils/hash";
-import { randomUUID } from "crypto";
+import { randomUUID, verify } from "crypto";
 import { encode as defaultEncode } from "next-auth/jwt";
 import { Permission } from "@prisma/client";
+import { env } from "@app/utils/env"
+import { signIn } from "next-auth/react";
+import { appFetcher } from "@app/utils/fetcher";
 
-// const ORCID_CLIENT_ID = process.env.ORCID_CLIENT_ID
-// const ORCID_CLIENT_SECRET = process.env.ORCID_CLIENT_SECRET
-const LINKEDIN_CLIENT_ID = process.env.LINKEDIN_CLIENT_ID as string;
-const LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET as string;
-const AZURE_AD_CLIENT_ID = process.env.AZURE_AD_CLIENT_ID as string;
-const AZURE_AD_CLIENT_SECRET = process.env.AZURE_AD_CLIENT_SECRET as string;
-const AZURE_AD_TENANT_ID = process.env.AZURE_AD_TENANT_ID as string;
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string;
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string;
+// const ORCID_CLIENT_ID = env.ORCID_CLIENT_ID;
+// const ORCID_CLIENT_SECRET = env.ORCID_CLIENT_SECRET;
+const LINKEDIN_CLIENT_ID = env.LINKEDIN_CLIENT_ID;
+const LINKEDIN_CLIENT_SECRET = env.LINKEDIN_CLIENT_SECRET;
+const AZURE_AD_CLIENT_ID = env.AZURE_AD_CLIENT_ID;
+const AZURE_AD_CLIENT_SECRET = env.AZURE_AD_CLIENT_SECRET;
+const AZURE_AD_TENANT_ID = env.AZURE_AD_TENANT_ID;
+const GOOGLE_CLIENT_ID = env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = env.GOOGLE_CLIENT_SECRET;
 
 export const authOptions = {
   providers: [
@@ -95,7 +98,7 @@ export const authOptions = {
     strategy: "database",
   },
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account }) {
       const perms = await prisma.permission.findFirst({
         where: {
           userId: user.id,
@@ -108,6 +111,24 @@ export const authOptions = {
           data: {
             userId: user.id,
           },
+        });
+      }
+
+      // Check if emailVerified is already set
+      const existingUser = await prisma.user.findUnique({
+        where: { id: user.id },
+        select: { emailVerified: true }
+      });
+      // Only update if not already verified and provider is not credentials
+      if (account?.provider !== "credentials" && !existingUser?.emailVerified) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { emailVerified: new Date() }
+        });
+      } else if (!existingUser?.emailVerified) {
+        // Send to api route to send email verification
+        await appFetcher.post("/api/auth/verify", {
+          userId: user.id
         });
       }
       return true;
@@ -137,18 +158,33 @@ export const authOptions = {
           DOWNLOAD: true,
         },
       });
+      const verified = await prisma.user.findUnique({
+        where: {
+          id: user.id,
+        },
+        select: {
+          emailVerified: true,
+        },
+      });
 
       const use = {
         id: user.id,
         name: session.user.name,
         email: session.user.email,
         image: user.image,
+        emailVerified: verified?.emailVerified,
         permissions: permissions
       };
       session.user = use;
       return session;
     },
   },
+  pages: {
+    signIn: "/auth/auth/login",
+    error: "/404",
+    newUser: "/auth/onboarding",
+    verifyRequest: "/auth/verify",
+  }
 };
 
 export default NextAuth(authOptions);

@@ -1,8 +1,8 @@
-const Loader = () => {
+const Loader = ({pageLoader=true}) => {
   const circleCommonClasses = "h-2.5 w-2.5 bg-primary rounded-full";
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className={`flex flex-col items-center justify-center ${pageLoader ? "h-full" : "h-auto mt-4"}`}>
       <div className="flex">
         <div className={`${circleCommonClasses} me-1 animate-bounce`}></div>
         <div className={`${circleCommonClasses} me-1 animate-bounce200`}></div>

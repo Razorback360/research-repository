@@ -2,19 +2,22 @@ import type { FC } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Loader from "@app/components/Loader";
+import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
 
 const Upload: FC = () => {
   const t = useTranslations();
   const session = useSession();
-
+  const router = useRouter();
+  
   if(session.status === "loading") {
     return <Loader/>
   }
-  // if(session.status === "unauthenticated" || !session.data?.user?.permissions.WRITE) {
-  //   router.push("/login");
-  //   return <Loader/>
-  // }
+  if(session.status === "unauthenticated" || !session.data?.user?.permissions.WRITE) {
+    router.push("/auth/login");
+    return <Loader/>
+  }
+
 
   return (
     <main className="flex flex-col items-center p-8 justify-center h-3/4">

@@ -19,7 +19,7 @@ const NotFound: FC = () => {
         {t("notFound.message")}
       </p>
       <Link
-        className="bg-white text-blue-500 border border-blue-500 py-2 px-4 rounded-lg mt-4 hover:shadow-lg shadow-md text-lg flex justify-center items-center"
+        className="bg-white text-primary border border-primary py-2 px-4 rounded-lg mt-4 hover:shadow-lg shadow-md text-lg flex justify-center items-center"
         href="/"
       >
         <p>{t("notFound.homePage")}</p>

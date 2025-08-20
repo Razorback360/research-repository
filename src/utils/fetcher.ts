@@ -1,17 +1,18 @@
 import axios from 'axios';
+import { env } from "@app/utils/env"
 
 export const appFetcher = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_APP_URL || 'http://127.0.0.1:3000',
+  baseURL: env.NEXT_PUBLIC_APP_URL,
   headers: {
     'Accept': 'application/json',
   },
 });
 
 export const cmsFetcher = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_CMS_API_URL || 'http://127.0.0.1:1337',
+  baseURL: env.NEXT_PUBLIC_CMS_API_URL,
   headers: {
     'Accept': 'application/json',
-    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CMS_READ_ONLY_API_KEY}`,
+    'Authorization': `Bearer ${env.NEXT_PUBLIC_CMS_READ_ONLY_API_KEY}`,
   },
 });
 
@@ -19,7 +20,7 @@ export const cmsFetcher = axios.create({
 appFetcher.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('API request error:', error);
+    console.log('API request error:', error);
     return Promise.reject(error);
   }
 );
@@ -27,7 +28,7 @@ appFetcher.interceptors.response.use(
 cmsFetcher.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('CMS request error:', error);
+    console.log('CMS request error:', error);
     return Promise.reject(error);
   }
 );

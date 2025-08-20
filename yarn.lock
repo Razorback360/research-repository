@@ -3120,6 +3120,51 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redis/bloom@npm:5.8.0":
+  version: 5.8.0
+  resolution: "@redis/bloom@npm:5.8.0"
+  peerDependencies:
+    "@redis/client": ^5.8.0
+  checksum: 10c0/3f4f54b827225c393481d5da58c6fb252590376f8f1ff8819f98c41e2d9ae577f4adb68435854f78a29a3ca81f8cf58b2a5b2d9c74cc081e1e895739bfbbdf23
+  languageName: node
+  linkType: hard
+
+"@redis/client@npm:5.8.0":
+  version: 5.8.0
+  resolution: "@redis/client@npm:5.8.0"
+  dependencies:
+    cluster-key-slot: "npm:1.1.2"
+  checksum: 10c0/ae28efb7cd7899784ebc41b21b547a256d597a7e8661c25146156be1cfa80ab0ffb838553a5702d0e42caa17ae9cc3d0aa7ae188483222440477233e7a46be3e
+  languageName: node
+  linkType: hard
+
+"@redis/json@npm:5.8.0":
+  version: 5.8.0
+  resolution: "@redis/json@npm:5.8.0"
+  peerDependencies:
+    "@redis/client": ^5.8.0
+  checksum: 10c0/47fe778d9c6a979a735bcdba39141eaa08f7d8678039771a00c1904117da7e5264666438c72c31deae2ab36168582b8f1c75ae2050a11756d2df6d0ed5f5eca9
+  languageName: node
+  linkType: hard
+
+"@redis/search@npm:5.8.0":
+  version: 5.8.0
+  resolution: "@redis/search@npm:5.8.0"
+  peerDependencies:
+    "@redis/client": ^5.8.0
+  checksum: 10c0/81a61e2796cc4d90bca56ee946f4885dbf9181aadcfc8719ce457af2c7ac97ce349e52456df96765364d0bbfd7a13744fcfb12e88e837baa58b56b96ab6a312e
+  languageName: node
+  linkType: hard
+
+"@redis/time-series@npm:5.8.0":
+  version: 5.8.0
+  resolution: "@redis/time-series@npm:5.8.0"
+  peerDependencies:
+    "@redis/client": ^5.8.0
+  checksum: 10c0/054325b643e8109bcff4ab26c2592279e3d3da25c5d19a5e9bb42d9c42011e487bf7edc94d34731ab36f0e082a4a612d85347763c9ad4da73df8c34faaca0b28
+  languageName: node
+  linkType: hard
+
 "@rtsao/scc@npm:^1.1.0":
   version: 1.1.0
   resolution: "@rtsao/scc@npm:1.1.0"
@@ -3973,6 +4018,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dotenv@npm:^8.2.3":
+  version: 8.2.3
+  resolution: "@types/dotenv@npm:8.2.3"
+  dependencies:
+    dotenv: "npm:*"
+  checksum: 10c0/af9178da617959cddc8259aaa3f16c474523ead469f4a03490de2f2d1cafc8615c5d0d1ed3fad837096218126421c38cd46b4065548bb5aee3cc002c518b69f7
+  languageName: node
+  linkType: hard
+
 "@types/estree-jsx@npm:^1.0.0":
   version: 1.0.5
   resolution: "@types/estree-jsx@npm:1.0.5"
@@ -4062,6 +4116,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/nodemailer@npm:^6.4.17":
+  version: 6.4.17
+  resolution: "@types/nodemailer@npm:6.4.17"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/689abb3005cf36cf89c2abe56f0aa4469a37e0814633a73fbeb35732e856f4b0d7ab32b6d91585038b6941f5b70db58ec2bd147ebe9f73e528eb6c99604f4e82
+  languageName: node
+  linkType: hard
+
 "@types/parse-json@npm:^4.0.0":
   version: 4.0.2
   resolution: "@types/parse-json@npm:4.0.2"
@@ -4104,6 +4167,15 @@ __metadata:
   dependencies:
     csstype: "npm:^3.0.2"
   checksum: 10c0/4908772be6dc941df276931efeb0e781777fa76e4d5d12ff9f75eb2dcc2db3065e0100efde16fde562c5bafa310cc8f50c1ee40a22640459e066e72cd342143e
+  languageName: node
+  linkType: hard
+
+"@types/redis@npm:^4.0.11":
+  version: 4.0.11
+  resolution: "@types/redis@npm:4.0.11"
+  dependencies:
+    redis: "npm:*"
+  checksum: 10c0/a543607ce2fdb8bf0352bbe5f38ae0b48a48737c497e77d9a28240c8d440c1646b191d4e09f9eb2f93753f2a2b66bb8e7009e7ececc1a29e97bbc88beea542f4
   languageName: node
   linkType: hard
 
@@ -5077,6 +5149,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cluster-key-slot@npm:1.1.2":
+  version: 1.1.2
+  resolution: "cluster-key-slot@npm:1.1.2"
+  checksum: 10c0/d7d39ca28a8786e9e801eeb8c770e3c3236a566625d7299a47bb71113fb2298ce1039596acb82590e598c52dbc9b1f088c8f587803e697cb58e1867a95ff94d3
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^2.0.1":
   version: 2.0.1
   resolution: "color-convert@npm:2.0.1"
@@ -5452,6 +5531,13 @@ __metadata:
     "@babel/runtime": "npm:^7.8.7"
     csstype: "npm:^3.0.2"
   checksum: 10c0/f735074d66dd759b36b158fa26e9d00c9388ee0e8c9b16af941c38f014a37fc80782de83afefd621681b19ac0501034b4f1c4a3bff5caa1b8667f0212b5e124c
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:*, dotenv@npm:^17.2.1":
+  version: 17.2.1
+  resolution: "dotenv@npm:17.2.1"
+  checksum: 10c0/918dd2f9d8b8f86b0afabad9534793d51de3718c437f9e7b6525628cf68c1d4ae768cc37a5afff38c066f58a8ecf549f4ac6cd5617485bd328e826112cc2650a
   languageName: node
   linkType: hard
 
@@ -9187,6 +9273,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nodemailer@npm:^7.0.5":
+  version: 7.0.5
+  resolution: "nodemailer@npm:7.0.5"
+  checksum: 10c0/8fcd417a5dc6cdde4193c3f27c8ae07f6998527578c1e70adfa5f2f00121471fcaa14abbf26b2a8c513ac8505c956f437aa2c2a693606eb0e8c68bc712698fa7
+  languageName: node
+  linkType: hard
+
 "nopt@npm:^5.0.0":
   version: 5.0.0
   resolution: "nopt@npm:5.0.0"
@@ -10242,6 +10335,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"redis@npm:*, redis@npm:^5.8.0":
+  version: 5.8.0
+  resolution: "redis@npm:5.8.0"
+  dependencies:
+    "@redis/bloom": "npm:5.8.0"
+    "@redis/client": "npm:5.8.0"
+    "@redis/json": "npm:5.8.0"
+    "@redis/search": "npm:5.8.0"
+    "@redis/time-series": "npm:5.8.0"
+  checksum: 10c0/b695f5f672dd5769fb0c2ba0df5d009aa65503dc62d882269ec860cef5907779647f4e84e900f8a20cc78d107e91b1f41afbc712329ea70fa56c62c152595371
+  languageName: node
+  linkType: hard
+
 "reflect.getprototypeof@npm:^1.0.6, reflect.getprototypeof@npm:^1.0.9":
   version: 1.0.10
   resolution: "reflect.getprototypeof@npm:1.0.10"
@@ -10354,14 +10460,18 @@ __metadata:
     "@prisma/client": "npm:^6.5.0"
     "@tailwindcss/postcss": "npm:^4.0.17"
     "@types/bcrypt": "npm:^5.0.2"
+    "@types/dotenv": "npm:^8.2.3"
     "@types/formidable": "npm:^3.4.5"
     "@types/node": "npm:^22.13.13"
+    "@types/nodemailer": "npm:^6.4.17"
     "@types/react": "npm:^19.0.12"
     "@types/react-dom": "npm:^19.0.4"
+    "@types/redis": "npm:^4.0.11"
     "@types/tailwindcss": "npm:^3.1.0"
     axios: "npm:^1.7.9"
     bcrypt: "npm:^5.1.1"
     clsx: "npm:^2.1.1"
+    dotenv: "npm:^17.2.1"
     eslint: "npm:^9.23.0"
     eslint-config-next: "npm:15.2.4"
     formidable: "npm:^3.5.2"
@@ -10370,6 +10480,7 @@ __metadata:
     next: "npm:^15.2.4"
     next-auth: "npm:^4.24.10"
     next-intl: "npm:^4.3.0"
+    nodemailer: "npm:^7.0.5"
     payload: "npm:^3.31.0"
     postcss: "npm:^8"
     prisma: "npm:^6.5.0"
@@ -10377,6 +10488,7 @@ __metadata:
     react-dom: "npm:^19.0.0"
     react-icons: "npm:^5.3.0"
     react-markdown: "npm:^10.1.0"
+    redis: "npm:^5.8.0"
     rehype-raw: "npm:^7.0.0"
     remark-gfm: "npm:^4.0.1"
     tailwind-merge: "npm:^3.0.2"

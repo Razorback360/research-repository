@@ -76,12 +76,12 @@ const Dataset = ({ data }: { data: DataType }) => {
             <h2 className="text-primary text-xl">Variable Mapping</h2>
             {collapsibles.variableMapping ? (
               <IoCaretDownOutline
-                className="text-primary ml-auto w-6 h-6 hover:cursor-pointer"
+                className="text-primary ms-auto w-6 h-6 hover:cursor-pointer"
                 onClick={() => toggleCollapsible("variableMapping")}
               />
             ) : (
               <IoCaretUpOutline
-                className="text-primary ml-auto w-6 h-6 hover:cursor-pointer"
+                className="text-primary ms-auto w-6 h-6 hover:cursor-pointer"
                 onClick={() => toggleCollapsible("variableMapping")}
               />
             )}
@@ -123,12 +123,12 @@ const Dataset = ({ data }: { data: DataType }) => {
             </h2>
             {collapsibles.responseOptions ? (
               <IoCaretDownOutline
-                className="text-primary ml-auto w-6 h-6 hover:cursor-pointer"
+                className="text-primary ms-auto w-6 h-6 hover:cursor-pointer"
                 onClick={() => toggleCollapsible("responseOptions")}
               />
             ) : (
               <IoCaretUpOutline
-                className="text-primary ml-auto w-6 h-6 hover:cursor-pointer"
+                className="text-primary ms-auto w-6 h-6 hover:cursor-pointer"
                 onClick={() => toggleCollapsible("responseOptions")}
               />
             )}
@@ -180,12 +180,12 @@ const Dataset = ({ data }: { data: DataType }) => {
             <h2 className="text-primary text-xl">Dataset Analysis</h2>
             {collapsibles.analysis ? (
               <IoCaretDownOutline
-                className="text-primary ml-auto w-6 h-6 hover:cursor-pointer"
+                className="text-primary ms-auto w-6 h-6 hover:cursor-pointer"
                 onClick={() => toggleCollapsible("analysis")}
               />
             ) : (
               <IoCaretUpOutline
-                className="text-primary ml-auto w-6 h-6 hover:cursor-pointer"
+                className="text-primary ms-auto w-6 h-6 hover:cursor-pointer"
                 onClick={() => toggleCollapsible("analysis")}
               />
             )}
@@ -208,12 +208,12 @@ const Dataset = ({ data }: { data: DataType }) => {
             <h2 className="text-primary text-xl">Sample Data</h2>
             {collapsibles.sampleData ? (
               <IoCaretDownOutline
-                className="text-primary ml-auto w-6 h-6 hover:cursor-pointer"
+                className="text-primary ms-auto w-6 h-6 hover:cursor-pointer"
                 onClick={() => toggleCollapsible("sampleData")}
               />
             ) : (
               <IoCaretUpOutline
-                className="text-primary ml-auto w-6 h-6 hover:cursor-pointer"
+                className="text-primary ms-auto w-6 h-6 hover:cursor-pointer"
                 onClick={() => toggleCollapsible("sampleData")}
               />
             )}

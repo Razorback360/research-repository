@@ -5,12 +5,14 @@ import Markdown from "react-markdown";
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 import { FAQProps } from "../../interfaces";
+import { useTranslations } from "next-intl";
 
 const FAQ = ({ faqs, error }: FAQProps) => {
+  const t = useTranslations();
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">
-        Frequently Asked Questions (FAQ)
+        {t("faq")}
       </h1>
       {error && (
         <div className="text-center py-8 text-red-600">
@@ -36,7 +38,7 @@ const FAQ = ({ faqs, error }: FAQProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ res, locale }) => {
   // Set cache control headers
   res.setHeader(
     'Cache-Control',
@@ -44,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   );
 
   try {
-    const response = await cmsFetcher.get('/api/faq?populate=*');
+    const response = await cmsFetcher.get('/api/faq?populate=*&locale=' + locale);
 
     return {
       props: {

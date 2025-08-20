@@ -6,8 +6,12 @@ import remarkGfm from 'remark-gfm';
 import { cmsFetcher } from "@app/utils/fetcher";
 import { AboutProps, RichTextBlock, MediaBlock } from "../../interfaces";
 import { env } from "@app/utils/env"
+import { useTranslations } from "next-intl";
+
 
 const AboutUs = ({ aboutData, error }: AboutProps) => {  // Function to render blocks based on their type
+  const t = useTranslations();
+
   const renderBlock = (block: RichTextBlock | MediaBlock) => {
     const cmsUrl = env.NEXT_PUBLIC_CMS_API_URL || 'http://127.0.0.1:1337';
     
@@ -56,7 +60,7 @@ const AboutUs = ({ aboutData, error }: AboutProps) => {  // Function to render b
   return (
     <div className="container mx-auto p-4 h-full">
       <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">
-        About Us
+        {t("about")}
       </h1>
       
       {error && (
@@ -84,7 +88,7 @@ const AboutUs = ({ aboutData, error }: AboutProps) => {  // Function to render b
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ res, locale }) => {
   // Set cache control headers
   res.setHeader(
     'Cache-Control',
@@ -92,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   );
 
   try {
-    const response = await cmsFetcher.get('/api/about?populate[blocks][populate]=*');
+    const response = await cmsFetcher.get('/api/about?populate[blocks][populate]=*&locale=' + locale);
     
     return {
       props: {

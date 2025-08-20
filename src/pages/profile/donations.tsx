@@ -21,7 +21,7 @@ export default function Donations() {
           </h2>
           <h2 className="text-3xl font-bold md:hidden flex text-center items-center justify-center">
             <Link href="/profile/mobile">
-              <HiOutlineArrowLeft className="w-[24px] h-[24px] mr-5" />
+              <HiOutlineArrowLeft className="w-[24px] h-[24px] me-5" />
             </Link>
             Previous Donations
           </h2>

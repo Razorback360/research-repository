@@ -3,8 +3,11 @@ import { appFetcher } from "@app/utils/fetcher";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loader from "@app/components/Loader";
+import { useTranslations } from 'next-intl';
 
 const SubmitDatasetForm = () => {
+  const t = useTranslations('uploadDataset');
+  
   const [formData, setFormData] = useState<{
     title: string;
     description: string;
@@ -49,27 +52,24 @@ const SubmitDatasetForm = () => {
       .post("/api/upload/dataset", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-        },
-      })
+        },      })
       .catch((err) => {
         console.error(err);
       });
     if (req) {
-      console.log("Dataset submitted successfully!");
+      console.log(t('success'));
     }
   };
-
   return (
     <div className="container mx-auto p-4 h-full">
-      <h2 className="text-2xl font-semibold mb-6">Submit a Paper</h2>
+      <h2 className="text-2xl font-semibold mb-6">{t('pageTitle')}</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Dataset Title */}
-        <div>
-          <label
+        <div>          <label
             className="block text-sm font-medium text-gray-700 mb-2"
             htmlFor="title"
           >
-            Dataset Title
+            {t('datasetTitle')}
           </label>
           <input
             type="text"
@@ -83,12 +83,11 @@ const SubmitDatasetForm = () => {
         </div>
 
         {/* description */}
-        <div>
-          <label
+        <div>          <label
             className="block text-sm font-medium text-gray-700 mb-2"
             htmlFor="description"
           >
-            Description
+            {t('description')}
           </label>
           <textarea
             id="description"
@@ -102,12 +101,11 @@ const SubmitDatasetForm = () => {
         </div>
 
         {/* Keywords */}
-        <div>
-          <label
+        <div>          <label
             className="block text-sm font-medium text-gray-700 mb-2"
             htmlFor="keyWords"
           >
-            Keywords (comma-separated)
+            {t('keywords')}
           </label>
           <input
             type="text"
@@ -121,12 +119,11 @@ const SubmitDatasetForm = () => {
 
 
         {/* Dataset File */}
-        <div>
-          <label
+        <div>          <label
             className="block text-sm font-medium text-gray-700 mb-2"
             htmlFor="file"
           >
-            Upload Dataset File (SAV)
+            {t('uploadFile')}
           </label>
           <input
             type="file"
@@ -139,12 +136,11 @@ const SubmitDatasetForm = () => {
           />
         </div>
 
-        {/* Submit Button */}
-        <button
+        {/* Submit Button */}        <button
           type="submit"
           className="w-full p-2 bg-primary text-white rounded-sm hover:bg-blue-950"
         >
-          Submit Dataset
+          {t('submitButton')}
         </button>
       </form>
     </div>

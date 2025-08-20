@@ -22,7 +22,7 @@ export default function Profile() {
           <h2 className="text-3xl font-bold md:flex hidden">Profile Details</h2>
           <h2 className="text-3xl font-bold md:hidden flex text-center items-center justify-center">
             <Link href="/profile/mobile">
-              <HiOutlineArrowLeft className="w-[24px] h-[24px] mr-5" />
+              <HiOutlineArrowLeft className="w-[24px] h-[24px] me-5" />
             </Link>
             Profile Details
           </h2>
@@ -33,15 +33,15 @@ export default function Profile() {
               <HiOutlineUser className="w-[60px] h-[60px]" />
             </span>
           </div>
-          <div className="ml-6">
+          <div className="ms-6">
             <Button className="block mb-2 text-primary border border-primary px-4 py-2 rounded-lg bg-white hover:bg-primary hover:text-white">
               Upload Photo
             </Button>
             <button className="block text-red-500">Remove</button>
           </div>
-          <div className="ml-10 text-gray-500">
+          <div className="ms-10 text-gray-500">
             <p>Image requirements:</p>
-            <ul className="list-disc ml-5 space-y-1">
+            <ul className="list-disc ms-5 space-y-1">
               <li>Min. 400 x 400px</li>
               <li>Max. 2MB</li>
               <li>Your ugly face or company logo</li>

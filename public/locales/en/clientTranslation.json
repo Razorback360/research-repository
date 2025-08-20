@@ -1,0 +1,185 @@
+{
+  "header": {
+    "logo": {
+      "alt": "Picture of the Logo"
+    },
+    "title": "SRDRI",
+    "navigation": {
+      "home": "Home",
+      "submitData": "Submit Data",
+      "aboutUs": "About Us",
+      "faq": "FAQ",
+      "contactUs": "Contact Us",
+      "feedback": "Feedback",
+      "dashboard": "Dashboard",
+      "search": "Search"
+    },
+    "userMenu": {
+      "profile": "Profile",
+      "logout": "Logout",
+      "login": "Login"
+    }
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Page Not Found",
+    "message": "We are disappointed to inform you that the page you are trying to access does not actually exist! Head back to home down below!",
+    "homePage": "Home Page"
+  },
+  "home": {
+    "errorTitle": "Error Loading Content",
+    "errorMessage": "Failed to load content from CMS. Showing limited content.",
+    "heroImage": {
+      "alt": "Hero image"
+    },
+    "submitDataHeader": "Submit Data",
+    "submitNow": "Submit now",
+    "learnMore": "Learn more",
+    "joinUs": "Join Us"
+  },
+  "footer": {
+    "logo": {
+      "alt": "Picture of the Logo"
+    },
+    "title": "SRDRI | KSU",
+    "copyright": "King Saud University © {year}. All rights reserved.",
+    "links": {
+      "contact": "Contact",
+      "feedback": "Feedback",
+      "faq": "FAQ"
+    }
+  },
+  "contact": {
+    "header": "Contact Us",
+    "getInTouch": "Get in Touch",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message"
+    },
+    "contactInfo": {
+      "title": "Contact Information",
+      "address": "Address:",
+      "phone": "Phone:",
+      "email": "Email:"
+    },
+    "findUs": "Find Us Here"
+  },
+  "faq": "Frequently Asked Questions (FAQ)",
+  "about": "About Us",
+  "uploadDataset": {
+    "success": "Dataset submitted successfully!",
+    "pageTitle": "Submit a Dataset",
+    "datasetTitle": "Dataset Title",
+    "description": "Description",
+    "keywords": "Keywords (comma-separated)",
+    "uploadFile": "Upload Dataset File (SAV)",
+    "submitButton": "Submit Dataset"
+  },
+  "uploadPaper": {
+    "success": "Paper submitted successfully!",
+    "pageTitle": "Submit a Paper",
+    "paperTitle": "Paper Title",
+    "abstract": "Abstract",
+    "volume": "Volume",
+    "issue": "Issue",
+    "journal": "Journal",
+    "startPage": "Start Page",
+    "endPage": "End Page",
+    "publishDate": "Publish Date",
+    "doiLink": "DOI Link",
+    "keywords": "Keywords (comma-separated)",
+    "authors": "Authors",
+    "authorPlaceholder": "Author {number}",
+    "removeAuthor": "Remove",
+    "addMoreAuthors": "Add More Authors",
+    "uploadFile": "Upload Paper File (PDF)",
+    "submitButton": "Submit Paper"
+  },
+  "upload": {
+    "title": "What would you like to submit for upload today?",
+    "description": "Choose from the options below to either upload a dataset or upload a paper. Both will be submitted for review and approved in due time.",
+    "researchPaper": "Upload a Research Paper",
+    "dataset": "Upload a Dataset"
+  },
+  "permissionModal": {
+    "title": "Manage Permissions for {name}",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes"
+  },
+  "actionModal": {
+    "denySubmission": "Deny Submission",
+    "requestEdit": "Request Edit",
+    "reason": "Reason",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "search": {
+    "title": "Discover Research & Datasets",
+    "placeholder": "Search papers, datasets, authors...",
+    "filters": {
+      "allTypes": "All Types",
+      "papers": "Papers",
+      "datasets": "Datasets",
+      "sortBy": "Sort by:",
+      "relevance": "Relevance",
+      "date": "Date"
+    },
+    "results": {
+      "paper": "paper",
+      "dataset": "dataset",
+      "viewDetails": "View Details"
+    }
+  },
+  "permissions": "Permissions: ",
+  "login": {
+    "title": "Welcome Back!",
+    "subtitle": "Please log in to continue",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "placeholder": "Placeholder",
+    "passwordRequirements": "It must be a combination of minimum 8 letters, numbers, and symbols.",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Log In",
+    "noAccount": "No account yet?",
+    "signUp": "Sign Up!",
+    "or": "Or",
+    "loginWithMicrosoft": "Log In with Microsoft",
+    "loginWithGoogle": "Log In with Google",
+    "loginWithLinkedIn": "Log In with LinkedIn",
+    "errorGeneric": "Login failed. Please check your credentials and try again."
+  },
+  "signup": {
+    "title": "Welcome!",
+    "subtitle": "Please sign up to continue",
+    "firstName": "First Name",
+    "middleName": "Middle Name",
+    "lastName": "Last Name",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "passwordRequirements": "It must be a combination of minimum 8 letters, numbers, and symbols.",
+    "signupButton": "Sign Up",
+    "haveAccount": "Have an account?",
+    "signIn": "Sign in",
+    "errors": {
+      "passwordMismatch": "Passwords do not match",
+      "emailExists": "User with provided email already exists.",
+      "generic": "An error occurred during registration. Please try again."
+    }
+  },
+  "blog": {
+    "notFound": "Article not found",
+    "readingTime": "{minutes} min read",
+    "author": {
+      "defaultTitle": "Content Creator",
+      "defaultBio": "{name} is a content creator for the King Saud University Research Repository. Specializing in {category} topics, they regularly contribute to the repository's knowledge base and research articles."
+    },
+    "metadata": {
+      "published": "Published on"
+    }
+  }
+}

@@ -3,8 +3,10 @@ import { appFetcher } from "@app/utils/fetcher";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loader from "@app/components/Loader";
+import { useTranslations } from "next-intl";
 
 const SubmitPaperForm = () => {
+  const t = useTranslations("uploadPaper");
   const [authors, setAuthors] = useState([""]);
   const [formData, setFormData] = useState<{
     title: string;
@@ -90,15 +92,13 @@ const SubmitPaperForm = () => {
       })
       .catch((err) => {
         console.error(err);
-      });
-    if (req) {
-      console.log("Paper submitted successfully!");
+      });    if (req) {
+      console.log(t("success"));
     }
   };
-
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-6">Submit a Paper</h2>
+      <h2 className="text-2xl font-semibold mb-6">{t("pageTitle")}</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Paper Title */}
         <div>
@@ -106,7 +106,7 @@ const SubmitPaperForm = () => {
             className="block text-sm font-medium text-gray-700 mb-2"
             htmlFor="title"
           >
-            Paper Title
+            {t("paperTitle")}
           </label>
           <input
             type="text"
@@ -125,7 +125,7 @@ const SubmitPaperForm = () => {
             className="block text-sm font-medium text-gray-700 mb-2"
             htmlFor="abstract"
           >
-            Abstract
+            {t("abstract")}
           </label>
           <textarea
             id="abstract"
@@ -145,7 +145,7 @@ const SubmitPaperForm = () => {
               className="block text-sm font-medium text-gray-700 mb-2"
               htmlFor="volume"
             >
-              Volume
+              {t("volume")}
             </label>
             <input
               type="text"
@@ -155,13 +155,12 @@ const SubmitPaperForm = () => {
               onChange={handleFormChange}
               className="w-full p-2 border border-gray-400 rounded-sm"
             />
-          </div>
-          <div>
+          </div>          <div>
             <label
               className="block text-sm font-medium text-gray-700 mb-2"
               htmlFor="issue"
             >
-              Issue
+              {t("issue")}
             </label>
             <input
               type="text"
@@ -177,7 +176,7 @@ const SubmitPaperForm = () => {
               className="block text-sm font-medium text-gray-700 mb-2"
               htmlFor="journal"
             >
-              Journal
+              {t("journal")}
             </label>
             <input
               type="text"
@@ -194,7 +193,7 @@ const SubmitPaperForm = () => {
               className="block text-sm font-medium text-gray-700 mb-2"
               htmlFor="startPage"
             >
-              Start Page
+              {t("startPage")}
             </label>
             <input
               type="text"
@@ -210,7 +209,7 @@ const SubmitPaperForm = () => {
               className="block text-sm font-medium text-gray-700 mb-2"
               htmlFor="endPage"
             >
-              End Page
+              {t("endPage")}
             </label>
             <input
               type="text"
@@ -226,7 +225,7 @@ const SubmitPaperForm = () => {
               className="block text-sm font-medium text-gray-700 mb-2"
               htmlFor="publishDate"
             >
-              Publish Date
+              {t("publishDate")}
             </label>
             <input
               type="date"
@@ -243,7 +242,7 @@ const SubmitPaperForm = () => {
               className="block text-sm font-medium text-gray-700 mb-2"
               htmlFor="doiLink"
             >
-              DOI Link
+              {t("doiLink")}
             </label>
             <input
               type="text"
@@ -254,15 +253,13 @@ const SubmitPaperForm = () => {
               className="w-full p-2 border border-gray-400 rounded-sm"
             />
           </div>
-        </div>
-
-        {/* Keywords */}
+        </div>        {/* Keywords */}
         <div>
           <label
             className="block text-sm font-medium text-gray-700 mb-2"
             htmlFor="keyWords"
           >
-            Keywords (comma-separated)
+            {t("keywords")}
           </label>
           <input
             type="text"
@@ -277,7 +274,7 @@ const SubmitPaperForm = () => {
         {/* Authors */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Authors
+            {t("authors")}
           </label>
           {authors.map((author, index) => (
             <div key={index} className="flex items-center gap-4 mb-2">
@@ -285,7 +282,7 @@ const SubmitPaperForm = () => {
                 type="text"
                 value={author}
                 onChange={(e) => handleAuthorChange(index, e.target.value)}
-                placeholder={`Author ${index + 1}`}
+                placeholder={t("authorPlaceholder", { number: index + 1 })}
                 className="w-full p-2 border border-gray-400 rounded-sm"
               />
               <button
@@ -293,7 +290,7 @@ const SubmitPaperForm = () => {
                 onClick={() => handleRemoveAuthor(index)}
                 className="p-2 bg-red-500 text-white rounded-sm hover:bg-red-700"
               >
-                Remove
+                {t("removeAuthor")}
               </button>
             </div>
           ))}
@@ -302,7 +299,7 @@ const SubmitPaperForm = () => {
             onClick={handleAddAuthor}
             className="mt-2 p-2 bg-primary text-white rounded-sm hover:bg-blue-950"
           >
-            Add More Authors
+            {t("addMoreAuthors")}
           </button>
         </div>
 
@@ -312,7 +309,7 @@ const SubmitPaperForm = () => {
             className="block text-sm font-medium text-gray-700 mb-2"
             htmlFor="file"
           >
-            Upload Paper File (PDF)
+            {t("uploadFile")}
           </label>
           <input
             type="file"
@@ -330,7 +327,7 @@ const SubmitPaperForm = () => {
           type="submit"
           className="w-full p-2 bg-primary text-white rounded-sm hover:bg-blue-950"
         >
-          Submit Paper
+          {t("submitButton")}
         </button>
       </form>
     </div>

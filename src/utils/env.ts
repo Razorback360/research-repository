@@ -30,10 +30,6 @@ const unvalidatedEnv = {
     NEXT_PUBLIC_CMS_READ_ONLY_API_KEY: process.env.NEXT_PUBLIC_CMS_READ_ONLY_API_KEY
 };
 
-for (const [key, value] of Object.entries(unvalidatedEnv)) {
-    if (value === undefined) {
-        throw new Error(`Environment variable ${key} is not defined`);
-    }
-}
+
 
 export const env = unvalidatedEnv as { [K in keyof typeof unvalidatedEnv]: string };

@@ -4,8 +4,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loader from "@app/components/Loader";
 import { appFetcher } from "@app/utils/fetcher";
+import { Axios, AxiosError } from "axios";
 
-const Upload: FC = () => {
+const Verify: FC = () => {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [resend, setResend] = useState(false);
@@ -14,34 +15,37 @@ const Upload: FC = () => {
     const { token } = router.query;
 
     useEffect(() => {
-        if (!token || session.status !== "authenticated") return;
+        // if (!token || session.status !== "authenticated") return;
 
         const verifyEmail = async () => {
             if (!token) {
-                setError(true);
+                console.log(token)
             } else {
-                const req = await appFetcher.get(`/api/auth/verify?token=${token}`)
-                if (req.status !== 200) {
-                    setError(true);
-                } else {
-                    setSuccess(true);
+                try {
+                    const req = await appFetcher.get(`/api/auth/verify?token=${token}`)
                     setTimeout(() => {
+                        setSuccess(true);
                         router.push("/auth/onboarding");
                     }, 2000);
+                } catch (err) {
+                    const error = err as AxiosError;
+                    setTimeout(() => {
+                        console.log("Error verifying email:", error.response?.data);
+                        setError(true);
+                    }, 2000);
                 }
-            }
-        };
-
+            };
+        }
         verifyEmail();
-    }, [session.status]);
+    }, [token]);
 
     if (session.status === "loading") {
         return <Loader />
     }
-    if (session.status === "unauthenticated") {
-        router.push("/auth/login");
-        return <Loader />
-    }
+    // if (session.status === "unauthenticated") {
+    //     router.push("/auth/login");
+    //     return <Loader />
+    // }
 
     return (
         <main className="flex flex-col items-center p-8 h-full justify-center">
@@ -51,7 +55,7 @@ const Upload: FC = () => {
                         : resend ? "Verification Email Sent!"
                             : "Verifying Email..."}
             </h1>
-            <p className="text-center max-w-lg mt-4 text-lg">
+            <p className="text-center max-w-lg mt-4 text-lg mb-0">
                 {
                     error ? "An error occurred while trying to verify your email. The link may have expired or is invalid. Please try again with a new verification email using the button below."
                         : success ? "Your email has been successfully verified! Redirecting to continue onboarding process."
@@ -59,14 +63,18 @@ const Upload: FC = () => {
                                 : "Please wait while we verify your email. This may take a few seconds."
                 }
             </p>
-            {!resend && !error && <Loader />}
+            {!resend && !error && <Loader pageLoader={false} />}
             {error && (
-                <a className="bg-primary text-white border border-primary py-2 px-4 rounded-lg mt-4 hover:shadow-lg shadow-md text-lg flex justify-center items-center"
+
+                <a className="bg-primary text-white border border-primary py-2 px-4 rounded-lg mt-4 hover:shadow-xl shadow-md text-lg flex justify-center items-center hover:cursor-pointer"
                     onClick={async () => {
-                        const resendReq = await appFetcher.post("/api/auth/verify", { userId: session.data?.user.id });
-                        if (resendReq.status === 200) {
-                            setResend(true);
+                        try {
+                            await appFetcher.post("/api/auth/verify", { userId: session.data?.user.id });
                             setError(false);
+                            setResend(true);
+                        } catch (err) {
+                            const error = err as AxiosError;
+                            console.log("Error resending verification email:", error.response?.data);
                         }
                     }}>
                     Resend Verification Email
@@ -76,4 +84,4 @@ const Upload: FC = () => {
     );
 };
 
-export default Upload;
+export default Verify;

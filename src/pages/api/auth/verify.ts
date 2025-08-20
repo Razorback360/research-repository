@@ -5,6 +5,7 @@ import { sendOtpEmail } from "@app/utils/mail"
 import { env } from "@app/utils/env";
 import { cache, retrieve, invalidate } from "@app/utils/redis";
 import { authOptions } from "@app/pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
 
 export default async function handler(
     req: NextApiRequest,

@@ -4,6 +4,7 @@ import re
 import os
 from savReaderWriter import SavHeaderReader as savHeaderReader # type: ignore
 from savReaderWriter import SavReader as savReader # type: ignore
+from report_parser import parse_report_file
 
 def cpGenerateMapping(name,enableUtf):
     # type: (str, bool) -> None
@@ -108,9 +109,11 @@ def parseSav(name):
             
     try:
         generateReport(name, True)
+        parse_report_file(name)
     except UnicodeEncodeError:
         try:
             generateReport(name, False)
+            parse_report_file(name)
         except:
             pass
         pass

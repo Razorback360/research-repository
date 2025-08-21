@@ -101,3 +101,36 @@ export interface HomeProps {
   data: HomeData;
   error?: string;
 }
+
+export interface DatasetStructure {
+  headers: string[];
+  rows: (number | string | null)[][];
+}
+
+export interface VariableLabels {
+  [key: string]: string;
+}
+
+export interface ValueLabels {
+  [variable: string]: {
+    [value: string]: string;
+  };
+}
+
+export interface MappingData {
+  variableLabels: VariableLabels;
+  labels: ValueLabels;
+}
+
+export interface DatasetInfo {
+  filename: string;
+  fileSize: string;
+  totalColumns: number;
+  totalRows: number;
+  totalValues: number;
+  columns: {
+    name: string;
+    type: string;
+    format: string;
+  }[];
+}

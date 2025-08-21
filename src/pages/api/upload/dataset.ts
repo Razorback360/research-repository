@@ -116,7 +116,7 @@ export default async function handler(
           datasetFilePath: `uploads/datasets/${fileNameWithoutExtension}/${file.newFilename}`,
           mappingFilePath: `uploads/datasets/${fileNameWithoutExtension}/mapping-${fileNameWithoutExtension}.json`,
           sampleFilePath: `uploads/datasets/${fileNameWithoutExtension}/sample-${fileNameWithoutExtension}.json`,
-          reportFilePath: `uploads/datasets/${fileNameWithoutExtension}/report-${fileNameWithoutExtension}.txt`,
+          reportFilePath: `uploads/datasets/${fileNameWithoutExtension}/report-${fileNameWithoutExtension}.json`,
           statusId: newStatus.id,
           userId: userId,
         },

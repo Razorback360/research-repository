@@ -61,7 +61,7 @@ export default async function handler(
           path.join(process.cwd(), `/${dataset.mappingFilePath}`), "utf-8"
         );
 
-        // Read dataset report file (TXT format)
+        // Read dataset report file (JSON format)
         const report = await fsPromise.readFile(
           path.join(process.cwd(), `/${dataset.reportFilePath}`), "utf-8"
         );
@@ -75,7 +75,7 @@ export default async function handler(
         const datasetFinal = {
           ...dataset,
           mapping: JSON.parse(mapping.toString()),
-          report: report,
+          report: JSON.parse(report.toString()),
           sample: JSON.parse(sample.toString()),
         }
         
@@ -107,9 +107,9 @@ export default async function handler(
         // Create a read stream and pipe it to the response
         const fileStream = fs.createReadStream(filePath);
 
-        await new Promise(function (resolve) {
+        await new Promise<void>(function (resolve) {
           fileStream.pipe(res);
-          fileStream.on("end", resolve);
+          fileStream.on("end", () => resolve());
         });
         return;
       }

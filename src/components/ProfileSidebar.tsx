@@ -1,12 +1,14 @@
 import { 
-  HiOutlineFolderArrowDown,
   HiOutlineHome,
-  HiOutlineInformationCircle
+  HiOutlineDocument,
+  HiOutlineFolder,
+  HiOutlineUser
 } from "react-icons/hi2";
 import { cn } from '@app/utils/cn';
+import { useRouter } from "next/router";
 
 const ProfileSidebar = () => {
-  const location = useLocation();
+  const location = useRouter();
   return (
     <nav className="md:w-auto w-full">
       <ul className="space-y-3">
@@ -18,35 +20,35 @@ const ProfileSidebar = () => {
             )}
             href="/profile"
           >
-            <HiOutlineHome className="w-[24px] h-[24px] me-2" className="mr-2" /> Profile
+            <HiOutlineUser className="w-[24px] h-[24px] me-2" /> Profile
           </a>
         </li>
         <li>
           <a
             className={cn(
-              location.pathname == '/profile/donations'
+              location.pathname == '/profile/paper-uploads'
                 ? 'bg-gray-200 hover:cursor-default'
                 : '',
               'w-full text-left py-2 px-3 text-gray-600 rounded-md hover:bg-gray-200 flex flex-row hover:cursor-pointer',
             )}
-            href="/profile/donations"
+            href="/profile/paper-uploads"
           >
-            <HiOutlineFolderArrowDown className="w-[24px] h-[24px] me-2" />{' '}
-            Previous Donations
+            <HiOutlineDocument className="w-[24px] h-[24px] me-2" />{' '}
+            Paper Uploads
           </a>
         </li>
         <li>
           <a
             className={cn(
-              location.pathname == '/profile/questionnaires'
+              location.pathname == '/profile/dataset-uploads'
                 ? 'bg-gray-200 hover:cursor-default'
                 : '',
               'w-full text-left py-2 px-3 text-gray-600 rounded-md hover:bg-gray-200 flex flex-row hover:cursor-pointer',
             )}
-            href="/profile/donations"
+            href="/profile/dataset-uploads"
           >
-            <HiOutlineInformationCircle className="w-[24px] h-[24px] me-2" />{' '}
-            Old Questionnaires
+            <HiOutlineFolder className="w-[24px] h-[24px] me-2" />{' '}
+            Dataset Uploads
           </a>
         </li>
       </ul>

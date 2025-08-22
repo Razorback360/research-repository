@@ -1,19 +1,12 @@
 import ProfileSidebar from '@app/components/ProfileSidebar';
-import './donation.css';
 
 export default function Mobile() {
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <aside className="w-1/5 bg-white p-5 shadow-md md:flex flex-col hidden">
-        <div className="text-gray-600 mb-5">
-          <h1 className="text-xl font-bold">Project Title</h1>
-        </div>
-        <ProfileSidebar />
-      </aside>
-      <main className="flex-1 p-8 bg-white m-8 rounded-lg overflow-hidden">
-        <header className="flex justify-between items-center border-b pb-4 mb-8">
+      <main className="flex flex-col px-2 py-8 bg-white my-8 mx-4 rounded-lg overflow-hidden w-full">
+        <header className="flex justify-center items-center border-b pb-4 mb-8">
           <h2 className="text-3xl font-bold md:hidden flex text-center items-center justify-center">
-            Profile Settings
+            Profile Navigation
           </h2>
         </header>
         <section className="flex items-center mb-8 overflow-x-auto">
